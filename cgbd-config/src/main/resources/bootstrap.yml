@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/shared/
+
+  profiles:
+    active: native
+
+  application:
+    name: cgbd-config
+
+  security:
+    user:
+      name: root
+      password: ${CGBD_CONFIG_PASSWORD}
+server:
+  port: 10000
+
+eureka:
+  client:
+    register-with-eureka: false #不向注册中心注册，找了半天 一个坑
+    fetch-registry: false

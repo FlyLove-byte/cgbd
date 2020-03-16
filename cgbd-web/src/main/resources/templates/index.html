@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: servantHead"></head>
+    <body id="skin-blur-violate">
+        <header th:replace="layout/header :: onLoadHeaderServant"></header>
+        <div class="clearfix"></div>
+        
+        <section id="main" class="p-relative" role="main">
+
+            <!-- Sidebar -->
+            <aside th:replace="layout/toolBar :: toolBarServant"></aside>
+
+            <!-- Content -->
+            <section id="content" class="container">
+
+                <span th:replace="layout/drawer :: drawerServant"></span>
+                                
+                <!-- Shortcuts -->
+                <div class="block-area shortcut-area">
+                    <a class="shortcut tile" href="">
+                        <img th:src="@{/img/shortcuts/money.png}" alt="">
+                        <small class="t-overflow">{{civilServant}}</small>
+                    </a>
+                    <a class="shortcut tile" href="">
+                        <img th:src="@{/img/shortcuts/twitter.png}" alt="">
+                        <small class="t-overflow">{{Album}}</small>
+                    </a>
+                    <a class="shortcut tile" href="">
+                        <img th:src="@{/img/shortcuts/stats.png}" alt="">
+                        <small class="t-overflow">{{translate}}</small>
+                    </a>
+                </div>
+                
+                <hr class="whiter" />
+
+            </section>
+        </section>
+
+        <span th:replace="layout/onLoadJs :: onLoadJsServant"></span>
+
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#content',
+                data: {
+                    civilServant: "公务员题库",
+                    Album: "相册",
+                    translate: "ICCM翻译"
+                }
+            })
+        </script>
+    </body>
+</html>

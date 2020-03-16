@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: cgbd-search
+  cloud:
+    config:
+      uri: http://cgbd-root:10000
+      fail-fast: true
+      username: root
+      password: ${CGBD_CONFIG_PASSWORD}

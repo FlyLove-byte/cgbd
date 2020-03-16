@@ -1,0 +1,10 @@
+.settings
+.mvn
+.idea
+
+target
+local
+logs
+pids
+
+*.iml

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: servantHead"></head>
+<body id="skin-blur-violate">
+<header th:replace="layout/header :: onLoadHeaderServant"></header>
+<div class="clearfix"></div>
+
+<section id="main" class="p-relative" role="main">
+
+    <!-- Sidebar -->
+    <aside th:replace="layout/toolBar :: toolBarServant"></aside>
+
+    <!-- Content -->
+    <section id="content" class="container">
+
+        <span th:replace="layout/drawer :: drawerServant"></span>
+
+        <div class="block-area" id="Panel">
+            <h3 class="block-title">单选题</h3>
+
+            <div class="panel panel-default tile">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        物候现象是生物随着气候一年四季的周期性变化而发生的相应季节性变化的现象。影响物候现象的因素主要包括海拔的差异、经度的差异、维度的差异和时间的差异。
+                        <br>下列诗句反应的物侯现象受到海拔差异影响的是（）。
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    A.日出江花红胜火，春来江水绿如蓝。<br>
+                    B.人间四月芳菲尽，山寺桃花始盛开。<br>
+                    C.竹外桃花三两枝，春江有水鸭先知。<br>
+                    D.羌笛何须怨杨柳，春风不度玉门关。
+                </div>
+                <div class="panel-footer">
+                    <span class="alert-success">正确答案：D</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="whiter" />
+
+    </section>
+</section>
+
+<span th:replace="layout/onLoadJs :: onLoadJsServant"></span>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#content',
+        data: {
+            civilServant: "公务员题库",
+            Album: "相册",
+            translate: "ICCM翻译"
+        }
+    })
+    function Employee ( name, position, salary, office ) {
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this._office = office;
+        this.office = function() {
+            return this._office;
+        }
+    };
+</script>
+</body>
+</html>

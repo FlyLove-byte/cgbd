@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.cgbd.mapper.LangDetailMapper">
+  <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.account.LangDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="DECIMAL" property="id" />
+    <result column="lang_key" jdbcType="VARCHAR" property="langKey" />
+    <result column="zh_tw" jdbcType="VARCHAR" property="zhTw" />
+    <result column="zh_cn" jdbcType="VARCHAR" property="zhCn" />
+    <result column="en" jdbcType="VARCHAR" property="en" />
+    <result column="jp" jdbcType="VARCHAR" property="jp" />
+    <result column="update_by" jdbcType="DECIMAL" property="updateBy" />
+    <result column="update_on" jdbcType="TIMESTAMP" property="updateOn" />
+    <result column="reserve1" jdbcType="VARCHAR" property="reserve1" />
+    <result column="reserve2" jdbcType="VARCHAR" property="reserve2" />
+    <result column="reserve3" jdbcType="VARCHAR" property="reserve3" />
+    <result column="reserve4" jdbcType="VARCHAR" property="reserve4" />
+    <result column="reserve5" jdbcType="VARCHAR" property="reserve5" />
+    <result column="reserve6" jdbcType="VARCHAR" property="reserve6" />
+  </resultMap>
+</mapper>

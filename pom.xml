@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+    </parent>
+
+    <groupId>com.edu.cgbd</groupId>
+    <artifactId>cgbd-root</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>cgbd-root</name>
+
+    <modules>
+        <module>cgbd-config</module>
+        <module>cgbd-registry</module>
+        <module>cgbd-common</module>
+        <module>cgbd-account</module>
+        <module>cgbd-web</module>
+        <module>cgbd-search</module>
+        <module>cgbd-servant</module>
+    </modules>
+
+    <properties>
+        <myProject.version>1.0.0</myProject.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <lombok.version>1.18.8</lombok.version>
+        <elasticsearch.version>5.6.9</elasticsearch.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <commons-lang3.verion>3.7</commons-lang3.verion>
+        <oracle.verion>12.1.0.1</oracle.verion>
+        <mybatis.version>1.3.2</mybatis.version>
+        <mapper.starter.version>1.1.3</mapper.starter.version>
+        <pagehelper.version>1.2.10</pagehelper.version>
+        <druid.version>1.1.10</druid.version>
+        <swagger.version>2.8.0</swagger.version>
+        <netflix.version>2.1.1.RELEASE</netflix.version>
+        <openfeign.version>2.1.0.RELEASE</openfeign.version>
+        <zuul.version>1.3.6.RELEASE</zuul.version>
+        <fileupload.version>1.3.1</fileupload.version>
+        <nekohtml.version>1.9.22</nekohtml.version>
+        <poi.version>4.0.1</poi.version>
+        <mysql5.version>5.1.45</mysql5.version>
+        <generator.version>1.3.5</generator.version>
+        <mapper.version>3.4.2</mapper.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.edu.cgbd</groupId>
+            <artifactId>cgbd-common</artifactId>
+            <version>${myProject.version}</version>
+        </dependency>
+
+        <!--@EnableFeignClients 微服务-->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <version>${openfeign.version}</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖root项目的项目如果想要使用devtools，需要重新引入 -->
+            <optional>false</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.verion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql5.version}</version>
+        </dependency>
+
+        <!--!!!!!!-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.verion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!--parent 层，可以通过 dependencyManagement 元素来管理 jar 包的版本，让子项目中引用一个依赖而不用显示的列出版本号。-->
+    <!--  与 dependencies 的区别在于：dependencyManagement子项目不会继承依赖，只继承版本号。dependencies子项目继承。 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

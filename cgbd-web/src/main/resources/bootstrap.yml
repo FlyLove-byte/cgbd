@@ -1,0 +1,13 @@
+spring:
+#  resources:
+#    static-locations: classpath:/static/
+#  mvc:
+#    static-path-pattern: /**
+  application:
+    name: cgbd-web
+  cloud:
+    config:
+      uri: http://cgbd-root:10000
+      fail-fast: true
+      username: root
+      password: ${CGBD_CONFIG_PASSWORD}

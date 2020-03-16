@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head :: receptionHead"></head>
+
+<body class="home blog custom-background round-avatars">
+<head th:replace="layout/receptionToolBar :: receptionToolBar"></head>
+<div id="main" class="content">
+	<div class="container">
+		<article itemscope="itemscope">
+			<div class="posts-list js-posts">
+				<div class="post post-layout-list" data-aos="fade-up">
+					<div class="status_list_item icon_kyubo">
+						<div class="status_user" style="background-image: url(/reception/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
+							<div class="status_section">
+								<a href="/redirect/index" class="status_btn">交代是不可能交代的 -（开发中）</a>
+								<p class="section_p">一个人的人生幸福，只靠道德方面的努力是不够的，我们必须经常描绘自己将来的幸福形象，
+									并依靠万能的潜意识来帮忙实现。潜意识一旦接受事情后，就会想尽办法去实现它，之后你只要安心等待,就可以了。
+									——世界著名研究精神法则、潜意识权威 乔瑟夫·摩菲
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- post-formats end Infinite Scroll star -->
+			<!-- post-formats -->
+			<div class="pagination js-pagination">
+				<div class="js-next pagination__load">
+					<a href=""><i class="iconfont">&#xe605;</i></a>
+				</div>
+			</div>
+			<!-- -pagination  -->
+		</article>
+	</div>
+</div>
+
+<head th:replace="layout/footer :: footer"></head>
+<head th:replace="layout/onLoadJs :: onLoadJsReception"></head>
+</body>
+
+</html>

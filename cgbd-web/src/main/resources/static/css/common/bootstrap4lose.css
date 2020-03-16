@@ -1,0 +1,21 @@
+/*bootstrap4丢失bootstrap3的内容*/
+/*input 嵌入字体图标*/
+.has-feedback {
+    position: relative;
+}
+
+.has-feedback .form-control {
+    padding-right: 42.5px;
+}
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    pointer-events: none;
+}

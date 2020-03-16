@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.cgbd.mapper.MenuGroupMappingMapper">
+  <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.account.MenuGroupMapping">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="group_id" jdbcType="DECIMAL" property="groupId" />
+    <id column="menu_id" jdbcType="DECIMAL" property="menuId" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.cgbd.mapper.MenuGroupMapper">
+  <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.account.MenuGroup">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="group_route" jdbcType="VARCHAR" property="groupRoute" />
+    <result column="group_action" jdbcType="VARCHAR" property="groupAction" />
+    <result column="group_icon" jdbcType="VARCHAR" property="groupIcon" />
+    <result column="group_grade" jdbcType="DECIMAL" property="groupGrade" />
+    <result column="group_sort_code" jdbcType="DECIMAL" property="groupSortCode" />
+  </resultMap>
+</mapper>

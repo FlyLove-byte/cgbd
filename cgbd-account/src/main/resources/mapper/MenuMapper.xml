@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.cgbd.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.account.Menu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_route" jdbcType="VARCHAR" property="menuRoute" />
+    <result column="menu_action" jdbcType="VARCHAR" property="menuAction" />
+    <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+    <result column="menu_sort_code" jdbcType="DECIMAL" property="menuSortCode" />
+  </resultMap>
+</mapper>
