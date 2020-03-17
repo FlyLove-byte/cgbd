@@ -33,6 +33,9 @@
                 </div>
                 <div class="panel-footer">
                     <span class="alert-success">正确答案：D</span>
+                    <span  v-for="question in questions">
+                        {{question.title}}
+                    </span>
                 </div>
             </div>
         </div>
@@ -47,21 +50,22 @@
 <script type="text/javascript">
     var vm = new Vue({
         el: '#content',
-        data: {
-            civilServant: "公务员题库",
-            Album: "相册",
-            translate: "ICCM翻译"
+        data () {
+            return {
+                questions: []
+            }
+        },
+        mounted () {
+            axios.get('/choiceQuestionByType/' + 0)
+                .then(function (response) {
+                    this.questions = response["data"]["data"];
+                    console.log(this.questions);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     })
-    function Employee ( name, position, salary, office ) {
-        this.name = name;
-        this.position = position;
-        this.salary = salary;
-        this._office = office;
-        this.office = function() {
-            return this._office;
-        }
-    };
 </script>
 </body>
 </html>

@@ -532,7 +532,7 @@ public class ChoiceQuestionExample {
             return (Criteria) this;
         }
 
-        public Criteria andStateEqualTo(Byte value) {
+        public Criteria andStateEqualTo(Short value) {
             addCriterion("state =", value, "state");
             return (Criteria) this;
         }
