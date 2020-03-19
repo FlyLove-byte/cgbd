@@ -1,6 +1,7 @@
 package com.edu.cgbd.domain.servant;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "choice_question")
@@ -34,6 +35,17 @@ public class ChoiceQuestion {
 
     @Column(name = "is_delete")
     private Byte isDelete;
+
+    @Transient
+    private List<ChoiceQuestionOption> choiceQuestionOptions;
+
+    public List<ChoiceQuestionOption> getChoiceQuestionOptions() {
+        return choiceQuestionOptions;
+    }
+
+    public void setChoiceQuestionOptions(List<ChoiceQuestionOption> choiceQuestionOptions) {
+        this.choiceQuestionOptions = choiceQuestionOptions;
+    }
 
     /**
      * @return id

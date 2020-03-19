@@ -16,26 +16,21 @@
         <span th:replace="layout/drawer :: drawerServant"></span>
 
         <div class="block-area" id="Panel">
-            <h3 class="block-title">单选题</h3>
+            <h3 class="block-title">{{choiceOption}}</h3>
 
-            <div class="panel panel-default tile">
+            <div v-for="question in questions" class="panel panel-default tile">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        物候现象是生物随着气候一年四季的周期性变化而发生的相应季节性变化的现象。影响物候现象的因素主要包括海拔的差异、经度的差异、维度的差异和时间的差异。
-                        <br>下列诗句反应的物侯现象受到海拔差异影响的是（）。
+                        {{question.title}}
                     </h3>
                 </div>
                 <div class="panel-body">
-                    A.日出江花红胜火，春来江水绿如蓝。<br>
-                    B.人间四月芳菲尽，山寺桃花始盛开。<br>
-                    C.竹外桃花三两枝，春江有水鸭先知。<br>
-                    D.羌笛何须怨杨柳，春风不度玉门关。
+                    <span v-for="choiceQuestionOption in question.choiceQuestionOptions">
+                        {{choiceQuestionOption.title}}:{{choiceQuestionOption.value}}<br>
+                    </span>
                 </div>
                 <div class="panel-footer">
-                    <span class="alert-success">正确答案：D</span>
-                    <span  v-for="question in questions">
-                        {{question.title}}
-                    </span>
+                    <span class="alert-success">{{answer}}{{question.answer}}</span>
                 </div>
             </div>
         </div>
@@ -52,14 +47,16 @@
         el: '#content',
         data () {
             return {
-                questions: []
+                choiceOption: "单选题",
+                answer: "正确答案：",
+                questions: null,
             }
         },
         mounted () {
-            axios.get('/choiceQuestionByType/' + 0)
+            let self = this;
+            axios. get('/choiceQuestionByType/' + 0)
                 .then(function (response) {
-                    this.questions = response["data"]["data"];
-                    console.log(this.questions);
+                    self.questions = response["data"]["data"];
                 })
                 .catch(function (error) {
                     console.log(error);
