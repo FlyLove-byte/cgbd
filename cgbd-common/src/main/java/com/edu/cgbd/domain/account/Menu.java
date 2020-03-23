@@ -1,8 +1,9 @@
 package com.edu.cgbd.domain.account;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-public class Menu {
+public class Menu implements Serializable {
     @Id
     private Long id;
 

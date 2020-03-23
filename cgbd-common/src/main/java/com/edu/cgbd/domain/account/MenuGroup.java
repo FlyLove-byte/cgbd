@@ -1,10 +1,11 @@
 package com.edu.cgbd.domain.account;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Table(name = "menu_group")
-public class MenuGroup {
+public class MenuGroup implements Serializable {
     /**
      * id
      */

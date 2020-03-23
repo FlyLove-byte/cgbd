@@ -60,12 +60,12 @@ public class RedisConfig extends CachingConfigurerSupport {
         // 设置一个初始化的缓存空间set集合
         Set<String> cacheNames =  new HashSet<>();
         cacheNames.add("languages");
-        cacheNames.add("cgbd-quality");
+        cacheNames.add("menu");
 
         // 对每个缓存空间应用不同的配置
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
         configMap.put("languages", config);
-        configMap.put("cgbd-quality", config);
+        configMap.put("menu", config);
         /*configMap.put("cgbd-quality", config.entryTtl(Duration.ofHours(expiration)));*/
 
         RedisCacheManager cacheManager = RedisCacheManager.builder(factory)     // 使用自定义的缓存配置初始化一个cacheManager

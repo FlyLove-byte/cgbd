@@ -7,6 +7,8 @@ import com.edu.cgbd.mapper.MenuMapper;
 import com.edu.cgbd.service.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@CacheConfig(cacheNames = "menu")
 public class MenuServiceImpl implements MenuService {
     @Autowired
     MenuMapper menuMapper;
@@ -24,6 +27,7 @@ public class MenuServiceImpl implements MenuService {
     MenuGroupMappingMapper menuGroupMappingMapper;
 
     @Override
+    @Cacheable(value = "menu", key = "#root.methodName")
     public List<MenuGroup> menuGroups() {
         MenuGroupExample menuGroupExample = new MenuGroupExample();
         menuGroupExample.setOrderByClause("group_sort_code asc");

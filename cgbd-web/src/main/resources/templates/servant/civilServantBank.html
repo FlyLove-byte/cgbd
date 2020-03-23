@@ -16,6 +16,13 @@
         <span th:replace="layout/drawer :: drawerServant"></span>
 
         <div class="block-area" id="Panel">
+
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-xs btn-alt input-focused">{{addTitle}}</button>
+                <button type="button" class="btn btn-xs btn-alt input-focused">{{refreshTitle}}</button>
+            </div>
+            <div style="clear: both; visibility:hidden;"></div>
+
             <h3 class="block-title">{{choiceOption}}</h3>
 
             <div v-for="question in questions" class="panel panel-default tile">
@@ -31,6 +38,11 @@
                 </div>
                 <div class="panel-footer">
                     <span class="alert-success">{{answer}}{{question.answer}}</span>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{reviseTitle}}</button>
+                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{deleteTitle}}</button>
+                    </div>
+                    <div style="clear: both; visibility:hidden;"></div>
                 </div>
             </div>
         </div>
@@ -47,6 +59,10 @@
         el: '#content',
         data () {
             return {
+                addTitle: "添加",
+                refreshTitle: "刷新",
+                reviseTitle: "修改",
+                deleteTitle: "删除",
                 choiceOption: "单选题",
                 answer: "正确答案：",
                 questions: null,
