@@ -17,17 +17,17 @@
                                 
                 <!-- Shortcuts -->
                 <div class="block-area shortcut-area">
-                    <a class="shortcut tile" href="">
+                    <a class="shortcut tile" :href="civilServant.url">
                         <img th:src="@{/img/shortcuts/money.png}" alt="">
-                        <small class="t-overflow">{{civilServant}}</small>
+                        <small class="t-overflow">{{civilServant.title}}</small>
                     </a>
-                    <a class="shortcut tile" href="">
+                    <a class="shortcut tile" :href="civilServant.url">
                         <img th:src="@{/img/shortcuts/twitter.png}" alt="">
-                        <small class="t-overflow">{{Album}}</small>
+                        <small class="t-overflow">{{Album.title}}</small>
                     </a>
-                    <a class="shortcut tile" href="">
+                    <a class="shortcut tile" :href="civilServant.url">
                         <img th:src="@{/img/shortcuts/stats.png}" alt="">
-                        <small class="t-overflow">{{translate}}</small>
+                        <small class="t-overflow">{{translate.title}}</small>
                     </a>
                 </div>
                 
@@ -42,9 +42,18 @@
             var vm = new Vue({
                 el: '#content',
                 data: {
-                    civilServant: "公务员题库",
-                    Album: "相册",
-                    translate: "ICCM翻译"
+                    civilServant: {
+                        title: "公务员题库",
+                        url: "/redirect/civilServant"
+                    },
+                    Album: {
+                        title: "相册",
+                        url: "/redirect/civilServant"
+                    },
+                    translate: {
+                        title: "ICCM翻译",
+                        url: "/redirect/civilServant"
+                    }
                 }
             })
         </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/head :: servantHead"></head>
 <body id="skin-blur-violate">
 <header th:replace="layout/header :: onLoadHeaderServant"></header>
@@ -18,12 +19,12 @@
         <div class="block-area" id="Panel">
 
             <div class="btn-group pull-right">
-                <button type="button" class="btn btn-xs btn-alt input-focused">{{addTitle}}</button>
-                <button type="button" class="btn btn-xs btn-alt input-focused">{{refreshTitle}}</button>
+                <a data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails.AddTo | langFilter}}</a>
+                <button type="button" class="btn btn-xs btn-alt input-focused">{{langDetails.Refresh | langFilter}}</button>
             </div>
             <div style="clear: both; visibility:hidden;"></div>
 
-            <h3 class="block-title">{{choiceOption}}</h3>
+            <h3 class="block-title">{{langDetails.SingleChoiceQuestion | langFilter}}</h3>
 
             <div v-for="question in questions" class="panel panel-default tile">
                 <div class="panel-heading">
@@ -37,16 +38,94 @@
                     </span>
                 </div>
                 <div class="panel-footer">
-                    <span class="alert-success">{{answer}}{{question.answer}}</span>
+                    <span class="alert-success">{{langDetails.RightKey | langFilter}}{{question.answer}}</span>
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{reviseTitle}}</button>
-                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{deleteTitle}}</button>
+                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails.Modify | langFilter}}</button>
+                        <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails.Delete | langFilter}}</button>
                     </div>
                     <div style="clear: both; visibility:hidden;"></div>
                 </div>
             </div>
         </div>
 
+        <div class="modal fade" id="modalWider" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">{{langDetails.AddTo | langFilter}}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>{{langDetails.Type | langFilter}}</p>
+                                <select id="type" class="select m-b-10" style="display: none;">
+                                    <option value="0">{{langDetails.SingleChoiceQuestion | langFilter}}</option>
+                                    <option value="1">{{langDetails.MultipleChoiceQuestions | langFilter}}</option>
+                                    <option value="2">{{langDetails.AnswerQuestions | langFilter}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p>{{langDetails.Achievement | langFilter}}</p>
+                                <input id="score" class="form-control input-sm m-b-10" type="text">
+                            </div>
+                            <div class="col-md-3">
+                                <p>{{langDetails.RightKey | langFilter}}</p>
+                                <input id="answer" class="form-control input-sm" type="text">
+                            </div>
+                            <div class="col-md-3"></div>
+
+                            <div class="col-md-3 text-right">
+                                <p class="m-r-20">{{langDetails.State | langFilter}}</p>
+                                <button id="state" @click="stateChange($event)" cgbdData="1" class="btn p-b-5 p-t-5">{{langDetails.Release | langFilter}}</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>{{langDetails.Subject | langFilter}}</p>
+                                <textarea id="title" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
+
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button @click="addAnswer()" class="btn btn-xs m-b-10">
+                                    <span>{{langDetails.AnswerQuestions | langFilter}}</span>
+                                    <i class="icon">&#61943;</i>
+                                </button>
+
+                                <div class="table-responsive overflow" tabindex="5003" style="overflow: hidden; outline: none;">
+                                    <table class="table table-bordered table-hover tile">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 50px">{{langDetails.Option | langFilter}}</th>
+                                            <th>{{langDetails.Answer | langFilter}}</th>
+                                            <th class="text-center" style="width: 50px">{{langDetails.Operation | langFilter}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="answerTitle">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails.Close | langFilter}}</button>
+                            <button type="button" class="btn btn-sm">{{langDetails.Preservation | langFilter}}</button>
+                        </div>
+                        <div style="clear: both; visibility:hidden;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a>{{langDetails.Operation | langFilter}}</a>
         <hr class="whiter" />
 
     </section>
@@ -54,30 +133,86 @@
 
 <span th:replace="layout/onLoadJs :: onLoadJsServant"></span>
 
-<script type="text/javascript">
-    var vm = new Vue({
+<script th:inline="javascript" type="text/javascript">
+    const vm = new Vue({
         el: '#content',
         data () {
             return {
-                addTitle: "添加",
-                refreshTitle: "刷新",
-                reviseTitle: "修改",
-                deleteTitle: "删除",
-                choiceOption: "单选题",
-                answer: "正确答案：",
+                langDetails: [[${lang.langDetails}]],
                 questions: null,
             }
         },
-        mounted () {
+        filters:{
+            langFilter(value){
+                return value["zhCn"];
+            }
+        },
+        mounted() {
             let self = this;
-            axios. get('/choiceQuestionByType/' + 0)
-                .then(function (response) {
+            this.addAnswer();
+            this.choiceQuestionByType(self);
+        },
+        created() {
+            let self = this;
+            window.removeAnswer = self.removeAnswer;
+        },
+        methods: {
+            choiceQuestionByType: function(self, type){
+                axios. get('/choiceQuestionByType', {
+                    params: {
+                        type: type
+                    }
+                }).then(function (response) {
                     self.questions = response["data"]["data"];
-                })
-                .catch(function (error) {
+                }).catch(function (error) {
                     console.log(error);
                 });
-        }
+            },
+            insertChoiceQuestion: function() {
+                let submitJson = {};
+                submitJson["type"] = $("#type").val();
+                submitJson["score"] = $("#score").val();
+                submitJson["answer"] = $("#answer").val();
+                submitJson["state"] = $("#state").attr("cgbdData");
+                submitJson["title"] = $("#title").val();
+                axios. put('/choiceQuestion', {
+                    params: {
+                        type: type
+                    }
+                }).then(function (response) {
+                    self.questions = response["data"]["data"];
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            addAnswer: function () {
+                $("#answerTitle").append('' +
+                    '<tr>\n' +
+                    '    <td class="text-center" contenteditable="true"></td>\n' +
+                    '    <td contenteditable="true"></td>\n' +
+                    '    <td onclick="removeAnswer(this)" style="cursor: pointer" class="text-center">\n' +
+                    '        <i class="icon">&#61754;</i>\n' +
+                    '    </td>\n' +
+                    '</tr>' +
+                    '');
+            },
+            removeAnswer: function (thisItem) {
+                let parent = $(thisItem).parent("tr");
+                if($("#answerTitle tr").length > 1)
+                    parent.remove();
+            },
+            stateChange: function (e) {
+                let thisItem = e.currentTarget;
+                if($(thisItem).attr("cgbdData") == 1) {
+                    $(thisItem).attr("cgbdData", 0);
+                    $(thisItem).text(this.langDetails["Prohibit"] | this.langFilter);
+                }
+                else {
+                    $(thisItem).attr("cgbdData", 1);
+                    $(thisItem).text(this.langDetails["Release"] | this.langFilter);
+                }
+            }
+        },
     })
 </script>
 </body>

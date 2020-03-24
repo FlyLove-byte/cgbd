@@ -6,8 +6,6 @@ import javax.persistence.*;
 
 @Table(name = "lang_detail")
 public class LangDetail implements Serializable {
-    private Long id;
-
     @Column(name = "lang_key")
     private String langKey;
 
@@ -38,20 +36,6 @@ public class LangDetail implements Serializable {
     private String reserve5;
 
     private String reserve6;
-
-    /**
-     * @return id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     /**
      * @return lang_key

@@ -17,7 +17,12 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     @Autowired
     ServantServiceClient servantServiceClient;
     @Override
-    public CgbdResult choiceQuestionByType(byte type) {
+    public CgbdResult choiceQuestionByType(List<Byte> type) {
         return servantServiceClient.choiceQuestionByType(type);
+    }
+
+    @Override
+    public CgbdResult insertChoiceQuestion(ChoiceQuestion choiceQuestion) {
+        return servantServiceClient.insertChoiceQuestion(choiceQuestion);
     }
 }

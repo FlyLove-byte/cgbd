@@ -5,7 +5,6 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="id" jdbcType="DECIMAL" property="id" />
     <result column="lang_key" jdbcType="VARCHAR" property="langKey" />
     <result column="zh_tw" jdbcType="VARCHAR" property="zhTw" />
     <result column="zh_cn" jdbcType="VARCHAR" property="zhCn" />
