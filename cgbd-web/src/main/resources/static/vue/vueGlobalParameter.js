@@ -7,8 +7,25 @@ Vue.filter('langFilter', function(value) {
 //region vue全局混入
 const myMixin = {
     data () {
+        let langFilter = this.$options.filters['langFilter'];
         return {
             langDetails: langDetails,
+            userInfo: {
+                title: langFilter (langDetails["UserInformation"]),
+                url: "/redirect/civilServant"
+            },
+            info: {
+                title: langFilter (langDetails["News"]),
+                url: "/redirect/civilServant"
+            },
+            set: {
+                title: langFilter (langDetails["set"]),
+                url: "/redirect/civilServant"
+            },
+            doExit: {
+                title: langFilter (langDetails["SignOut"]),
+                url: "/redirect/civilServant"
+            },
         }
     },
     methods: {

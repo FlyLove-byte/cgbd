@@ -40,20 +40,24 @@
         <script type="text/javascript">
             var vm = new Vue({
                 el: '#content',
-                data: {
-                    civilServant: {
-                        title: "公务员题库",
-                        url: "/redirect/civilServant"
-                    },
-                    Album: {
-                        title: "相册",
-                        url: "/redirect/civilServant"
-                    },
-                    translate: {
-                        title: "ICCM翻译",
-                        url: "/redirect/civilServant"
+                mixins: [myMixin],
+                data () {
+                    let langFilter = this.$options.filters['langFilter'];
+                    return {
+                        civilServant: {
+                            title:  langFilter (langDetails["CivilServiceQuestionBank"]),
+                            url: "/redirect/civilServant"
+                        },
+                        Album: {
+                            title: langFilter (langDetails["Album"]),
+                            url: "/redirect/civilServant"
+                        },
+                        translate: {
+                            title: langFilter (langDetails["Translate"]),
+                            url: "/redirect/translate"
+                        }
                     }
-                }
+                },
             })
         </script>
     </body>
