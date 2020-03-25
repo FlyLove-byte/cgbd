@@ -125,39 +125,32 @@
                 </div>
             </div>
         </div>
-        <a>{{langDetails.Operation | langFilter}}</a>
         <hr class="whiter" />
 
     </section>
 </section>
-
 <span th:replace="layout/onLoadJs :: onLoadJsServant"></span>
 
 <script th:inline="javascript" type="text/javascript">
     const vm = new Vue({
         el: '#content',
+        mixins: [myMixin],
         data () {
             return {
-                langDetails: [[${lang.langDetails}]],
                 questions: null,
             }
         },
-        filters:{
-            langFilter(value){
-                return value["zhCn"];
-            }
-        },
         mounted() {
-            let self = this;
             this.addAnswer();
-            this.choiceQuestionByType(self);
+            this.choiceQuestionByType();
         },
         created() {
             let self = this;
             window.removeAnswer = self.removeAnswer;
         },
         methods: {
-            choiceQuestionByType: function(self, type){
+            choiceQuestionByType: function(type){
+                let self = this;
                 axios. get('/choiceQuestionByType', {
                     params: {
                         type: type
@@ -203,13 +196,14 @@
             },
             stateChange: function (e) {
                 let thisItem = e.currentTarget;
+                const langFilter = this.$options.filters['langFilter'];
                 if($(thisItem).attr("cgbdData") == 1) {
                     $(thisItem).attr("cgbdData", 0);
-                    $(thisItem).text(this.langDetails["Prohibit"] | this.langFilter);
+                    $(thisItem).text(langFilter (langDetails["Prohibit"]));
                 }
                 else {
                     $(thisItem).attr("cgbdData", 1);
-                    $(thisItem).text(this.langDetails["Release"] | this.langFilter);
+                    $(thisItem).text(langFilter (langDetails["Release"]));
                 }
             }
         },

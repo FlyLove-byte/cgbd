@@ -1,20 +1,22 @@
 const app = new Vue({
+    mixins: [myMixin],
     data () {
+        let langFilter = this.$options.filters['langFilter'];
         return {
             userInfo: {
-                title: "用户信息",
+                title: langFilter (langDetails["UserInformation"]),
                 url: "/redirect/civilServant"
             },
             info: {
-                title: "消息",
+                title: langFilter (langDetails["News"]),
                 url: "/redirect/civilServant"
             },
             set: {
-                title: "设置",
+                title: langFilter (langDetails["set"]),
                 url: "/redirect/civilServant"
             },
             doExit: {
-                title: "退出",
+                title: langFilter (langDetails["SignOut"]),
                 url: "/redirect/civilServant"
             },
         }

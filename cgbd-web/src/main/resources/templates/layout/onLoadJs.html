@@ -53,6 +53,10 @@
 
     <!-- All JS functions -->
     <script th:src="@{/js/functions.js}"></script>
+    <!--获取model参数-->
+    <script th:inline="javascript">
+        const langDetails = [[${lang.langDetails}]];
+    </script>
 
     <script th:src="@{/js/autosize.min.js}"></script>
     <script th:src="@{/js/select.min.js}"></script>
@@ -61,6 +65,7 @@
 
     <script th:src="@{/vue/vue.js}"></script>
     <script th:src="@{/vue/axios.js}"></script>
+    <script th:src="@{/vue/vueGlobalParameter.js}"></script>
 
     <script th:src="@{/js/civilServant/leftBar.js}"></script>
 

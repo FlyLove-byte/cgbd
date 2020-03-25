@@ -31,6 +31,26 @@
         </div>
     </div>
 
+    <!-- Notification Drawer -->
+    <div id="personalSettings" class="tile drawer animated">
+        <div class="listview narrow">
+            <div class="media">
+                <a href="">设置</a>
+                <span class="drawer-close">&times;</span>
+            </div>
+            <div class="overflow" style="height: 254px">
+                <div class="col-md-3">
+                    <p>{{langDetails.Type | langFilter}}</p>
+                    <select id="type" class="select m-b-10" style="display: none;">
+                        <option value="0">{{langDetails.SingleChoiceQuestion | langFilter}}</option>
+                        <option value="1">{{langDetails.MultipleChoiceQuestions | langFilter}}</option>
+                        <option value="2">{{langDetails.AnswerQuestions | langFilter}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Breadcrumb -->
     <ol class="breadcrumb hidden-xs">
         <li><a href="#">公务员</a></li>
