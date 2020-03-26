@@ -20,12 +20,12 @@
             <div class="block-area" id="Panel">
 
                 <div class="btn-group pull-right">
-                    <a data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{'AddTo' | langFilter}}</a>
-                    <button type="button" class="btn btn-xs btn-alt input-focused">{{'Refresh' | langFilter}}</button>
+                    <a data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
+                    <button type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
                 </div>
                 <div style="clear: both; visibility:hidden;"></div>
 
-                <h3 class="block-title">{{'SingleChoiceQuestion' | langFilter}}</h3>
+                <h3 class="block-title">{{langDetails['SingleChoiceQuestion']}}</h3>
 
                 <div v-for="question in questions" class="panel panel-default tile">
                     <div class="panel-heading">
@@ -39,10 +39,10 @@
                     </span>
                     </div>
                     <div class="panel-footer">
-                        <span class="alert-success">{{'RightKey' | langFilter}}{{question.answer}}</span>
+                        <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{'Modify' | langFilter}}</button>
-                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{'Delete' | langFilter}}</button>
+                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</button>
+                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
@@ -54,39 +54,39 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 class="modal-title">{{'AddTo' | langFilter}}</h3>
+                            <h3 class="modal-title">{{langDetails['AddTo']}}</h3>
                         </div>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <p>{{'Type' | langFilter}}</p>
+                                    <p>{{langDetails['Type']}}</p>
                                     <select id="type" class="select m-b-10" style="display: none;">
-                                        <option value="0">{{'SingleChoiceQuestion' | langFilter}}</option>
-                                        <option value="1">{{'MultipleChoiceQuestions' | langFilter}}</option>
-                                        <option value="2">{{'AnswerQuestions' | langFilter}}</option>
+                                        <option value="0">{{langDetails['SingleChoiceQuestion']}}</option>
+                                        <option value="1">{{langDetails['MultipleChoiceQuestions']}}</option>
+                                        <option value="2">{{langDetails['AnswerQuestions']}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <p>{{'Achievement' | langFilter}}</p>
+                                    <p>{{langDetails['Achievement']}}</p>
                                     <input id="score" class="form-control input-sm m-b-10" type="text">
                                 </div>
                                 <div class="col-md-3">
-                                    <p>{{'RightKey' | langFilter}}</p>
+                                    <p>{{langDetails['RightKey']}}</p>
                                     <input id="answer" class="form-control input-sm" type="text">
                                 </div>
                                 <div class="col-md-3"></div>
 
                                 <div class="col-md-3 text-right">
-                                    <p class="m-r-20">{{'State' | langFilter}}</p>
-                                    <button id="state" @click="stateChange($event)" cgbdData="1" class="btn p-b-5 p-t-5">{{'Release' | langFilter}}</button>
+                                    <p class="m-r-20">{{langDetails['State']}}</p>
+                                    <button id="state" @click="stateChange($event)" cgbdData="1" class="btn p-b-5 p-t-5">{{langDetails['Release']}}</button>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>{{'Subject' | langFilter}}</p>
+                                    <p>{{langDetails['Subject']}}</p>
                                     <textarea id="title" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
 
                                 </textarea>
@@ -95,7 +95,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button @click="addAnswer()" class="btn btn-xs m-b-10">
-                                        <span>{{'AnswerQuestions' | langFilter}}</span>
+                                        <span>{{langDetails['AnswerQuestions']}}</span>
                                         <i class="icon">&#61943;</i>
                                     </button>
 
@@ -103,9 +103,9 @@
                                         <table class="table table-bordered table-hover tile">
                                             <thead>
                                             <tr>
-                                                <th class="text-center" style="width: 50px">{{'Option' | langFilter}}</th>
-                                                <th>{{'Answer' | langFilter}}</th>
-                                                <th class="text-center" style="width: 50px">{{'Operation' | langFilter}}</th>
+                                                <th class="text-center" style="width: 50px">{{langDetails['Option']}}</th>
+                                                <th>{{langDetails['Answer']}}</th>
+                                                <th class="text-center" style="width: 50px">{{langDetails['Operation']}}</th>
                                             </tr>
                                             </thead>
                                             <tbody id="answerTitle">
@@ -118,8 +118,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class="pull-right">
-                                <button type="button" class="btn btn-sm" data-dismiss="modal">{{'Close' | langFilter}}</button>
-                                <button type="button" class="btn btn-sm">{{'Preservation' | langFilter}}</button>
+                                <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}</button>
+                                <button type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
                             </div>
                             <div style="clear: both; visibility:hidden;"></div>
                         </div>
@@ -201,11 +201,11 @@
                 const langFilter = this.$options.filters['langFilter'];
                 if($(thisItem).attr("cgbdData") == 1) {
                     $(thisItem).attr("cgbdData", 0);
-                    $(thisItem).text(langFilter ("Prohibit"));
+                    $(thisItem).text(this.langDetails["Prohibit"]);
                 }
                 else {
                     $(thisItem).attr("cgbdData", 1);
-                    $(thisItem).text(langFilter ("Release"));
+                    $(thisItem).text(this.langDetails["Release"]);
                 }
             }
         },

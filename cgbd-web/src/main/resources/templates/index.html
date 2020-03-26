@@ -22,18 +22,17 @@
                     <img th:src="@{/img/shortcuts/money.png}" alt="">
                     <small class="t-overflow">{{civilServant.title}}</small>
                 </a>
-                <a class="shortcut tile" :href="civilServant.url">
+                <a class="shortcut tile" :href="Album.url">
                     <img th:src="@{/img/shortcuts/twitter.png}" alt="">
                     <small class="t-overflow">{{Album.title}}</small>
                 </a>
-                <a class="shortcut tile" :href="civilServant.url">
+                <a class="shortcut tile" :href="translate.url">
                     <img th:src="@{/img/shortcuts/stats.png}" alt="">
                     <small class="t-overflow">{{translate.title}}</small>
                 </a>
             </div>
 
             <hr class="whiter"/>
-
         </section>
     </section>
 </div>
