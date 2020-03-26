@@ -31,7 +31,8 @@
     <script th:src="@{/js/charts/jquery.flot.js}"></script> <!-- Flot Main -->
     <script th:src="@{/js/charts/jquery.flot.time.js}"></script> <!-- Flot sub -->
     <script th:src="@{/js/charts/jquery.flot.animator.min.js}"></script> <!-- Flot sub -->
-    <script th:src="@{/js/charts/jquery.flot.resize.min.js}"></script> <!-- Flot sub - for repaint when resizing the screen -->
+    <script th:src="@{/js/charts/jquery.flot.resize.min.js}"></script>
+    <!-- Flot sub - for repaint when resizing the screen -->
 
     <script th:src="@{/js/sparkline.min.js}"></script> <!-- Sparkline - Tiny charts -->
     <script th:src="@{/js/easypiechart.js}"></script> <!-- EasyPieChart - Animated Pie Charts -->
@@ -56,6 +57,7 @@
     <!--获取model参数-->
     <script th:inline="javascript">
         const langDetails = [[${lang.langDetails}]];
+        const languages = [[${lang.languages}]];
     </script>
 
     <script th:src="@{/js/autosize.min.js}"></script>
