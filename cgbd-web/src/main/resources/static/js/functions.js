@@ -246,6 +246,7 @@ $(document).ready(function(){
             $('#sidebar-calendar').fullCalendar({
                 editable: false,
                 events: [],
+				contentHeight: 0,
 				buttonText: {
 					today: '今天',
 					month: '月视图',
@@ -272,12 +273,6 @@ $(document).ready(function(){
                 header: {
                     left: 'title'
                 },
-				eventClick: function (date, allDay, jsEvent, view) {
-					//...
-				},
-				events: function (start, end, callback) {
-					//...
-				}
             });
         }
 
