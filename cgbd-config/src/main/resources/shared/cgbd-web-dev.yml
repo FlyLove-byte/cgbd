@@ -1,6 +1,6 @@
 server:
   port: 10003
 #前台下拉框显示语言
-langs: zhCn,zhTw,en,jp
+languages: zhCn,zhTw,en,jp
 #百度api翻译key,没和langs 对应上，失误失误
 baiduLangKey: zh,cht,en,jp

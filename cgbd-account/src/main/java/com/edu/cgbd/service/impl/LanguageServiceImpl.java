@@ -24,7 +24,7 @@ public class LanguageServiceImpl implements LanguageService {
     // region 查询语言包
     @Override
     @Cacheable(key = "#root.methodName")
-    public List<LangDetail> langs() {
+    public List<LangDetail> langDetails() {
         return langDetailMapper.selectAll();
     }
     // endregion

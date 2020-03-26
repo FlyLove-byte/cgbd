@@ -61,11 +61,13 @@ public class RedisConfig extends CachingConfigurerSupport {
         Set<String> cacheNames =  new HashSet<>();
         cacheNames.add("languages");
         cacheNames.add("menu");
+        cacheNames.add("globalParameter");
 
         // 对每个缓存空间应用不同的配置
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>();
         configMap.put("languages", config);
         configMap.put("menu", config);
+        configMap.put("globalParameter", config);
         /*configMap.put("cgbd-quality", config.entryTtl(Duration.ofHours(expiration)));*/
 
         RedisCacheManager cacheManager = RedisCacheManager.builder(factory)     // 使用自定义的缓存配置初始化一个cacheManager

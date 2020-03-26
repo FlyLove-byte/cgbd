@@ -21,16 +21,16 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.10.140:3306/account?serverTimezone=GMT%2B8"
+                        connectionURL="jdbc:mysql://139.9.208.228:3306/account?serverTimezone=GMT%2B8"
                         userId="root"
-                        password="root">
+                        password="P@ssword.1">
         </jdbcConnection>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.edu.cgbd.domain.account" targetProject="G:\cgbd\cgbd-common\src\main\java\">
+        <javaModelGenerator targetPackage="com.edu.cgbd.domain.account" targetProject="/Users/fly/Workspace/cgbd/cgbd-common/src/main/java/">
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
@@ -40,7 +40,7 @@
                              type="XMLMAPPER"/>
 
         <!--delimitAllColumns="true"-->
-        <table schema="" tableName="menu_group" enableCountByExample="true" enableUpdateByExample="true"
+        <table schema="" tableName="global_parameter" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <!--sqlserver 配置-->
             <!--<generatedKey column="id" sqlStatement="SqlServer" identity="true"/>-->

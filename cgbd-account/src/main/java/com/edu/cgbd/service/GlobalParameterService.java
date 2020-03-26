@@ -4,6 +4,6 @@ import com.edu.cgbd.domain.account.LangDetail;
 
 import java.util.List;
 
-public interface LanguageService {
-    List<LangDetail> langDetails();
+public interface GlobalParameterService {
+    String globalParameterByKey(String key);
 }

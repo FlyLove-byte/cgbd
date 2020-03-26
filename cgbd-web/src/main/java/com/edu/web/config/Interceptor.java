@@ -1,8 +1,10 @@
 package com.edu.web.config;
 
+import com.edu.cgbd.domain.account.GlobalParameter;
 import com.edu.cgbd.domain.account.MenuGroup;
 import com.edu.cgbd.pojo.CgbdResult;
 import com.edu.cgbd.pojo.LanguageInfo;
+import com.edu.web.service.accountService.GlobalParameterService;
 import com.edu.web.service.accountService.LanguageService;
 import com.edu.web.service.accountService.MenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +26,14 @@ import java.util.*;
 @Component
 public class Interceptor implements HandlerInterceptor {
 
-    @Value("${langs}")
-    List<String> langs;
+    @Value("${languages}")
+    List<String> languages;
 
     @Autowired
     LanguageService languageService;
+
+    @Autowired
+    GlobalParameterService globalParameterService;
 
     @Autowired
     MenuService menuService;
@@ -37,9 +42,9 @@ public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        if(request.getRequestURI().equals("/Monitor/")||
+        if (request.getRequestURI().equals("/Monitor/") ||
                 request.getRequestURI().equals("/Monitor")) {
-            response.sendRedirect(request.getContextPath()+"/index");
+            response.sendRedirect(request.getContextPath() + "/index");
             return false;
         }
         return true;
@@ -51,9 +56,13 @@ public class Interceptor implements HandlerInterceptor {
                            ModelAndView modelAndView) throws Exception {
         LanguageInfo languageInfo = new LanguageInfo();
         try {
-            if(modelAndView !=null){
+            if (modelAndView != null) {
                 //region 返回lang
-                languageInfo.setLangs(langs);
+                List<String> languages = new ArrayList<String>(
+                        Arrays.asList(
+                                ((String) globalParameterService.globalParameterByKey("languages").getData()).split(","))
+                );
+                languageInfo.setLanguages(languages);
                 languageInfo.setLangDetails(getLanguageDetails());
                 modelAndView.addObject("lang", languageInfo);
                 // endregion
@@ -61,8 +70,8 @@ public class Interceptor implements HandlerInterceptor {
                 modelAndView.addObject("menuGroups", menuService.menuGroups().getData());
                 //endregion
             }
-        }catch (Exception e){
-            log.error("Interceptor.postHandle",e);
+        } catch (Exception e) {
+            log.error("Interceptor.postHandle", e);
         }
     }
 
@@ -74,14 +83,14 @@ public class Interceptor implements HandlerInterceptor {
     }
 
     // region 获取语言包 转换为HashMap
-    private Map<Object, Map<Object,Object>> getLanguageDetails() throws Exception{
-        Map<Object, Map<Object,Object>> langDetailsMap = new HashMap<>();
-        CgbdResult cgbdResult = languageService.langs();
-        if(cgbdResult.getCode() != 200) {
+    private Map<Object, Map<Object, Object>> getLanguageDetails() throws Exception {
+        Map<Object, Map<Object, Object>> langDetailsMap = new HashMap<>();
+        CgbdResult cgbdResult = languageService.langDetails();
+        if (cgbdResult.getCode() != 200) {
             return langDetailsMap;
         }
         List<LinkedHashMap> langDetailsList = (List<LinkedHashMap>) cgbdResult.getData();
-        for(LinkedHashMap linkedHashMap : langDetailsList) {
+        for (LinkedHashMap linkedHashMap : langDetailsList) {
             langDetailsMap.put(linkedHashMap.get("langKey"), linkedHashMap);
         }
         return langDetailsMap;

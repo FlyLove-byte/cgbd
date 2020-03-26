@@ -7,6 +7,6 @@ import java.util.Map;
 
 @Data
 public class LanguageInfo {
-    List<String> langs;
+    List<String> languages;
     Map<Object, Map<Object,Object>> langDetails;
 }
