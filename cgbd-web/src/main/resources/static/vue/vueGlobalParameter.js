@@ -1,7 +1,25 @@
 //region vue全局filter
 Vue.filter('langFilter', function(value) {
     let methods = myMixin.methods;
-    return value[methods.getLang()];
+    let langDetail;
+    try {
+        langDetail = langDetails[value][methods.getLang()];
+    }catch (e) {
+        console.error(value);
+        console.error(e);
+    }
+    return langDetail;
+})
+Vue.filter('langSetFilter', function(value) {
+    let langDetail;
+    try {
+        //语言包和键要一样
+        langDetail = langDetails[value][value];
+    }catch (e) {
+        console.error(value);
+        console.error(e);
+    }
+    return langDetail;
 })
 //endregion
 //region vue全局混入
@@ -10,20 +28,21 @@ const myMixin = {
         let langFilter = this.$options.filters['langFilter'];
         return {
             langDetails: langDetails,
+            languages: languages,
             userInfo: {
-                title: langFilter (langDetails["UserInformation"]),
+                title: langFilter ("UserInformation"),
                 url: "/redirect/civilServant"
             },
             info: {
-                title: langFilter (langDetails["News"]),
+                title: langFilter ("News"),
                 url: "/redirect/civilServant"
             },
             set: {
-                title: langFilter (langDetails["set"]),
+                title: langFilter ("set"),
                 url: "/redirect/civilServant"
             },
             doExit: {
-                title: langFilter (langDetails["SignOut"]),
+                title: langFilter ("SignOut"),
                 url: "/redirect/civilServant"
             },
         }
@@ -32,6 +51,11 @@ const myMixin = {
         getLang: function() {
             return localStorage.getItem("LANG_TYPE") ? localStorage.getItem("LANG_TYPE") : "zhCn";
         },
+        setLang: function (e) {
+            let thisItem = e.getTarget();
+            console.log($(thisItem).val());
+            localStorage.setItem("LANG_TYPE", $(thisItem).val());
+        }
     }
 }
 //endregion
