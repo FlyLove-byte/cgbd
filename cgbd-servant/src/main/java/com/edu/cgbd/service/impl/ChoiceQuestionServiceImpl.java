@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,14 +27,16 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     ChoiceQuestionOptionMapper choiceQuestionOptionMapper;
 
     @Override
-    public List<ChoiceQuestion> choiceQuestionByType(List<Byte> type) {
+    public List<ChoiceQuestion> choiceQuestionByType(List<Byte> type, Short state) {
         ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
         if(type != null) criteria.andTypeIn(type);
+        if(state != null) criteria.andStateEqualTo(state);
         criteria.andStateEqualTo(ConstDefine.STATE_ENABLE);
         List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
         for(ChoiceQuestion choiceQuestion : choiceQuestions){
             ChoiceQuestionOptionExample choiceQuestionOptionExample = new ChoiceQuestionOptionExample();
+            choiceQuestionOptionExample.setOrderByClause("title ASC");
             ChoiceQuestionOptionExample.Criteria optionExampleCriteria = choiceQuestionOptionExample.createCriteria();
             optionExampleCriteria.andChoiceQuestionIdEqualTo(choiceQuestion.getId());
             List<ChoiceQuestionOption> choiceQuestionOptions = choiceQuestionOptionMapper.selectByExample(choiceQuestionOptionExample);
@@ -62,5 +65,23 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
         criteria.andIdIn(ids);
         return choiceQuestionMapper.deleteByExample(choiceQuestionExample);
+    }
+
+    @Override
+    public int updateChoiceQuestion(ChoiceQuestion choiceQuestion) {
+        choiceQuestion.setUpdateOn(new Date());
+        choiceQuestionMapper.updateByPrimaryKeySelective(choiceQuestion);
+
+        ChoiceQuestionOptionExample choiceQuestionOptionExample = new ChoiceQuestionOptionExample();
+        ChoiceQuestionOptionExample.Criteria criteria = choiceQuestionOptionExample.createCriteria();
+        criteria.andChoiceQuestionIdEqualTo(choiceQuestion.getId());
+        choiceQuestionOptionMapper.deleteByExample(choiceQuestionOptionExample);
+
+        for(ChoiceQuestionOption choiceQuestionOption : choiceQuestion.getChoiceQuestionOptions()) {
+            choiceQuestionOption.setId(FormatUtil.getUUID());
+            choiceQuestionOption.setChoiceQuestionId(choiceQuestion.getId());
+            choiceQuestionOptionMapper.insert(choiceQuestionOption);
+        }
+        return 0;
     }
 }

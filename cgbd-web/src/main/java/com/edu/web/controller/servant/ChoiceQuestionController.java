@@ -17,8 +17,9 @@ public class ChoiceQuestionController {
     ChoiceQuestionService choiceQuestionService;
 
     @GetMapping("/choiceQuestionByType")
-    public CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type) {
-        return choiceQuestionService.choiceQuestionByType(type);
+    public CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type,
+                                           @RequestParam(value = "state", required = false) Short state) {
+        return choiceQuestionService.choiceQuestionByType(type, state);
     }
 
     @PutMapping("/choiceQuestion")
@@ -29,5 +30,10 @@ public class ChoiceQuestionController {
     @DeleteMapping("/choiceQuestion")
     public CgbdResult deleteChoiceQuestion(@RequestParam(value = "ids") List<String> ids) {
         return choiceQuestionService.deleteChoiceQuestion(ids);
+    }
+
+    @PostMapping("/choiceQuestion")
+    public CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
+        return choiceQuestionService.updateChoiceQuestion(choiceQuestion);
     }
 }

@@ -17,9 +17,10 @@ public class ChoiceQuestionController {
     ChoiceQuestionService choiceQuestionService;
 
     @GetMapping("/choiceQuestionByType")
-    CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type) {
+    CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type,
+                                    @RequestParam(value = "state", required = false) Short state) {
         try {
-            return CgbdResult.ok(choiceQuestionService.choiceQuestionByType(type));
+            return CgbdResult.ok(choiceQuestionService.choiceQuestionByType(type, state));
         } catch (Exception e) {
             log.error("", e);
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);
@@ -40,6 +41,17 @@ public class ChoiceQuestionController {
     CgbdResult deleteChoiceQuestion(@RequestParam("type") List<String> ids) {
         try {
             return CgbdResult.ok(choiceQuestionService.deleteChoiceQuestion(ids));
+        } catch (Exception e) {
+            log.error("", e);
+            return CgbdResult.build(CgbdResultStatus.Unknown_Error);
+        }
+    }
+
+    @PostMapping("/choiceQuestion")
+    @DeleteMapping("/choiceQuestion")
+    CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
+        try {
+            return CgbdResult.ok(choiceQuestionService.updateChoiceQuestion(choiceQuestion));
         } catch (Exception e) {
             log.error("", e);
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);

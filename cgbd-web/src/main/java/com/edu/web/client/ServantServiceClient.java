@@ -12,11 +12,15 @@ import java.util.List;
 public interface ServantServiceClient {
 
     @GetMapping(value = "servant/choiceQuestionByType", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type);
+    CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type,
+                                    @RequestParam(value = "state", required = false) Short state);
 
     @PutMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult insertChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion);
 
     @DeleteMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult deleteChoiceQuestion(@RequestParam("type") List<String> ids);
+
+    @PostMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion);
 }

@@ -17,8 +17,8 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     @Autowired
     ServantServiceClient servantServiceClient;
     @Override
-    public CgbdResult choiceQuestionByType(List<Byte> type) {
-        return servantServiceClient.choiceQuestionByType(type);
+    public CgbdResult choiceQuestionByType(List<Byte> type, Short state) {
+        return servantServiceClient.choiceQuestionByType(type, state);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     @Override
     public CgbdResult deleteChoiceQuestion(List<String> ids) {
         return servantServiceClient.deleteChoiceQuestion(ids);
+    }
+
+    @Override
+    public CgbdResult updateChoiceQuestion(ChoiceQuestion choiceQuestion) {
+        return servantServiceClient.updateChoiceQuestion(choiceQuestion);
     }
 }
