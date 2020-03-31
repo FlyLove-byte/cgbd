@@ -20,7 +20,7 @@
             <div class="block-area" id="Panel">
 
                 <div class="btn-group pull-right">
-                    <a data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
+                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
                     <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
                 </div>
                 <div style="clear: both; visibility:hidden;"></div>
@@ -41,7 +41,7 @@
                     <div class="panel-footer">
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
-                            <button @click="refreshIcon()" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</button>
+                            <a @click="modalOpen(langDetails['Modify'], question)" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</a>
                             <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
@@ -70,11 +70,11 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <p>{{langDetails['Achievement']}}</p>
-                                    <input id="score" class="form-control input-sm m-b-10" type="text">
+                                    <input id="score" :value="question ? question.score : ''" class="form-control input-sm m-b-10" type="text">
                                 </div>
                                 <div class="col-md-3">
                                     <p>{{langDetails['RightKey']}}</p>
-                                    <input id="answer" class="form-control input-sm" type="text">
+                                    <input id="answer" :value="question ? question.answer : ''" class="form-control input-sm" type="text">
                                 </div>
                                 <div class="col-md-3"></div>
 
@@ -87,7 +87,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>{{langDetails['Subject']}}</p>
-                                    <textarea id="title" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
+                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
 
                                 </textarea>
                                 </div>
@@ -119,7 +119,7 @@
                         <div class="modal-footer">
                             <div class="pull-right">
                                 <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}</button>
-                                <button @click="insertChoiceQuestion()" type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
+                                <button @click="choiceQuestionOk()" type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
                             </div>
                             <div style="clear: both; visibility:hidden;"></div>
                         </div>
@@ -140,10 +140,10 @@
         data () {
             return {
                 questions: null,
+                question: null,
             }
         },
         mounted() {
-            this.addAnswer();
             this.choiceQuestionByType();
         },
         created() {
@@ -151,7 +151,7 @@
             window.removeAnswer = self.removeAnswer;
         },
         methods: {
-            choiceQuestionByType: function(type){
+            choiceQuestionByType(type) {
                 let self = this;
                 axios. get('/choiceQuestionByType', {
                     params: {
@@ -164,8 +164,36 @@
                     console.log(error);
                 });
             },
-            insertChoiceQuestion: function(){
+            insertChoiceQuestion(submitJson) {
                 let self = this;
+                axios. put('/choiceQuestion', JSON.stringify(submitJson), {
+                    headers: {
+                        'content-Type': 'application/json;charset=UTF-8'
+                    },
+                }).then(function (response) {
+                    $('#modalWider').modal('hide');
+                    self.mesBox(self.langDetails["AddSuccess"]);
+                    self.refreshChoiceQuestion();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            updateChoiceQuestion (submitJson){
+                let self = this;
+                submitJson['id'] = this.question.id;
+                axios. post('/choiceQuestion', JSON.stringify(submitJson), {
+                    headers: {
+                        'content-Type': 'application/json;charset=UTF-8'
+                    },
+                }).then(function (response) {
+                    $('#modalWider').modal('hide');
+                    self.mesBox(self.langDetails["ModifiedSuccess"]);
+                    self.refreshChoiceQuestion();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            choiceQuestionOk() {
                 let submitJson = {};
                 submitJson["type"] = $("#type").val();
                 submitJson["score"] = $("#score").val();
@@ -182,19 +210,10 @@
                 })
                 submitJson["choiceQuestionOptions"] = choiceQuestionOptions;
 
-                axios. put('/choiceQuestion', JSON.stringify(submitJson), {
-                    headers: {
-                        'content-Type': 'application/json;charset=UTF-8'
-                    },
-                }).then(function (response) {
-                    $('#modalWider').modal('hide');
-                    self.mesBox(self.langDetails["AddSuccess"]);
-                    self.refreshChoiceQuestion();
-                }).catch(function (error) {
-                    console.log(error);
-                });
+                if(this.question) this.updateChoiceQuestion(submitJson);
+                else this.insertChoiceQuestion(submitJson);
             },
-            deleteChoiceQuestion: function(ids){
+            deleteChoiceQuestion(ids) {
                 let self = this;
                 axios. delete('/choiceQuestion', {
                     params: {
@@ -207,27 +226,61 @@
                     console.log(error);
                 });
             },
-            refreshChoiceQuestion: function(){
+            refreshChoiceQuestion() {
                 this.refreshIcon();
                 this.choiceQuestionByType();
             },
-            addAnswer: function () {
+            modalOpen (title, question) {
+                let self = this;
+                $("#modalWider .modal-title").text(title);
+                $("#answerTitle").empty();
+                if(question) {
+                    this.question = question;
+                    //添加非input 及 selectPicker 插件的值
+                    $('#type').selectpicker('val', question['type']);
+                    if(question['state'] == 1) {
+                        $("#state").attr("cgbdData", 1);
+                        $("#state").text(this.langDetails["Release"]);
+                    }
+                    else {
+                        $("#state").attr("cgbdData", 0);
+                        $("#state").text(this.langDetails["Prohibit"]);
+                    }
+
+                    if(question['choiceQuestionOptions'].length) {
+                        question['choiceQuestionOptions'].forEach(function (value) {
+                            self.addAnswer(value['title'], value['value']);
+                        })
+                    }
+                }
+                else {
+                    this.question = null;
+                    //还原非input 及 selectPicker 插件的值
+                    $('#type').selectpicker('val', 0);
+                    $("#state").attr("cgbdData", 1);
+                    $("#state").text(this.langDetails["Release"]);
+                    this.addAnswer();
+                }
+            },
+            addAnswer(option, answer) {
+                if(option == undefined) option = "";
+                if(answer == undefined) answer = "";
                 $("#answerTitle").append('' +
                     '<tr>\n' +
-                    '    <td class="text-center" contenteditable="true"></td>\n' +
-                    '    <td contenteditable="true"></td>\n' +
+                    '    <td class="text-center" contenteditable="true">'+ option +'</td>\n' +
+                    '    <td contenteditable="true">'+ answer +'</td>\n' +
                     '    <td onclick="removeAnswer(this)" style="cursor: pointer" class="text-center">\n' +
                     '        <i class="icon">&#61754;</i>\n' +
                     '    </td>\n' +
                     '</tr>' +
                     '');
             },
-            removeAnswer: function (thisItem) {
+            removeAnswer(thisItem) {
                 let parent = $(thisItem).parent("tr");
                 if($("#answerTitle tr").length > 1)
                     parent.remove();
             },
-            stateChange: function (e) {
+            stateChange(e) {
                 let thisItem = e.currentTarget;
                 const langFilter = this.$options.filters['langFilter'];
                 if($(thisItem).attr("cgbdData") == 1) {
