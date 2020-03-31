@@ -25,4 +25,9 @@ public class ChoiceQuestionController {
     CgbdResult insertChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
         return choiceQuestionService.insertChoiceQuestion(choiceQuestion);
     }
+
+    @DeleteMapping("/choiceQuestion")
+    public CgbdResult deleteChoiceQuestion(@RequestParam(value = "ids") List<String> ids) {
+        return choiceQuestionService.deleteChoiceQuestion(ids);
+    }
 }

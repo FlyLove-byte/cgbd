@@ -8,4 +8,6 @@ public interface ChoiceQuestionService {
     List<ChoiceQuestion> choiceQuestionByType(List<Byte> type);
 
     int insertChoiceQuestion(ChoiceQuestion choiceQuestion);
+
+    int deleteChoiceQuestion(List<String> ids);
 }

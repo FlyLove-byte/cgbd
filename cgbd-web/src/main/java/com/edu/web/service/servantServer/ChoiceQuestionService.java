@@ -9,4 +9,6 @@ public interface ChoiceQuestionService {
     CgbdResult choiceQuestionByType(List<Byte> type);
 
     CgbdResult insertChoiceQuestion(ChoiceQuestion choiceQuestion);
+
+    CgbdResult deleteChoiceQuestion(List<String> ids);
 }

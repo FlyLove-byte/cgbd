@@ -44,8 +44,23 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
 
     @Override
     public int insertChoiceQuestion(ChoiceQuestion choiceQuestion) {
-        choiceQuestion.setId(FormatUtil.getUUID());
+        String choiceQuestionId = FormatUtil.getUUID();
+        choiceQuestion.setId(choiceQuestionId);
         choiceQuestionMapper.insertSelective(choiceQuestion);
+        List<ChoiceQuestionOption> choiceQuestionOptions = choiceQuestion.getChoiceQuestionOptions();
+        for(ChoiceQuestionOption choiceQuestionOption : choiceQuestionOptions) {
+            choiceQuestionOption.setId(FormatUtil.getUUID());
+            choiceQuestionOption.setChoiceQuestionId(choiceQuestionId);
+            choiceQuestionOptionMapper.insert(choiceQuestionOption);
+        }
         return 0;
+    }
+
+    @Override
+    public int deleteChoiceQuestion(List<String> ids) {
+        ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
+        ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
+        criteria.andIdIn(ids);
+        return choiceQuestionMapper.deleteByExample(choiceQuestionExample);
     }
 }

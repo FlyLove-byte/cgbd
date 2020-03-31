@@ -21,7 +21,7 @@
 
                 <div class="btn-group pull-right">
                     <a data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
-                    <button type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
+                    <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
                 </div>
                 <div style="clear: both; visibility:hidden;"></div>
 
@@ -42,7 +42,7 @@
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</button>
-                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
+                            <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
@@ -119,7 +119,7 @@
                         <div class="modal-footer">
                             <div class="pull-right">
                                 <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}</button>
-                                <button type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
+                                <button @click="insertChoiceQuestion()" type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
                             </div>
                             <div style="clear: both; visibility:hidden;"></div>
                         </div>
@@ -163,22 +163,49 @@
                     console.log(error);
                 });
             },
-            insertChoiceQuestion: function() {
+            insertChoiceQuestion: function(){
+                let self = this;
                 let submitJson = {};
                 submitJson["type"] = $("#type").val();
                 submitJson["score"] = $("#score").val();
                 submitJson["answer"] = $("#answer").val();
-                submitJson["state"] = $("#state").attr("cgbdData");
                 submitJson["title"] = $("#title").val();
-                axios. put('/choiceQuestion', {
-                    params: {
-                        type: type
-                    }
+                submitJson["state"] = $("#state").attr("cgbdData");
+
+                let choiceQuestionOptions = [];
+                $("#answerTitle>tr").each(function (index, value) {
+                    let choiceQuestionOption = {};
+                    choiceQuestionOption["title"] = $(value).find("td").eq(0).text();
+                    choiceQuestionOption["value"] = $(value).find("td").eq(1).text();
+                    choiceQuestionOptions.push(choiceQuestionOption);
+                })
+                submitJson["choiceQuestionOptions"] = choiceQuestionOptions;
+
+                axios. put('/choiceQuestion', JSON.stringify(submitJson), {
+                    headers: {
+                        'content-Type': 'application/json;charset=UTF-8'
+                    },
                 }).then(function (response) {
-                    self.questions = response["data"]["data"];
+                    self.refreshChoiceQuestion();
+                    $('#modalWider').modal('hide');
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            deleteChoiceQuestion: function(ids){
+                let self = this;
+                axios. delete('/choiceQuestion', {
+                    params: {
+                        ids: ids
+                    }
+                }).then(function (response) {
+                    self.refreshChoiceQuestion();
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
+            refreshChoiceQuestion: function(){
+                this.choiceQuestionByType();
             },
             addAnswer: function () {
                 $("#answerTitle").append('' +

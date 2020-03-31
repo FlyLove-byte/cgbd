@@ -27,9 +27,19 @@ public class ChoiceQuestionController {
     }
 
     @PutMapping("/choiceQuestion")
-    CgbdResult insertChoiceQuestion(ChoiceQuestion choiceQuestion) {
+    CgbdResult insertChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
         try {
             return CgbdResult.ok(choiceQuestionService.insertChoiceQuestion(choiceQuestion));
+        } catch (Exception e) {
+            log.error("", e);
+            return CgbdResult.build(CgbdResultStatus.Unknown_Error);
+        }
+    }
+
+    @DeleteMapping("/choiceQuestion")
+    CgbdResult deleteChoiceQuestion(@RequestParam("type") List<String> ids) {
+        try {
+            return CgbdResult.ok(choiceQuestionService.deleteChoiceQuestion(ids));
         } catch (Exception e) {
             log.error("", e);
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);

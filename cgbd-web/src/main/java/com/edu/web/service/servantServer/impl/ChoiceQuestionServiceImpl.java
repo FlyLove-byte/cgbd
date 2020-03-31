@@ -25,4 +25,9 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     public CgbdResult insertChoiceQuestion(ChoiceQuestion choiceQuestion) {
         return servantServiceClient.insertChoiceQuestion(choiceQuestion);
     }
+
+    @Override
+    public CgbdResult deleteChoiceQuestion(List<String> ids) {
+        return servantServiceClient.deleteChoiceQuestion(ids);
+    }
 }
