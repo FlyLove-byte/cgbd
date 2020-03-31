@@ -41,7 +41,7 @@
                     <div class="panel-footer">
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</button>
+                            <button @click="refreshIcon()" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</button>
                             <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
@@ -159,6 +159,7 @@
                     }
                 }).then(function (response) {
                     self.questions = response["data"]["data"];
+                    self.refreshOk();
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -186,8 +187,9 @@
                         'content-Type': 'application/json;charset=UTF-8'
                     },
                 }).then(function (response) {
-                    self.refreshChoiceQuestion();
                     $('#modalWider').modal('hide');
+                    self.mesBox(self.langDetails["AddSuccess"]);
+                    self.refreshChoiceQuestion();
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -200,11 +202,13 @@
                     }
                 }).then(function (response) {
                     self.refreshChoiceQuestion();
+                    self.mesBox(self.langDetails["DeleteSuccessful"]);
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
             refreshChoiceQuestion: function(){
+                this.refreshIcon();
                 this.choiceQuestionByType();
             },
             addAnswer: function () {

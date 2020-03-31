@@ -90,6 +90,23 @@ const myMixin = {
             }
         },
 
+        mesBox: function(mes, level) {
+            let levelColor = 'alert-success';
+            if(level == 1) levelColor = 'alert-danger';
+            else if(level == 2) levelColor = 'alert-warning';
+            let mesBox = '<div class="mesStyle alert '+ levelColor +'">'+ mes +'</div>';
+            $('body').append(mesBox);
+            setTimeout(function () {
+                $('body>.mesStyle').remove();
+            },2000)
+        },
+        refreshIcon: function() {
+            let refreshIcon = '<div class="fa fa-refresh fa-spin refreshIcon"></div>';
+            $('body').append(refreshIcon);
+        },
+        refreshOk: function() {
+            $('body .refreshIcon').remove();
+        },
         getLang: function() {
             return localStorage.getItem("LANG_TYPE") ? localStorage.getItem("LANG_TYPE") : "zhCn";
         },

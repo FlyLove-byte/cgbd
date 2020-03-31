@@ -2283,4 +2283,16 @@ a.list-group-item.active > .badge,
     }
 }
 
+.mesStyle {
+    position: fixed;
+    top: 50px;
+    width: 50%;
+    left: 25%;
+}
 
+.refreshIcon {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    font-size: x-large;
+}
