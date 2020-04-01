@@ -70,11 +70,11 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <p>{{langDetails['Achievement']}}</p>
-                                    <input id="score" :value="question ? question.score : ''" class="form-control input-sm m-b-10" type="text">
+                                    <input id="score" :value="question ? question.score : ''" @keyup="verification('integer', $event.currentTarget)" class="form-control input-sm m-b-10" type="text">
                                 </div>
                                 <div class="col-md-3">
                                     <p>{{langDetails['RightKey']}}</p>
-                                    <input id="answer" :value="question ? question.answer : ''" class="form-control input-sm" type="text">
+                                    <input id="answer" :value="question ? question.answer : ''" @keyup="verification('char', $event.currentTarget)" class="form-control input-sm" type="text">
                                 </div>
                                 <div class="col-md-3"></div>
 
@@ -127,7 +127,6 @@
                 </div>
             </div>
             <hr class="whiter" />
-
         </section>
     </section>
 </div>
@@ -149,6 +148,7 @@
         created() {
             let self = this;
             window.removeAnswer = self.removeAnswer;
+            window.verification = self.verification;
         },
         methods: {
             choiceQuestionByType(type) {
@@ -194,6 +194,7 @@
                 });
             },
             choiceQuestionOk() {
+                if(this.verificationSubmission()) return;
                 let submitJson = {};
                 submitJson["type"] = $("#type").val();
                 submitJson["score"] = $("#score").val();
@@ -267,7 +268,7 @@
                 if(answer == undefined) answer = "";
                 $("#answerTitle").append('' +
                     '<tr>\n' +
-                    '    <td class="text-center" contenteditable="true">'+ option +'</td>\n' +
+                    '    <td class="text-center" contenteditable="true" onkeyup="verification(\'char\', this)">'+ option +'</td>\n' +
                     '    <td contenteditable="true">'+ answer +'</td>\n' +
                     '    <td onclick="removeAnswer(this)" style="cursor: pointer" class="text-center">\n' +
                     '        <i class="icon">&#61754;</i>\n' +
@@ -291,6 +292,54 @@
                     $(thisItem).attr("cgbdData", 1);
                     $(thisItem).text(this.langDetails["Release"]);
                 }
+            },
+            verification(type, thisItem) {
+                if(type == 'integer') {
+                    if(!(/^[1-9]\d*$/.test($(thisItem).val()))) {
+                        this.mesBox(this.langDetails["PleaseEnterAPositiveInteger"], 2);
+                        $(thisItem).val("");
+                    }
+                }
+                if(type == 'char') {
+                    if(!(/^[A-Za-z]$/.test($(thisItem).val())) && thisItem.nodeName.toLowerCase() == "input") {
+                        this.mesBox(this.langDetails["PleaseEnterASingleLetter"], 2);
+                        $(thisItem).val("");
+                    }
+                    if(!(/^[A-Za-z]$/.test($(thisItem).text())) && thisItem.nodeName.toLowerCase() == "td") {
+                        this.mesBox(this.langDetails["PleaseEnterASingleLetter"], 2);
+                        $(thisItem).text("");
+                    }
+                }
+            },
+            verificationSubmission() {
+                if($("#score").val() == '') {
+                    this.mesBox('请输入成绩', 2);
+                    return true;
+                }
+
+                if($("#answer").val() == '') {
+                    this.mesBox('请输入正确答案', 2);
+                    return true;
+                }
+
+                if($("#title").val() == '') {
+                    this.mesBox('请输入题目', 2);
+                    return true;
+                }
+
+                let tr = $("#answerTitle>tr");
+                for(let i=0; i<tr.length; i++) {
+                    if($(tr[i]).find("td").eq(0).text() == '') {
+                        this.mesBox('请输入选项', 2);
+                        return true;
+                    }
+                    if($(tr[i]).find("td").eq(1).text() == '') {
+                        this.mesBox('请输入答案', 2);
+                        return true;
+                    }
+                }
+
+                return false;
             }
         },
     })

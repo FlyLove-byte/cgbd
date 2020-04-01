@@ -94,11 +94,11 @@ const myMixin = {
             let levelColor = 'alert-success';
             if(level == 1) levelColor = 'alert-danger';
             else if(level == 2) levelColor = 'alert-warning';
-            let mesBox = '<div class="mesStyle alert '+ levelColor +'">'+ mes +'</div>';
+            let mesBox = '<div style="z-index: 1050" class="mesStyle alert '+ levelColor +'">'+ mes +'</div>';
             $('body').append(mesBox);
             setTimeout(function () {
                 $('body>.mesStyle').remove();
-            },2000)
+            },2500)
         },
         refreshIcon: function() {
             let refreshIcon = '<div class="fa fa-refresh fa-spin refreshIcon"></div>';
