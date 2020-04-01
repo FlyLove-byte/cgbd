@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:replace="layout/head :: servantHead"></head>
-<body id="skin-blur-violate">
+<body>
+<script>document.body.id = localStorage.getItem('skin') ? localStorage.getItem('skin') : 'skin-blur-violate';</script>
 <div id="app">
     <header th:replace="layout/header :: onLoadHeaderServant"></header>
     <div class="clearfix"></div>

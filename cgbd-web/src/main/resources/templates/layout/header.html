@@ -8,21 +8,21 @@
                 <a data-drawer="messages" class="drawer-toggle" href="">
                     <i class="sa-top-message"></i>
                     <i class="n-count animated">5</i>
-                    <span>消息</span>
+                    <span>{{langDetails['News']}}</span>
                 </a>
             </div>
             <div class="pull-left tm-icon">
                 <a data-drawer="notifications" class="drawer-toggle" href="">
                     <i class="sa-top-updates"></i>
                     <i class="n-count animated">9</i>
-                    <span>更新</span>
+                    <span>{{langDetails['ToUpdate']}}</span>
                 </a>
             </div>
 
             <div class="pull-left tm-icon">
                 <a data-drawer="personalSettings" class="drawer-toggle" href="">
                     <i class="sa-top-updates"></i>
-                    <span>设置</span>
+                    <span>{{langDetails['set']}}</span>
                 </a>
             </div>
 
@@ -35,7 +35,7 @@
             </div>
 
             <div class="media-body">
-                <input type="text" placeholder="暂时无用" class="main-search">
+                <input type="text":placeholder=langDetails['TemporarilyUseless'] class="main-search">
             </div>
         </div>
     </div>

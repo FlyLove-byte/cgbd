@@ -63,9 +63,6 @@ $(document).ready(function(){
 			'</div>' +
 		    '</div>';
     $('#main').prepend(settings);
-    if(localStorage.getItem('skin'))
-		$('body').attr('id', localStorage.getItem('skin'));
-    else $('body').attr('id', "skin-blur-kiwi");
             
     $('body').on('click', '.template-skins > a', function(e){
 		e.preventDefault();

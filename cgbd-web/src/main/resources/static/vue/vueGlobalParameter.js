@@ -121,6 +121,7 @@ const myMixin = {
         setLang: function (key) {
             localStorage.setItem("LANG_TYPE", key);
             this.formatPage();
+            if(this.hasOwnProperty("indexFormat")) this.indexFormat();
         },
     }
 }
