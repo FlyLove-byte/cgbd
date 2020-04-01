@@ -313,28 +313,28 @@
             },
             verificationSubmission() {
                 if($("#score").val() == '') {
-                    this.mesBox('请输入成绩', 2);
+                    this.mesBox(this.langDetails["PleaseEnterYourScore"], 2);
                     return true;
                 }
 
                 if($("#answer").val() == '') {
-                    this.mesBox('请输入正确答案', 2);
+                    this.mesBox(this.langDetails["PleaseEnterTheCorrectAnswer"], 2);
                     return true;
                 }
 
                 if($("#title").val() == '') {
-                    this.mesBox('请输入题目', 2);
+                    this.mesBox(this.langDetails["PleaseEnterATitle"], 2);
                     return true;
                 }
 
                 let tr = $("#answerTitle>tr");
                 for(let i=0; i<tr.length; i++) {
                     if($(tr[i]).find("td").eq(0).text() == '') {
-                        this.mesBox('请输入选项', 2);
+                        this.mesBox(this.langDetails["PleaseEnterOptions"], 2);
                         return true;
                     }
                     if($(tr[i]).find("td").eq(1).text() == '') {
-                        this.mesBox('请输入答案', 2);
+                        this.mesBox(this.langDetails["PleaseEnterTheAnswer"], 2);
                         return true;
                     }
                 }
