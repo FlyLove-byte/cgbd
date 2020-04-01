@@ -216,16 +216,19 @@
             },
             deleteChoiceQuestion(ids) {
                 let self = this;
-                axios. delete('/choiceQuestion', {
-                    params: {
-                        ids: ids
-                    }
-                }).then(function (response) {
-                    self.refreshChoiceQuestion();
-                    self.mesBox(self.langDetails["DeleteSuccessful"]);
-                }).catch(function (error) {
-                    console.log(error);
-                });
+                this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteIt'], doDeleteChoiceQuestion);
+                function doDeleteChoiceQuestion() {
+                    axios. delete('/choiceQuestion', {
+                        params: {
+                            ids: ids
+                        }
+                    }).then(function (response) {
+                        self.refreshChoiceQuestion();
+                        self.mesBox(self.langDetails["DeleteSuccessful"]);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
             },
             refreshChoiceQuestion() {
                 this.refreshIcon();

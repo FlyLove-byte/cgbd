@@ -100,6 +100,14 @@ const myMixin = {
                 $('body>.mesStyle').remove();
             },2500)
         },
+        confirmModalOpen: function(tips, title, fun) {
+            $("#confirmModal .modal-title").text(tips);
+            $("#confirmModal .modal-body>p").text(title);
+            $("#confirmModal .confirmOk").click(function () {
+                fun();
+            })
+            $("#confirmModal").modal('show');
+        },
         refreshIcon: function() {
             let refreshIcon = '<div class="fa fa-refresh fa-spin refreshIcon"></div>';
             $('body').append(refreshIcon);
@@ -113,7 +121,7 @@ const myMixin = {
         setLang: function (key) {
             localStorage.setItem("LANG_TYPE", key);
             this.formatPage();
-        }
+        },
     }
 }
 //endregion
