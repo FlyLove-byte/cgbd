@@ -30,11 +30,8 @@ public class MenuGroup implements Serializable {
     @Column(name = "group_grade")
     private Long groupGrade;
 
-    /**
-     * 显示顺序
-     */
     @Column(name = "group_sort_code")
-    private Long groupSortCode;
+    private Integer groupSortCode;
 
     /**
      * 获取id
@@ -129,20 +126,16 @@ public class MenuGroup implements Serializable {
     }
 
     /**
-     * 获取显示顺序
-     *
-     * @return group_sort_code - 显示顺序
+     * @return group_sort_code
      */
-    public Long getGroupSortCode() {
+    public Integer getGroupSortCode() {
         return groupSortCode;
     }
 
     /**
-     * 设置显示顺序
-     *
-     * @param groupSortCode 显示顺序
+     * @param groupSortCode
      */
-    public void setGroupSortCode(Long groupSortCode) {
+    public void setGroupSortCode(Integer groupSortCode) {
         this.groupSortCode = groupSortCode;
     }
 

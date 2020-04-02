@@ -375,72 +375,72 @@ public class MenuGroupExample {
         }
 
         public Criteria andGroupIconIsNull() {
-            addCriterion("group_action is null");
+            addCriterion("group_icon is null");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconIsNotNull() {
-            addCriterion("group_action is not null");
+            addCriterion("group_icon is not null");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconEqualTo(String value) {
-            addCriterion("group_action =", value, "groupIcon");
+            addCriterion("group_icon =", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconNotEqualTo(String value) {
-            addCriterion("group_action <>", value, "groupIcon");
+            addCriterion("group_icon <>", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconGreaterThan(String value) {
-            addCriterion("group_action >", value, "groupIcon");
+            addCriterion("group_icon >", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconGreaterThanOrEqualTo(String value) {
-            addCriterion("group_action >=", value, "groupIcon");
+            addCriterion("group_icon >=", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconLessThan(String value) {
-            addCriterion("group_action <", value, "groupIcon");
+            addCriterion("group_icon <", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconLessThanOrEqualTo(String value) {
-            addCriterion("group_action <=", value, "groupIcon");
+            addCriterion("group_icon <=", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconLike(String value) {
-            addCriterion("group_action like", value, "groupIcon");
+            addCriterion("group_icon like", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconNotLike(String value) {
-            addCriterion("group_action not like", value, "groupIcon");
+            addCriterion("group_icon not like", value, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconIn(List<String> values) {
-            addCriterion("group_action in", values, "groupIcon");
+            addCriterion("group_icon in", values, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconNotIn(List<String> values) {
-            addCriterion("group_action not in", values, "groupIcon");
+            addCriterion("group_icon not in", values, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconBetween(String value1, String value2) {
-            addCriterion("group_action between", value1, value2, "groupIcon");
+            addCriterion("group_icon between", value1, value2, "groupIcon");
             return (Criteria) this;
         }
 
         public Criteria andGroupIconNotBetween(String value1, String value2) {
-            addCriterion("group_action not between", value1, value2, "groupIcon");
+            addCriterion("group_icon not between", value1, value2, "groupIcon");
             return (Criteria) this;
         }
 
@@ -514,52 +514,52 @@ public class MenuGroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeEqualTo(Long value) {
+        public Criteria andGroupSortCodeEqualTo(Integer value) {
             addCriterion("group_sort_code =", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeNotEqualTo(Long value) {
+        public Criteria andGroupSortCodeNotEqualTo(Integer value) {
             addCriterion("group_sort_code <>", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeGreaterThan(Long value) {
+        public Criteria andGroupSortCodeGreaterThan(Integer value) {
             addCriterion("group_sort_code >", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeGreaterThanOrEqualTo(Long value) {
+        public Criteria andGroupSortCodeGreaterThanOrEqualTo(Integer value) {
             addCriterion("group_sort_code >=", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeLessThan(Long value) {
+        public Criteria andGroupSortCodeLessThan(Integer value) {
             addCriterion("group_sort_code <", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeLessThanOrEqualTo(Long value) {
+        public Criteria andGroupSortCodeLessThanOrEqualTo(Integer value) {
             addCriterion("group_sort_code <=", value, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeIn(List<Long> values) {
+        public Criteria andGroupSortCodeIn(List<Integer> values) {
             addCriterion("group_sort_code in", values, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeNotIn(List<Long> values) {
+        public Criteria andGroupSortCodeNotIn(List<Integer> values) {
             addCriterion("group_sort_code not in", values, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeBetween(Long value1, Long value2) {
+        public Criteria andGroupSortCodeBetween(Integer value1, Integer value2) {
             addCriterion("group_sort_code between", value1, value2, "groupSortCode");
             return (Criteria) this;
         }
 
-        public Criteria andGroupSortCodeNotBetween(Long value1, Long value2) {
+        public Criteria andGroupSortCodeNotBetween(Integer value1, Integer value2) {
             addCriterion("group_sort_code not between", value1, value2, "groupSortCode");
             return (Criteria) this;
         }

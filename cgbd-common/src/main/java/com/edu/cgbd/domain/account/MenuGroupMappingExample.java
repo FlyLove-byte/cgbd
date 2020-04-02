@@ -223,6 +223,66 @@ public class MenuGroupMappingExample {
             addCriterion("menu_id not between", value1, value2, "menuId");
             return (Criteria) this;
         }
+
+        public Criteria andMenuSortCodeIsNull() {
+            addCriterion("menu_sort_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeIsNotNull() {
+            addCriterion("menu_sort_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeEqualTo(Integer value) {
+            addCriterion("menu_sort_code =", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeNotEqualTo(Integer value) {
+            addCriterion("menu_sort_code <>", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeGreaterThan(Integer value) {
+            addCriterion("menu_sort_code >", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("menu_sort_code >=", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeLessThan(Integer value) {
+            addCriterion("menu_sort_code <", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeLessThanOrEqualTo(Integer value) {
+            addCriterion("menu_sort_code <=", value, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeIn(List<Integer> values) {
+            addCriterion("menu_sort_code in", values, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeNotIn(List<Integer> values) {
+            addCriterion("menu_sort_code not in", values, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeBetween(Integer value1, Integer value2) {
+            addCriterion("menu_sort_code between", value1, value2, "menuSortCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuSortCodeNotBetween(Integer value1, Integer value2) {
+            addCriterion("menu_sort_code not between", value1, value2, "menuSortCode");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

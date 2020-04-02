@@ -32,12 +32,6 @@ public class Menu implements Serializable {
     private String menuIcon;
 
     /**
-     * 显示顺序
-     */
-    @Column(name = "menu_sort_code")
-    private Long menuSortCode;
-
-    /**
      * @return id
      */
     public Long getId() {
@@ -121,23 +115,5 @@ public class Menu implements Serializable {
      */
     public void setMenuIcon(String menuIcon) {
         this.menuIcon = menuIcon == null ? null : menuIcon.trim();
-    }
-
-    /**
-     * 获取显示顺序
-     *
-     * @return menu_sort_code - 显示顺序
-     */
-    public Long getMenuSortCode() {
-        return menuSortCode;
-    }
-
-    /**
-     * 设置显示顺序
-     *
-     * @param menuSortCode 显示顺序
-     */
-    public void setMenuSortCode(Long menuSortCode) {
-        this.menuSortCode = menuSortCode;
     }
 }

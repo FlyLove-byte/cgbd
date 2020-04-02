@@ -40,7 +40,7 @@
                              type="XMLMAPPER"/>
 
         <!--delimitAllColumns="true"-->
-        <table schema="" tableName="global_parameter" enableCountByExample="true" enableUpdateByExample="true"
+        <table schema="" tableName="menu_group_mapping" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <!--sqlserver 配置-->
             <!--<generatedKey column="id" sqlStatement="SqlServer" identity="true"/>-->

@@ -7,5 +7,6 @@
     -->
     <id column="group_id" jdbcType="DECIMAL" property="groupId" />
     <id column="menu_id" jdbcType="DECIMAL" property="menuId" />
+    <result column="menu_sort_code" jdbcType="INTEGER" property="menuSortCode" />
   </resultMap>
 </mapper>

@@ -35,6 +35,7 @@ public class MenuServiceImpl implements MenuService {
 
         for (int i = 0;i<menuGroups.size();i++){
             MenuGroupMappingExample mappingExample = new MenuGroupMappingExample();
+            mappingExample.setOrderByClause("menu_sort_code asc");
             MenuGroupMappingExample.Criteria criteria = mappingExample.createCriteria();
             criteria.andGroupIdEqualTo(menuGroups.get(i).getId());
             List<Long> menuIds = menuGroupMappingMapper.selectByExample(mappingExample).stream().map(p -> p.getMenuId()).collect(Collectors.toList());

@@ -10,6 +10,5 @@
     <result column="menu_route" jdbcType="VARCHAR" property="menuRoute" />
     <result column="menu_action" jdbcType="VARCHAR" property="menuAction" />
     <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
-    <result column="menu_sort_code" jdbcType="DECIMAL" property="menuSortCode" />
   </resultMap>
 </mapper>

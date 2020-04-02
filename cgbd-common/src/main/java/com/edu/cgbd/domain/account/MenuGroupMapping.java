@@ -19,6 +19,9 @@ public class MenuGroupMapping implements Serializable {
     @Column(name = "menu_id")
     private Long menuId;
 
+    @Column(name = "menu_sort_code")
+    private Integer menuSortCode;
+
     /**
      * 获取组Id
      *
@@ -53,5 +56,19 @@ public class MenuGroupMapping implements Serializable {
      */
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
+    }
+
+    /**
+     * @return menu_sort_code
+     */
+    public Integer getMenuSortCode() {
+        return menuSortCode;
+    }
+
+    /**
+     * @param menuSortCode
+     */
+    public void setMenuSortCode(Integer menuSortCode) {
+        this.menuSortCode = menuSortCode;
     }
 }

@@ -11,6 +11,6 @@
     <result column="group_action" jdbcType="VARCHAR" property="groupAction" />
     <result column="group_icon" jdbcType="VARCHAR" property="groupIcon" />
     <result column="group_grade" jdbcType="DECIMAL" property="groupGrade" />
-    <result column="group_sort_code" jdbcType="DECIMAL" property="groupSortCode" />
+    <result column="group_sort_code" jdbcType="INTEGER" property="groupSortCode" />
   </resultMap>
 </mapper>
