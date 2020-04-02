@@ -32,6 +32,7 @@ const myMixin = {
             langDetails: null,
             languages: null,
             language: null,
+            menuGroups: null,
             userInfo: null,
             info: null,
             set: null,
@@ -46,6 +47,7 @@ const myMixin = {
             this.langDetailsFormat();
             this.languagesFormat();
             this.languageFormat();
+            this.menuGroupsFormat();
             this.userInfoFormat();
             this.infoFormat();
             this.setFormat();
@@ -59,11 +61,14 @@ const myMixin = {
             }
             this.langDetails = languageFormat;
         },
-        languagesFormat:function(){
+        languagesFormat:function() {
             this.languages = languages;
         },
-        languageFormat:function(){
+        languageFormat:function() {
             this.language = this.getLang();
+        },
+        menuGroupsFormat:function() {
+            this.menuGroups = menuGroups;
         },
         userInfoFormat: function() {
             this.userInfo = {

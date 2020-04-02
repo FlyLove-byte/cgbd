@@ -36,20 +36,20 @@
 
     <!-- Side Menu -->
     <ul class="list-unstyled side-menu">
-        <li th:each="menuGroup : ${menuGroups}" th:if="${menuGroup.groupGrade eq 0}" class="active">
-            <a th:class="${menuGroup.groupIcon}" th:href="${menuGroup.groupRoute + menuGroup.groupAction}">
-                <span class="menu-item" th:text="${menuGroup.groupName}">主页</span>
+        <li v-for="menuGroup in menuGroups" v-if="menuGroup.groupGrade == 0" class="active">
+            <a :class="menuGroup.groupIcon" :href="menuGroup.groupRoute + menuGroup.groupAction">
+                <span class="menu-item">{{langDetails[menuGroup.groupName]}}</span>
             </a>
         </li>
 
-        <li th:each="menuGroup : ${menuGroups}" th:if="${menuGroup.groupGrade eq 1}" class="dropdown">
-            <a th:class="${menuGroup.groupIcon}" href="">
-                <span th:text="${menuGroup.groupName}" class="menu-item">菜单</span>
+        <li v-for="menuGroup in menuGroups" v-if="menuGroup.groupGrade == 1" class="dropdown">
+            <a :class="menuGroup.groupIcon" href="">
+                <span class="menu-item">{{langDetails[ menuGroup.groupName]}}</span>
             </a>
-            <ul th:if="${menuGroup.menus} ne ''" class="list-unstyled menu-item">
-                <li th:each="menu : ${menuGroup.menus}">
-                    <a th:href="${menu.menuRoute + menu.menuAction}">
-                        <span th:text="${menu.menuName}">子菜单</span>
+            <ul v-if="menuGroup.menus != ''" class="list-unstyled menu-item">
+                <li v-for="menu in menuGroup.menus">
+                    <a :href="menu.menuRoute + menu.menuAction">
+                        <span>{{langDetails[menu.menuName]}}</span>
                     </a>
                 </li>
             </ul>
