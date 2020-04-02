@@ -23,5 +23,5 @@ public class ConstDefine {
 
     public static final String Date_Formate_String = "yyyy-MM-dd HH:mm:ss";
 
-    public static final Short STATE_ENABLE = 1;
+    public static final Short STATE_ENABLE = 2;
 }

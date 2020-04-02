@@ -19,7 +19,6 @@
             <span th:replace="layout/drawer :: drawerServant"></span>
 
             <div class="block-area" id="Panel">
-
                 <div class="btn-group pull-right">
                     <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
                     <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
@@ -30,6 +29,9 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             <span class="blogStyle">{{question.type | typeFilter}}</span>
+                            <span class="blogStyle">{{question.state | stateFilter}}</span>
+                            <br>
+                            <span style="width: 24px; height: 15px; display: inline-block"></span>
                             <span>{{question.title}}</span>
                         </div>
                     </div>
@@ -77,11 +79,6 @@
                                     <input id="answer" :value="question ? question.answer : ''" @keyup="verification('char', $event.currentTarget)" class="form-control input-sm" type="text">
                                 </div>
                                 <div class="col-md-3"></div>
-
-                                <div class="col-md-3 text-right">
-                                    <p class="m-r-20">{{langDetails['State']}}</p>
-                                    <button id="state" @click="stateChange($event)" cgbdData="1" class="btn p-b-5 p-t-5">{{langDetails['Release']}}</button>
-                                </div>
                             </div>
 
                             <div class="row">
@@ -155,7 +152,8 @@
                 let self = this;
                 axios. get('/choiceQuestionByType', {
                     params: {
-                        type: type
+                        type: type,
+                        delete: 0
                     }
                 }).then(function (response) {
                     self.questions = response["data"]["data"];
@@ -200,7 +198,7 @@
                 submitJson["score"] = $("#score").val();
                 submitJson["answer"] = $("#answer").val();
                 submitJson["title"] = $("#title").val();
-                submitJson["state"] = $("#state").attr("cgbdData");
+                submitJson["state"] = 1;
 
                 let choiceQuestionOptions = [];
                 $("#answerTitle>tr").each(function (index, value) {
@@ -218,9 +216,10 @@
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteIt'], doDeleteChoiceQuestion);
                 function doDeleteChoiceQuestion() {
-                    axios. delete('/choiceQuestion', {
-                        params: {
-                            ids: ids
+                    console.log(ids)
+                    axios. post('/deleteChoiceQuestion', [ids], {
+                        headers:{
+                            'content-Type': 'application/json;charset=UTF-8'
                         }
                     }).then(function (response) {
                         self.refreshChoiceQuestion();
@@ -242,14 +241,6 @@
                     this.question = question;
                     //添加非input 及 selectPicker 插件的值
                     $('#type').selectpicker('val', question['type']);
-                    if(question['state'] == 1) {
-                        $("#state").attr("cgbdData", 1);
-                        $("#state").text(this.langDetails["Release"]);
-                    }
-                    else {
-                        $("#state").attr("cgbdData", 0);
-                        $("#state").text(this.langDetails["Prohibit"]);
-                    }
 
                     if(question['choiceQuestionOptions'].length) {
                         question['choiceQuestionOptions'].forEach(function (value) {
@@ -261,7 +252,6 @@
                     this.question = null;
                     //还原非input 及 selectPicker 插件的值
                     $('#type').selectpicker('val', 0);
-                    $("#state").attr("cgbdData", 1);
                     $("#state").text(this.langDetails["Release"]);
                     this.addAnswer();
                 }
@@ -283,18 +273,6 @@
                 let parent = $(thisItem).parent("tr");
                 if($("#answerTitle tr").length > 1)
                     parent.remove();
-            },
-            stateChange(e) {
-                let thisItem = e.currentTarget;
-                const langFilter = this.$options.filters['langFilter'];
-                if($(thisItem).attr("cgbdData") == 1) {
-                    $(thisItem).attr("cgbdData", 0);
-                    $(thisItem).text(this.langDetails["Prohibit"]);
-                }
-                else {
-                    $(thisItem).attr("cgbdData", 1);
-                    $(thisItem).text(this.langDetails["Release"]);
-                }
             },
             verification(type, thisItem) {
                 if(type == 'integer') {
@@ -354,6 +332,18 @@
                     case 1 : re = vm.langDetails['MultipleChoiceQuestions'];
                         break;
                     case 2 : re = vm.langDetails['AnswerQuestions'];
+                        break;
+                }
+                return re;
+            },
+            stateFilter: function (value) {
+                let re = '';
+                switch (value) {
+                    case 0 : re = vm.langDetails['Prohibit'];
+                        break;
+                    case 1 : re = vm.langDetails['InAudit'];
+                        break;
+                    case 2 : re = vm.langDetails['Release'];
                         break;
                 }
                 return re;

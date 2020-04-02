@@ -20,6 +20,7 @@
 
             <div class="block-area" id="Panel">
 
+                <span class="tagStyle">{{langDetails['InAudit']}}</span>
                 <div class="btn-group pull-right">
                     <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
                     <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
@@ -30,6 +31,8 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             <span class="blogStyle">{{question.type | typeFilter}}</span>
+                            <br>
+                            <span style="width: 24px; height: 15px; display: inline-block"></span>
                             <span>{{question.title}}</span>
                         </div>
                     </div>
@@ -155,9 +158,12 @@
                 let self = this;
                 axios. get('/choiceQuestionByType', {
                     params: {
-                        type: type
+                        type: type,
+                        state: 1,
+                        delete: 0
                     }
                 }).then(function (response) {
+                    console.log(response);
                     self.questions = response["data"]["data"];
                     self.refreshOk();
                 }).catch(function (error) {

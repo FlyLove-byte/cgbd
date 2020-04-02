@@ -155,7 +155,8 @@
                 let self = this;
                 axios. get('/choiceQuestionByType', {
                     params: {
-                        type: type
+                        type: type,
+                        delete: 1
                     }
                 }).then(function (response) {
                     self.questions = response["data"]["data"];

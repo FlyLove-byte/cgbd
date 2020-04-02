@@ -13,7 +13,8 @@ public interface ServantServiceClient {
 
     @GetMapping(value = "servant/choiceQuestionByType", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult choiceQuestionByType(@RequestParam(value = "type", required = false) List<Byte> type,
-                                    @RequestParam(value = "state", required = false) Short state);
+                                    @RequestParam(value = "state", required = false) Short state,
+                                    @RequestParam(value = "delete", required = false) Byte delete);
 
     @PutMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult insertChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion);
@@ -23,4 +24,7 @@ public interface ServantServiceClient {
 
     @PostMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion);
+
+    @PostMapping(value = "servant/deleteChoiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    CgbdResult falseDeleteChoiceQuestion(@RequestParam("type") List<String> ids);
 }
