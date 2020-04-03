@@ -25,6 +25,9 @@ public interface ServantServiceClient {
     @PostMapping(value = "servant/choiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion);
 
-    @PostMapping(value = "servant/deleteChoiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    CgbdResult falseDeleteChoiceQuestion(@RequestParam("type") List<String> ids);
+    @PostMapping(value = "servant/isDeleteChoiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    CgbdResult isDeleteChoiceQuestion(@RequestParam("type") List<String> ids, @RequestParam("isDel") Byte idDel);
+
+    @PostMapping(value = "servant/publishChoiceQuestion", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    CgbdResult publishChoiceQuestion(@RequestParam("type") List<String> ids);
 }

@@ -20,7 +20,7 @@
 
             <div class="block-area" id="Panel">
                 <div class="btn-group pull-right">
-                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
+                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused m-b-5">{{langDetails['AddTo']}}</a>
                     <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
                 </div>
                 <div style="clear: both; visibility:hidden;"></div>
@@ -29,7 +29,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             <span class="blogStyle">{{question.type | typeFilter}}</span>
-                            <span class="blogStyle">{{question.state | stateFilter}}</span>
+                            <span class="tagStyle">{{question.state | stateFilter}}</span>
                             <br>
                             <span style="width: 24px; height: 15px; display: inline-block"></span>
                             <span>{{question.title}}</span>
@@ -44,7 +44,7 @@
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
                             <a @click="modalOpen(langDetails['Modify'], question)" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</a>
-                            <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
+                            <button @click="deleteChoiceQuestion([question.id])" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
@@ -78,15 +78,14 @@
                                     <p>{{langDetails['RightKey']}}</p>
                                     <input id="answer" :value="question ? question.answer : ''" @keyup="verification('char', $event.currentTarget)" class="form-control input-sm" type="text">
                                 </div>
-                                <div class="col-md-3"></div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>{{langDetails['Subject']}}</p>
-                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
+                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;">
 
-                                </textarea>
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -216,8 +215,7 @@
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteIt'], doDeleteChoiceQuestion);
                 function doDeleteChoiceQuestion() {
-                    console.log(ids)
-                    axios. post('/deleteChoiceQuestion', [ids], {
+                    axios. post('/deleteChoiceQuestion', ids, {
                         headers:{
                             'content-Type': 'application/json;charset=UTF-8'
                         }

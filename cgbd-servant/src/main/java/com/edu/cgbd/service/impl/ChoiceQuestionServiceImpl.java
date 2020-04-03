@@ -27,12 +27,12 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     ChoiceQuestionOptionMapper choiceQuestionOptionMapper;
 
     @Override
-    public List<ChoiceQuestion> choiceQuestionByType(List<Byte> type, Short state) {
+    public List<ChoiceQuestion> choiceQuestionByType(List<Byte> type, Short state, Byte delete) {
         ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
         if(type != null) criteria.andTypeIn(type);
         if(state != null) criteria.andStateEqualTo(state);
-        criteria.andStateEqualTo(ConstDefine.STATE_ENABLE);
+        if(delete != null) criteria.andIsDeleteEqualTo(delete);
         List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
         for(ChoiceQuestion choiceQuestion : choiceQuestions){
             ChoiceQuestionOptionExample choiceQuestionOptionExample = new ChoiceQuestionOptionExample();
@@ -81,6 +81,32 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
             choiceQuestionOption.setId(FormatUtil.getUUID());
             choiceQuestionOption.setChoiceQuestionId(choiceQuestion.getId());
             choiceQuestionOptionMapper.insert(choiceQuestionOption);
+        }
+        return 0;
+    }
+
+    @Override
+    public int isDeleteChoiceQuestion(List<String> ids, Byte isDel) {
+        ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
+        ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
+        criteria.andIdIn(ids);
+        List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
+        for(ChoiceQuestion choiceQuestion : choiceQuestions) {
+            choiceQuestion.setIsDelete(isDel);
+            choiceQuestionMapper.updateByPrimaryKeySelective(choiceQuestion);
+        }
+        return 0;
+    }
+
+    @Override
+    public int publishChoiceQuestion(List<String> ids) {
+        ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
+        ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
+        criteria.andIdIn(ids);
+        List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
+        for(ChoiceQuestion choiceQuestion : choiceQuestions) {
+            choiceQuestion.setState((byte) 2);
+            choiceQuestionMapper.updateByPrimaryKeySelective(choiceQuestion);
         }
         return 0;
     }

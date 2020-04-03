@@ -2314,3 +2314,12 @@ a.list-group-item.active > .badge,
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
+
+.titleStyle {
+    padding-right: 5px;
+    padding-left: 5px;
+    border-left: 3px solid #eee;
+    border-radius: 2px !important;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1px;
+}

@@ -28,11 +28,6 @@ public class ChoiceQuestionController {
         return choiceQuestionService.insertChoiceQuestion(choiceQuestion);
     }
 
-    @PostMapping("/deleteChoiceQuestion")
-    public CgbdResult falseDeleteChoiceQuestion(@RequestBody List<String> ids) {
-        return choiceQuestionService.falseDeleteChoiceQuestion(ids);
-    }
-
     @DeleteMapping("/choiceQuestion")
     public CgbdResult deleteChoiceQuestion(@RequestParam(value = "ids") List<String> ids) {
         return choiceQuestionService.deleteChoiceQuestion(ids);
@@ -41,5 +36,20 @@ public class ChoiceQuestionController {
     @PostMapping("/choiceQuestion")
     public CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
         return choiceQuestionService.updateChoiceQuestion(choiceQuestion);
+    }
+
+    @PostMapping("/deleteChoiceQuestion")
+    public CgbdResult falseDeleteChoiceQuestion(@RequestBody List<String> ids) {
+        return choiceQuestionService.isDeleteChoiceQuestion(ids, (byte) 1);
+    }
+
+    @PostMapping("/publishChoiceQuestion")
+    public CgbdResult publishChoiceQuestion(@RequestBody List<String> ids) {
+        return choiceQuestionService.publishChoiceQuestion(ids);
+    }
+
+    @PostMapping("/reductionChoiceQuestion")
+    public CgbdResult reductionChoiceQuestion(@RequestBody List<String> ids) {
+        return choiceQuestionService.isDeleteChoiceQuestion(ids, (byte) 0);
     }
 }

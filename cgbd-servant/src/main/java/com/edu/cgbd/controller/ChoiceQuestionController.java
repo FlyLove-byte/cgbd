@@ -48,20 +48,30 @@ public class ChoiceQuestionController {
         }
     }
 
-    @PostMapping("/deleteChoiceQuestion")
-    CgbdResult falseDeleteChoiceQuestion(@RequestParam("type") List<String> ids) {
+    @PostMapping("/choiceQuestion")
+    CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
         try {
-            return CgbdResult.ok(choiceQuestionService.falseDeleteChoiceQuestion(ids));
+            return CgbdResult.ok(choiceQuestionService.updateChoiceQuestion(choiceQuestion));
         } catch (Exception e) {
             log.error("", e);
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);
         }
     }
 
-    @PostMapping("/choiceQuestion")
-    CgbdResult updateChoiceQuestion(@RequestBody ChoiceQuestion choiceQuestion) {
+    @PostMapping("/isDeleteChoiceQuestion")
+    CgbdResult isDeleteChoiceQuestion(@RequestParam("type") List<String> ids, @RequestParam("isDel") Byte isDel) {
         try {
-            return CgbdResult.ok(choiceQuestionService.updateChoiceQuestion(choiceQuestion));
+            return CgbdResult.ok(choiceQuestionService.isDeleteChoiceQuestion(ids, isDel));
+        } catch (Exception e) {
+            log.error("", e);
+            return CgbdResult.build(CgbdResultStatus.Unknown_Error);
+        }
+    }
+
+    @PostMapping("/publishChoiceQuestion")
+    CgbdResult publishChoiceQuestion(@RequestParam("type") List<String> ids) {
+        try {
+            return CgbdResult.ok(choiceQuestionService.publishChoiceQuestion(ids));
         } catch (Exception e) {
             log.error("", e);
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);

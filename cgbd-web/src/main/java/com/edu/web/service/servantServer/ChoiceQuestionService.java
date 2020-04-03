@@ -14,5 +14,7 @@ public interface ChoiceQuestionService {
 
     CgbdResult updateChoiceQuestion(ChoiceQuestion choiceQuestion);
 
-    CgbdResult falseDeleteChoiceQuestion(List<String> ids);
+    CgbdResult isDeleteChoiceQuestion(List<String> ids, Byte isDel);
+
+    CgbdResult publishChoiceQuestion(List<String> ids);
 }

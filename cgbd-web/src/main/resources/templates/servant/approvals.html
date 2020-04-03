@@ -20,11 +20,11 @@
 
             <div class="block-area" id="Panel">
 
-                <span class="tagStyle">{{langDetails['InAudit']}}</span>
                 <div class="btn-group pull-right">
-                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['AddTo']}}</a>
+                    <button type="button" class="btn btn-xs btn-alt input-focused m-b-5">{{langDetails['Release']}}</button>
                     <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
                 </div>
+                <span class="titleStyle">{{langDetails['InAudit']}}</span>
                 <div style="clear: both; visibility:hidden;"></div>
 
                 <div v-for="question in questions" class="panel panel-default tile">
@@ -44,8 +44,9 @@
                     <div class="panel-footer">
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
+                            <button @click="publishChoiceQuestion([question.id])" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Release']}}</button>
                             <a @click="modalOpen(langDetails['Modify'], question)" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</a>
-                            <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
+                            <button @click="deleteChoiceQuestion([question.id])" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
@@ -79,8 +80,8 @@
                                     <p>{{langDetails['RightKey']}}</p>
                                     <input id="answer" :value="question ? question.answer : ''" @keyup="verification('char', $event.currentTarget)" class="form-control input-sm" type="text">
                                 </div>
-                                <div class="col-md-3"></div>
 
+                                <div class="col-md-3"></div>
                                 <div class="col-md-3 text-right">
                                     <p class="m-r-20">{{langDetails['State']}}</p>
                                     <button id="state" @click="stateChange($event)" cgbdData="1" class="btn p-b-5 p-t-5">{{langDetails['Release']}}</button>
@@ -90,9 +91,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>{{langDetails['Subject']}}</p>
-                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="oZZverflow: hidden; overflow-wrap: break-word; resize: none; height: 80px;">
+                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;">
 
-                                </textarea>
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -163,23 +164,8 @@
                         delete: 0
                     }
                 }).then(function (response) {
-                    console.log(response);
                     self.questions = response["data"]["data"];
                     self.refreshOk();
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            },
-            insertChoiceQuestion(submitJson) {
-                let self = this;
-                axios. put('/choiceQuestion', JSON.stringify(submitJson), {
-                    headers: {
-                        'content-Type': 'application/json;charset=UTF-8'
-                    },
-                }).then(function (response) {
-                    $('#modalWider').modal('hide');
-                    self.mesBox(self.langDetails["AddSuccess"]);
-                    self.refreshChoiceQuestion();
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -217,16 +203,31 @@
                 })
                 submitJson["choiceQuestionOptions"] = choiceQuestionOptions;
 
-                if(this.question) this.updateChoiceQuestion(submitJson);
-                else this.insertChoiceQuestion(submitJson);
+                this.updateChoiceQuestion(submitJson);
+            },
+            publishChoiceQuestion (ids){
+                let self = this;
+                this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToPublish'], doPublishChoiceQuestion);
+                function doPublishChoiceQuestion() {
+                    axios. post('/publishChoiceQuestion', ids, {
+                        headers: {
+                            'content-Type': 'application/json;charset=UTF-8'
+                        },
+                    }).then(function (response) {
+                        self.mesBox(self.langDetails["ReleasedSuccessfully"]);
+                        self.refreshChoiceQuestion();
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
             },
             deleteChoiceQuestion(ids) {
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteIt'], doDeleteChoiceQuestion);
                 function doDeleteChoiceQuestion() {
-                    axios. delete('/choiceQuestion', {
-                        params: {
-                            ids: ids
+                    axios. post('/deleteChoiceQuestion', ids, {
+                        headers:{
+                            'content-Type': 'application/json;charset=UTF-8'
                         }
                     }).then(function (response) {
                         self.refreshChoiceQuestion();
@@ -293,12 +294,12 @@
             stateChange(e) {
                 let thisItem = e.currentTarget;
                 const langFilter = this.$options.filters['langFilter'];
-                if($(thisItem).attr("cgbdData") == 1) {
+                if($(thisItem).attr("cgbdData") == 2) {
                     $(thisItem).attr("cgbdData", 0);
-                    $(thisItem).text(this.langDetails["Prohibit"]);
+                    $(thisItem).text(this.langDetails["Delete"]);
                 }
                 else {
-                    $(thisItem).attr("cgbdData", 1);
+                    $(thisItem).attr("cgbdData", 2);
                     $(thisItem).text(this.langDetails["Release"]);
                 }
             },

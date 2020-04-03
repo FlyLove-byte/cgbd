@@ -37,7 +37,12 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     }
 
     @Override
-    public CgbdResult falseDeleteChoiceQuestion(List<String> ids) {
-        return servantServiceClient.falseDeleteChoiceQuestion(ids);
+    public CgbdResult isDeleteChoiceQuestion(List<String> ids, Byte idDel) {
+        return servantServiceClient.isDeleteChoiceQuestion(ids, idDel);
+    }
+
+    @Override
+    public CgbdResult publishChoiceQuestion(List<String> ids) {
+        return servantServiceClient.publishChoiceQuestion(ids);
     }
 }
