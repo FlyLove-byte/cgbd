@@ -58,7 +58,7 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .disableCachingNullValues();     // 不缓存空值
 
         // 设置一个初始化的缓存空间set集合
-        Set<String> cacheNames =  new HashSet<>();
+        Set<String> cacheNames = new HashSet<>();
         cacheNames.add("languages");
         cacheNames.add("menu");
         cacheNames.add("globalParameter");

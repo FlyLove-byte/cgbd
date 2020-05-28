@@ -1,22 +1,22 @@
 //region vue全局filter
-Vue.filter('langFilter', function(value) {
+Vue.filter('langFilter', function (value) {
     let methods = myMixin.methods;
     let langDetail;
     try {
         langDetail = langDetails[value][methods.getLang()];
-    }catch (e) {
+    } catch (e) {
         console.error(value);
         console.error(e);
     }
     return langDetail;
 })
 
-Vue.filter('langSetFilter', function(value) {
+Vue.filter('langSetFilter', function (value) {
     let langDetail;
     try {
         //语言包和键要一样
         langDetail = langDetails[value][value];
-    }catch (e) {
+    } catch (e) {
         console.error(value);
         console.error(e);
     }
@@ -25,7 +25,7 @@ Vue.filter('langSetFilter', function(value) {
 //endregion
 //region vue全局混入
 const myMixin = {
-    data () {
+    data() {
         let langFilter = this.$options.filters['langFilter'];
         let methods = this.$options.methods;
         return {
@@ -43,7 +43,7 @@ const myMixin = {
         this.formatPage();
     },
     methods: {
-        formatPage: function() {
+        formatPage: function () {
             this.langDetailsFormat();
             this.languagesFormat();
             this.languageFormat();
@@ -53,59 +53,59 @@ const myMixin = {
             this.setFormat();
             this.doExitFormat();
         },
-        langDetailsFormat: function() {
+        langDetailsFormat: function () {
             let langFilter = this.$options.filters['langFilter'];
             let languageFormat = {};
-            for(let langDetail in langDetails){
+            for (let langDetail in langDetails) {
                 languageFormat[langDetail] = langFilter(langDetail);
             }
             this.langDetails = languageFormat;
         },
-        languagesFormat:function() {
+        languagesFormat: function () {
             this.languages = languages;
         },
-        languageFormat:function() {
+        languageFormat: function () {
             this.language = this.getLang();
         },
-        menuGroupsFormat:function() {
+        menuGroupsFormat: function () {
             this.menuGroups = menuGroups;
         },
-        userInfoFormat: function() {
+        userInfoFormat: function () {
             this.userInfo = {
                 title: this.langDetails["UserInformation"],
                 url: "/redirect/civilServant"
             }
         },
-        infoFormat: function() {
+        infoFormat: function () {
             this.info = {
                 title: this.langDetails["News"],
                 url: "/redirect/civilServant"
             }
         },
-        setFormat: function() {
+        setFormat: function () {
             this.set = {
                 title: this.langDetails["set"],
                 url: "/redirect/civilServant"
             }
         },
-        doExitFormat: function() {
+        doExitFormat: function () {
             this.doExit = {
                 title: this.langDetails["SignOut"],
                 url: "/redirect/civilServant"
             }
         },
 
-        mesBox: function(mes, level) {
+        mesBox: function (mes, level) {
             let levelColor = 'alert-success';
-            if(level == 1) levelColor = 'alert-danger';
-            else if(level == 2) levelColor = 'alert-warning';
-            let mesBox = '<div style="z-index: 1050" class="mesStyle alert '+ levelColor +'">'+ mes +'</div>';
+            if (level == 1) levelColor = 'alert-danger';
+            else if (level == 2) levelColor = 'alert-warning';
+            let mesBox = '<div style="z-index: 1050" class="mesStyle alert ' + levelColor + '">' + mes + '</div>';
             $('body').append(mesBox);
             setTimeout(function () {
                 $('body>.mesStyle').remove();
-            },2500)
+            }, 2500)
         },
-        confirmModalOpen: function(tips, title, fun) {
+        confirmModalOpen: function (tips, title, fun) {
             $("#confirmModal .modal-title").text(tips);
             $("#confirmModal .modal-body>p").text(title);
             $("#confirmModal .confirmOk").click(function () {
@@ -113,20 +113,20 @@ const myMixin = {
             })
             $("#confirmModal").modal('show');
         },
-        refreshIcon: function() {
+        refreshIcon: function () {
             let refreshIcon = '<div class="fa fa-refresh fa-spin refreshIcon"></div>';
             $('body').append(refreshIcon);
         },
-        refreshOk: function() {
+        refreshOk: function () {
             $('body .refreshIcon').remove();
         },
-        getLang: function() {
+        getLang: function () {
             return localStorage.getItem("LANG_TYPE") ? localStorage.getItem("LANG_TYPE") : "zhCn";
         },
         setLang: function (key) {
             localStorage.setItem("LANG_TYPE", key);
             this.formatPage();
-            if(this.hasOwnProperty("indexFormat")) this.indexFormat();
+            if (this.hasOwnProperty("indexFormat")) this.indexFormat();
         },
     }
 }

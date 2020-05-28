@@ -8,5 +8,5 @@ import java.util.Map;
 @Data
 public class LanguageInfo {
     List<String> languages;
-    Map<Object, Map<Object,Object>> langDetails;
+    Map<Object, Map<Object, Object>> langDetails;
 }

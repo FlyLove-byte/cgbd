@@ -33,35 +33,36 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
 
     /*
-    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    * 贼坑！！！不能用@Autowired和@Resource注入拦截器
-    * idea运行不会报错，jar运行会依赖循环。得用@Bean。
-    * 直接new Interceptor() Interceptor读不到spring
-    * （没交给spring 管理）。
-    * 2019.8.6 11:18解决。耗时两天半
-    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    * */
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * 贼坑！！！不能用@Autowired和@Resource注入拦截器
+     * idea运行不会报错，jar运行会依赖循环。得用@Bean。
+     * 直接new Interceptor() Interceptor读不到spring
+     * （没交给spring 管理）。
+     * 2019.8.6 11:18解决。耗时两天半
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * */
     /*@Autowired
     Interceptor interceptor;*/
 
     @Bean
-    public Interceptor myInterceptor(){
+    public Interceptor myInterceptor() {
         return new Interceptor();
     }
 
     /**
-     *  配置视图解析器
-     *  此处将空路由转到 backStageLogin.html 页面
-     * **/
+     * 配置视图解析器
+     * 此处将空路由转到 backStageLogin.html 页面
+     **/
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
-    };
+    }
+
+    ;
 
     /**
-     *
      * 功能描述:
-     *  配置静态资源,避免静态资源请求被拦截
-     *  spring 1.0静态资源不会被拦截，2.0会被拦截
+     * 配置静态资源,避免静态资源请求被拦截
+     * spring 1.0静态资源不会被拦截，2.0会被拦截
      */
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")

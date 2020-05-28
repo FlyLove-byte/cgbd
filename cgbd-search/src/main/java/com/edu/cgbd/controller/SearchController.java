@@ -41,7 +41,6 @@ public class SearchController {
     }
 
 
-
     @PostMapping("/creatIndex")
     String listAllLanguage() {
         try {

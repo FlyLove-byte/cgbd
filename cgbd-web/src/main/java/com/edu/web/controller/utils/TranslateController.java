@@ -19,26 +19,26 @@ public class TranslateController {
 
     @GetMapping("/translate")
     @ResponseBody
-    public Translate translate(String translateValue, String from){
-        return translateService.getTranslateValue(translateValue,from);
+    public Translate translate(String translateValue, String from) {
+        return translateService.getTranslateValue(translateValue, from);
     }
 
     /*使用前端构建json并下载，此接口并没有使用*/
     @PostMapping("/init")
     @ResponseBody
-    public boolean exportLang(@RequestBody TranslateInfo translateInfo){
+    public boolean exportLang(@RequestBody TranslateInfo translateInfo) {
         return translateService.exportInit(translateInfo);
     }
 
     @PostMapping("/sql")
     @ResponseBody
-    public boolean sql(@RequestBody TranslateInfo translateInfo){
+    public boolean sql(@RequestBody TranslateInfo translateInfo) {
         return translateService.exportSql(translateInfo);
     }
 
     @PostMapping("/html")
     @ResponseBody
-    public boolean html(@RequestBody TranslateInfo translateInfo, HttpServletRequest request){
+    public boolean html(@RequestBody TranslateInfo translateInfo, HttpServletRequest request) {
         return translateService.exportHtml(translateInfo);
     }
 }

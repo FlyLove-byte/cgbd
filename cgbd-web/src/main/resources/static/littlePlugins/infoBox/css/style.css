@@ -1,202 +1,220 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+
 :root {
-  --color-primary: #43a047;
-  --color-primary-darken: #388e3c;
-  --color-secondary: #F6D8D1;
-  --color-white: white;
-  --color-accent: #FCF5F3;
-  --spacer: 1.25rem;
-  --d: 2000ms;
-  --d2: 600ms;
-  --e: cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  --e2: cubic-bezier(0.23, 1, 0.32, 1);
+    --color-primary: #43a047;
+    --color-primary-darken: #388e3c;
+    --color-secondary: #F6D8D1;
+    --color-white: white;
+    --color-accent: #FCF5F3;
+    --spacer: 1.25rem;
+    --d: 2000ms;
+    --d2: 600ms;
+    --e: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    --e2: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
-  overflow: hidden;
-  padding: 0 var(--spacer);
-  perspective: 1200px;
-  position: relative;
-  transform: translateY(30%);
-  transition: transform var(--d2) var(--e2);
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    overflow: hidden;
+    padding: 0 var(--spacer);
+    perspective: 1200px;
+    position: relative;
+    transform: translateY(30%);
+    transition: transform var(--d2) var(--e2);
 }
+
 .card.is-active {
-  animation: throw var(--d2) var(--e2) forwards;
+    animation: throw var(--d2) var(--e2) forwards;
 }
+
 .card.is-closing {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .card__illustration {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  background-color: var(--color-accent);
-  z-index: 2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--color-accent);
+    z-index: 2;
 }
+
 .card__illustration svg {
-  width: 100%;
-  max-width: 150px;
-  transform: translate(calc(var(--x) / 100 * 1px), calc(var(--y) / 100 * 1px));
+    width: 100%;
+    max-width: 150px;
+    transform: translate(calc(var(--x) / 100 * 1px), calc(var(--y) / 100 * 1px));
 }
+
 .card__illustration .face-group {
-  transform: translate(calc(var(--x) / 120 * 1px), calc(var(--y) / 120 * 1px));
+    transform: translate(calc(var(--x) / 120 * 1px), calc(var(--y) / 120 * 1px));
 }
+
 .is-active .card__illustration, .is-closing .card__illustration {
-  pointer-events: none;
+    pointer-events: none;
 }
+
 .is-active .card__illustration svg,
 .is-active .card__illustration .face-group, .is-closing .card__illustration svg,
 .is-closing .card__illustration .face-group {
-  transform: translate(0, 0);
+    transform: translate(0, 0);
 }
 
 .card__content {
-  position: relative;
-  transform: scaleY(0);
-  transform-origin: 0 0;
-  z-index: 1;
+    position: relative;
+    transform: scaleY(0);
+    transform-origin: 0 0;
+    z-index: 1;
 }
+
 .is-closing .card__content {
-  animation: slide-up var(--d2) var(--e2) forwards;
-  transform: scaleY(1);
+    animation: slide-up var(--d2) var(--e2) forwards;
+    transform: scaleY(1);
 }
+
 .is-active .card__content {
-  animation: swing var(--d) calc(var(--d2) / 2) var(--e) forwards;
+    animation: swing var(--d) calc(var(--d2) / 2) var(--e) forwards;
 }
 
 .card__info {
-  background-color: var(--color-white);
-  padding: var(--spacer);
+    background-color: var(--color-white);
+    padding: var(--spacer);
 }
+
 .card__info > * + * {
-  margin-top: var(--spacer);
+    margin-top: var(--spacer);
 }
 
 .card__name {
-  font-size: 1.75rem;
-  font-weight: bold;
+    font-size: 1.75rem;
+    font-weight: bold;
 }
 
 .card__title {
-  display: inline-block;
-  background-color: var(--color-primary);
-  border-radius: 360px;
-  color: var(--color-white);
-  font-size: 0.75rem;
-  letter-spacing: 0.025rem;
-  padding: 0.5rem 1rem;
+    display: inline-block;
+    background-color: var(--color-primary);
+    border-radius: 360px;
+    color: var(--color-white);
+    font-size: 0.75rem;
+    letter-spacing: 0.025rem;
+    padding: 0.5rem 1rem;
 }
 
 .card__desc {
-  font-size: 1rem;
-  line-height: 1.4;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .card__actions {
-  display: flex;
-  width: 100%;
+    display: flex;
+    width: 100%;
 }
 
 .btn {
-  background-color: var(--color-primary);
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.75rem;
-  letter-spacing: 0.05rem;
-  margin: 0;
-  outline: none;
-  padding: var(--spacer);
-  position: relative;
-  text-transform: uppercase;
-  transition: background-color var(--d2) var(--e2);
-  transform-origin: 0 0;
+    background-color: var(--color-primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.05rem;
+    margin: 0;
+    outline: none;
+    padding: var(--spacer);
+    position: relative;
+    text-transform: uppercase;
+    transition: background-color var(--d2) var(--e2);
+    transform-origin: 0 0;
 }
 
 .btn--action {
-  flex: 1;
+    flex: 1;
 }
+
 .btn--action:nth-child(2) {
-  background-color: var(--color-primary-darken);
+    background-color: var(--color-primary-darken);
 }
+
 .is-active .btn--action {
-  transform: scaleX(0);
+    transform: scaleX(0);
 }
+
 .is-active .btn--action:nth-child(1) {
-  animation: swing calc(var(--d) * 1.25) calc(var(--d) / 4) var(--e) forwards;
+    animation: swing calc(var(--d) * 1.25) calc(var(--d) / 4) var(--e) forwards;
 }
+
 .is-active .btn--action:nth-child(2) {
-  animation: swing calc(var(--d) * 1.5) calc(var(--d) / 3) var(--e) forwards;
+    animation: swing calc(var(--d) * 1.5) calc(var(--d) / 3) var(--e) forwards;
 }
 
 .btn--close {
-  align-items: center;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  opacity: 0;
-  position: absolute;
-  padding: calc(var(--spacer) / 2);
-  right: var(--spacer);
-  top: 0.25rem;
-  transition: opacity var(--d2) var(--d) var(--e2);
-  visibility: hidden;
-  z-index: 2;
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    position: absolute;
+    padding: calc(var(--spacer) / 2);
+    right: var(--spacer);
+    top: 0.25rem;
+    transition: opacity var(--d2) var(--d) var(--e2);
+    visibility: hidden;
+    z-index: 2;
 }
+
 .is-active .btn--close {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
+
 .btn--close > svg {
-  width: 1.5rem;
-  height: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 @keyframes throw {
-  40% {
-    transform: translateY(-10%) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(30%) rotate(10deg);
-  }
-  100% {
-    transform: translateY(0);
-  }
+    40% {
+        transform: translateY(-10%) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(30%) rotate(10deg);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
+
 @keyframes swing {
-  0% {
-    transform: rotateX(90deg);
-  }
-  15% {
-    transform: rotateX(-70deg);
-  }
-  30% {
-    transform: rotateX(50deg);
-  }
-  45% {
-    transform: rotateX(-30deg);
-  }
-  60% {
-    transform: rotateX(15deg);
-  }
-  75% {
-    transform: rotateX(-10deg);
-  }
-  90% {
-    transform: rotateX(5deg);
-  }
-  100% {
-    transform: rotateX(0);
-  }
+    0% {
+        transform: rotateX(90deg);
+    }
+    15% {
+        transform: rotateX(-70deg);
+    }
+    30% {
+        transform: rotateX(50deg);
+    }
+    45% {
+        transform: rotateX(-30deg);
+    }
+    60% {
+        transform: rotateX(15deg);
+    }
+    75% {
+        transform: rotateX(-10deg);
+    }
+    90% {
+        transform: rotateX(5deg);
+    }
+    100% {
+        transform: rotateX(0);
+    }
 }
+
 @keyframes slide-up {
-  to {
-    transform: translateY(-100%);
-  }
+    to {
+        transform: translateY(-100%);
+    }
 }

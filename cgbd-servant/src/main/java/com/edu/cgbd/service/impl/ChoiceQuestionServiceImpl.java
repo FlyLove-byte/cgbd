@@ -30,11 +30,11 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
     public List<ChoiceQuestion> choiceQuestionByType(List<Byte> type, Short state, Byte delete) {
         ChoiceQuestionExample choiceQuestionExample = new ChoiceQuestionExample();
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
-        if(type != null) criteria.andTypeIn(type);
-        if(state != null) criteria.andStateEqualTo(state);
-        if(delete != null) criteria.andIsDeleteEqualTo(delete);
+        if (type != null) criteria.andTypeIn(type);
+        if (state != null) criteria.andStateEqualTo(state);
+        if (delete != null) criteria.andIsDeleteEqualTo(delete);
         List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
-        for(ChoiceQuestion choiceQuestion : choiceQuestions){
+        for (ChoiceQuestion choiceQuestion : choiceQuestions) {
             ChoiceQuestionOptionExample choiceQuestionOptionExample = new ChoiceQuestionOptionExample();
             choiceQuestionOptionExample.setOrderByClause("title ASC");
             ChoiceQuestionOptionExample.Criteria optionExampleCriteria = choiceQuestionOptionExample.createCriteria();
@@ -51,7 +51,7 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
         choiceQuestion.setId(choiceQuestionId);
         choiceQuestionMapper.insertSelective(choiceQuestion);
         List<ChoiceQuestionOption> choiceQuestionOptions = choiceQuestion.getChoiceQuestionOptions();
-        for(ChoiceQuestionOption choiceQuestionOption : choiceQuestionOptions) {
+        for (ChoiceQuestionOption choiceQuestionOption : choiceQuestionOptions) {
             choiceQuestionOption.setId(FormatUtil.getUUID());
             choiceQuestionOption.setChoiceQuestionId(choiceQuestionId);
             choiceQuestionOptionMapper.insert(choiceQuestionOption);
@@ -77,7 +77,7 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
         criteria.andChoiceQuestionIdEqualTo(choiceQuestion.getId());
         choiceQuestionOptionMapper.deleteByExample(choiceQuestionOptionExample);
 
-        for(ChoiceQuestionOption choiceQuestionOption : choiceQuestion.getChoiceQuestionOptions()) {
+        for (ChoiceQuestionOption choiceQuestionOption : choiceQuestion.getChoiceQuestionOptions()) {
             choiceQuestionOption.setId(FormatUtil.getUUID());
             choiceQuestionOption.setChoiceQuestionId(choiceQuestion.getId());
             choiceQuestionOptionMapper.insert(choiceQuestionOption);
@@ -91,7 +91,7 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
         criteria.andIdIn(ids);
         List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
-        for(ChoiceQuestion choiceQuestion : choiceQuestions) {
+        for (ChoiceQuestion choiceQuestion : choiceQuestions) {
             choiceQuestion.setIsDelete(isDel);
             choiceQuestionMapper.updateByPrimaryKeySelective(choiceQuestion);
         }
@@ -104,7 +104,7 @@ public class ChoiceQuestionServiceImpl implements ChoiceQuestionService {
         ChoiceQuestionExample.Criteria criteria = choiceQuestionExample.createCriteria();
         criteria.andIdIn(ids);
         List<ChoiceQuestion> choiceQuestions = choiceQuestionMapper.selectByExample(choiceQuestionExample);
-        for(ChoiceQuestion choiceQuestion : choiceQuestions) {
+        for (ChoiceQuestion choiceQuestion : choiceQuestions) {
             choiceQuestion.setState((byte) 2);
             choiceQuestionMapper.updateByPrimaryKeySelective(choiceQuestion);
         }

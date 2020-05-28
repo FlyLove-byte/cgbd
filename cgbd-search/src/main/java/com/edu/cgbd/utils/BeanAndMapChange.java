@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-public class BeanAndMapChange{
+public class BeanAndMapChange {
     /*public static Map<String, Object> objectToMap(Object obj) {
         if (obj == null) {
             return null;
@@ -40,7 +40,7 @@ public class BeanAndMapChange{
      * @return 转换结果
      */
     public static <T> Map<String, Object> bean2Map(T source) {
-        try{
+        try {
             Map<String, Object> result = new HashMap<>();
 
             Class<?> sourceClass = source.getClass();
@@ -58,7 +58,7 @@ public class BeanAndMapChange{
                 }
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("bean2MapException");
             return null;
         }
@@ -66,6 +66,7 @@ public class BeanAndMapChange{
 
     /**
      * map转bean
+     *
      * @param source   map属性
      * @param instance 要转换成的备案
      * @return 该bean
@@ -77,10 +78,10 @@ public class BeanAndMapChange{
             for (Field field : fields) {
                 field.setAccessible(true);
                 FieldName fieldName = field.getAnnotation(FieldName.class);
-                if (fieldName != null){
-                    field.set(object,source.get(fieldName.value()));
-                }else {
-                    field.set(object,source.get(field.getName()));
+                if (fieldName != null) {
+                    field.set(object, source.get(fieldName.value()));
+                } else {
+                    field.set(object, source.get(field.getName()));
                 }
             }
             return object;

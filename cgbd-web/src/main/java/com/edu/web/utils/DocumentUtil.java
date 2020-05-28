@@ -1,4 +1,5 @@
 package com.edu.web.utils;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,7 +37,7 @@ public class DocumentUtil {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             element = doc.getElementById(entry.getKey());
             if (element != null) {
-                element.html(entry.getValue()==null?"":entry.getValue());
+                element.html(entry.getValue() == null ? "" : entry.getValue());
             }
         }
         // 把超文本语音html转换为可扩展超文本语句xhtml
@@ -49,11 +50,13 @@ public class DocumentUtil {
         File file = new File(fileUrl);
         write(file, "UTF-8", doc);
     }
+
     /*传入到哪个文件路径 传入生成的document*/
-    public static void write(String fileUrl,String charsetName, Document doc) throws IOException {
+    public static void write(String fileUrl, String charsetName, Document doc) throws IOException {
         File file = new File(fileUrl);
         write(file, charsetName, doc);
     }
+
     /*传入到哪个文件 传入生成的document*/
     public static void write(File file, Document doc) throws IOException {
         write(file, "UTF-8", doc);

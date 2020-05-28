@@ -37,27 +37,27 @@ public class IndexController {
     }
 
     @GetMapping("/translate")
-    public String translate(){
+    public String translate() {
         return "utils/translate";
     }
 
     @GetMapping("/civilServant")
-    public String civilServant(){
+    public String civilServant() {
         return "servant/civilServantBank";
     }
 
     @GetMapping("/errorSet")
-    public String errorSet(){
+    public String errorSet() {
         return "servant/errorSet";
     }
 
     @GetMapping("/approval")
-    public String approval(){
+    public String approval() {
         return "servant/approvals";
     }
 
     @GetMapping("/recycleBin")
-    public String recycleBin(){
+    public String recycleBin() {
         return "servant/recycleBin";
     }
 }

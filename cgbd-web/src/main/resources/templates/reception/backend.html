@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="layout/head :: receptionHead"></head>
+<head th:replace="layout/head :: receptionHead"></head>
 
-	<body class="home blog custom-background round-avatars">
-		<span th:replace="layout/receptionToolBar :: receptionToolBar"></span>
-		<div id="main" class="content">
-			<div class="container">
-				<article itemscope="itemscope">
-					<div class="posts-list js-posts">
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="status_list_item icon_kyubo">
-								<div class="status_user" style="background-image: url(/reception/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
-									<div class="status_section">
-										<a href="/redirect/index" class="status_btn">交代是不可能交代的 -（开发中）</a>
-										<p class="section_p">古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。——苏轼
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- post-formats end Infinite Scroll star -->
-					<!-- post-formats -->
-					<div class="pagination js-pagination">
-						<div class="js-next pagination__load">
-							<a href=""><i class="iconfont">&#xe605;</i></a>
-						</div>
-					</div>
-					<!-- -pagination  -->
-				</article>
-			</div>
-		</div>
+<body class="home blog custom-background round-avatars">
+<span th:replace="layout/receptionToolBar :: receptionToolBar"></span>
+<div id="main" class="content">
+    <div class="container">
+        <article itemscope="itemscope">
+            <div class="posts-list js-posts">
+                <div class="post post-layout-list" data-aos="fade-up">
+                    <div class="status_list_item icon_kyubo">
+                        <div class="status_user"
+                             style="background-image: url(/reception/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
+                            <div class="status_section">
+                                <a href="/redirect/index" class="status_btn">交代是不可能交代的 -（开发中）</a>
+                                <p class="section_p">古之立大事者，不惟有超世之才，亦必有坚忍不拔之志。——苏轼
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- post-formats end Infinite Scroll star -->
+            <!-- post-formats -->
+            <div class="pagination js-pagination">
+                <div class="js-next pagination__load">
+                    <a href=""><i class="iconfont">&#xe605;</i></a>
+                </div>
+            </div>
+            <!-- -pagination  -->
+        </article>
+    </div>
+</div>
 
-		<span th:replace="layout/footer :: footer"></span>
-		<span th:replace="layout/onLoadJs :: onLoadJsReception"></span>
-	</body>
+<span th:replace="layout/footer :: footer"></span>
+<span th:replace="layout/onLoadJs :: onLoadJsReception"></span>
+</body>
 
 </html>

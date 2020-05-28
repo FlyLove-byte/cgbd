@@ -30,7 +30,8 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.edu.cgbd.domain.servant" targetProject="/Users/fly/Workspace/cgbd/cgbd-common/src/main/java/">
+        <javaModelGenerator targetPackage="com.edu.cgbd.domain.servant"
+                            targetProject="/Users/fly/Workspace/cgbd/cgbd-common/src/main/java/">
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 

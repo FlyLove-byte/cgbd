@@ -12,6 +12,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Autowired
     SearchServiceClient searchServiceClient;
+
     @Override
     public CgbdResult contentCommit(MarkdownData markdownData) {
         return searchServiceClient.contentCommit(markdownData);

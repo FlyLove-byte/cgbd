@@ -10,7 +10,9 @@
 
             </div>
             <div class="media text-center whiter l-100">
-                <a href="#"><small>{{langDetails['DropDownToShowMore']}}</small></a>
+                <a href="#">
+                    <small>{{langDetails['DropDownToShowMore']}}</small>
+                </a>
             </div>
         </div>
     </div>
@@ -26,7 +28,9 @@
 
             </div>
             <div class="media text-center whiter l-100">
-                <a href="#"><small>{{langDetails['DropDownToShowMore']}}</small></a>
+                <a href="#">
+                    <small>{{langDetails['DropDownToShowMore']}}</small>
+                </a>
             </div>
         </div>
     </div>
@@ -43,10 +47,13 @@
                     <p>{{langDetails['language']}}</p>
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                            {{langDetails[language]}} <span class="caret"></span>
+                            {{langDetails[language]}}
+                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li v-for="language in languages" @click="setLang(language)"><a href="#">{{language | langSetFilter}}</a></li>
+                            <li v-for="language in languages" @click="setLang(language)">
+                                <a href="#">{{language | langSetFilter}}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -56,7 +63,9 @@
 
     <!-- Breadcrumb -->
     <ol class="breadcrumb hidden-xs">
-        <li><a href="#">{{langDetails['TemporarilyUseless']}}</a></li>
+        <li>
+            <a href="#">{{langDetails['TemporarilyUseless']}}</a>
+        </li>
         <li class="active">{{langDetails['TemporarilyUseless']}}</li>
     </ol>
 
@@ -73,7 +82,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}</button>
-                    <button type="button" class="btn btn-sm confirmOk" data-dismiss="modal">{{langDetails['Determine']}}</button>
+                    <button type="button" class="btn btn-sm confirmOk" data-dismiss="modal">
+                        {{langDetails['Determine']}}
+                    </button>
                 </div>
             </div>
         </div>

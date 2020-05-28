@@ -105,6 +105,7 @@ public interface RedisService {
      * @param value
      */
     public void add(String key, Object value);
+
     /**
      * 集合获取
      *
@@ -112,6 +113,7 @@ public interface RedisService {
      * @return
      */
     public Set<Object> setMembers(String key);
+
     /**
      * 有序集合添加
      *
@@ -120,6 +122,7 @@ public interface RedisService {
      * @param scoure
      */
     public void zAdd(String key, Object value, double scoure);
+
     /**
      * 有序集合获取
      *

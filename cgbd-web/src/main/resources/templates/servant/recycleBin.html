@@ -21,8 +21,12 @@
             <div class="block-area" id="Panel">
 
                 <div class="btn-group pull-right">
-                    <button @click="emptyTrash()" type="button" class="btn btn-xs btn-alt input-focused m-b-5">{{langDetails['EmptyTrash']}}</button>
-                    <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
+                    <button @click="emptyTrash()" type="button" class="btn btn-xs btn-alt input-focused m-b-5">
+                        {{langDetails['EmptyTrash']}}
+                    </button>
+                    <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">
+                        {{langDetails['Refresh']}}
+                    </button>
                 </div>
 
                 <span class="titleStyle">{{langDetails['RecycleBin']}}</span>
@@ -46,14 +50,18 @@
                     <div class="panel-footer">
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
-                            <a @click="reductionChoiceQuestion([question.id])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Reduction']}}</a>
-                            <button @click="deleteChoiceQuestion(question.id)" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
+                            <a @click="reductionChoiceQuestion([question.id])" data-toggle="modal" href="#modalWider"
+                               type="button"
+                               class="btn btn-xs btn-alt badge input-focused">{{langDetails['Reduction']}}</a>
+                            <button @click="deleteChoiceQuestion(question.id)" type="button"
+                                    class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}
+                            </button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
                 </div>
             </div>
-            <hr class="whiter" />
+            <hr class="whiter"/>
         </section>
     </section>
 </div>
@@ -63,7 +71,7 @@
     const vm = new Vue({
         el: '#app',
         mixins: [myMixin],
-        data () {
+        data() {
             return {
                 questions: null,
                 question: null,
@@ -80,7 +88,7 @@
         methods: {
             choiceQuestionByType(type) {
                 let self = this;
-                axios. get('/choiceQuestionByType', {
+                axios.get('/choiceQuestionByType', {
                     params: {
                         type: type,
                         delete: 1
@@ -95,8 +103,9 @@
             deleteChoiceQuestion(ids) {
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteItCompletely'], doDeleteChoiceQuestion);
+
                 function doDeleteChoiceQuestion() {
-                    axios. delete('/choiceQuestion', {
+                    axios.delete('/choiceQuestion', {
                         params: {
                             ids: ids
                         }
@@ -115,9 +124,10 @@
             reductionChoiceQuestion(ids) {
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToRestore'], doReductionChoiceQuestion);
+
                 function doReductionChoiceQuestion() {
-                    axios. post('/reductionChoiceQuestion', ids, {
-                        headers:{
+                    axios.post('/reductionChoiceQuestion', ids, {
+                        headers: {
                             'content-Type': 'application/json;charset=UTF-8'
                         }
                     }).then(function (response) {
@@ -133,11 +143,14 @@
             typeFilter: function (value) {
                 let re = '';
                 switch (value) {
-                    case 0 : re = vm.langDetails['SingleChoiceQuestion'];
+                    case 0 :
+                        re = vm.langDetails['SingleChoiceQuestion'];
                         break;
-                    case 1 : re = vm.langDetails['MultipleChoiceQuestions'];
+                    case 1 :
+                        re = vm.langDetails['MultipleChoiceQuestions'];
                         break;
-                    case 2 : re = vm.langDetails['AnswerQuestions'];
+                    case 2 :
+                        re = vm.langDetails['AnswerQuestions'];
                         break;
                 }
                 return re;
@@ -145,11 +158,14 @@
             stateFilter: function (value) {
                 let re = '';
                 switch (value) {
-                    case 0 : re = vm.langDetails['Prohibit'];
+                    case 0 :
+                        re = vm.langDetails['Prohibit'];
                         break;
-                    case 1 : re = vm.langDetails['InAudit'];
+                    case 1 :
+                        re = vm.langDetails['InAudit'];
                         break;
-                    case 2 : re = vm.langDetails['Release'];
+                    case 2 :
+                        re = vm.langDetails['Release'];
                         break;
                 }
                 return re;

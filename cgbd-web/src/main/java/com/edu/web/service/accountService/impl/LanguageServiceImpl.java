@@ -16,9 +16,9 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public CgbdResult langDetails() {
-        try{
+        try {
             return accountServiceClient.langDetails();
-        }catch (Exception e){
+        } catch (Exception e) {
             return CgbdResult.build(CgbdResultStatus.Unknown_Error);
         }
     }

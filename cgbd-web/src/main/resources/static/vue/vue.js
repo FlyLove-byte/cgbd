@@ -7,14 +7,15 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
             (global.Vue = factory());
-}(this, (function () { 'use strict';
+}(this, (function () {
+    'use strict';
 
     /*  */
 
     /**
      * Convert a value to a string that is actually rendered.
      */
-    function _toString (val) {
+    function _toString(val) {
         return val == null
             ? ''
             : typeof val === 'object'
@@ -26,7 +27,7 @@
      * Convert a input value to a number for persistence.
      * If the conversion fails, return original string.
      */
-    function toNumber (val) {
+    function toNumber(val) {
         var n = parseFloat(val);
         return isNaN(n) ? val : n
     }
@@ -35,7 +36,7 @@
      * Make a map and return a function for checking if a key
      * is in that map.
      */
-    function makeMap (
+    function makeMap(
         str,
         expectsLowerCase
     ) {
@@ -45,8 +46,12 @@
             map[list[i]] = true;
         }
         return expectsLowerCase
-            ? function (val) { return map[val.toLowerCase()]; }
-            : function (val) { return map[val]; }
+            ? function (val) {
+                return map[val.toLowerCase()];
+            }
+            : function (val) {
+                return map[val];
+            }
     }
 
     /**
@@ -57,7 +62,7 @@
     /**
      * Remove an item from an array
      */
-    function remove (arr, item) {
+    function remove(arr, item) {
         if (arr.length) {
             var index = arr.indexOf(item);
             if (index > -1) {
@@ -70,23 +75,24 @@
      * Check whether the object has the property.
      */
     var hasOwnProperty = Object.prototype.hasOwnProperty;
-    function hasOwn (obj, key) {
+
+    function hasOwn(obj, key) {
         return hasOwnProperty.call(obj, key)
     }
 
     /**
      * Check if value is primitive
      */
-    function isPrimitive (value) {
+    function isPrimitive(value) {
         return typeof value === 'string' || typeof value === 'number'
     }
 
     /**
      * Create a cached version of a pure function.
      */
-    function cached (fn) {
+    function cached(fn) {
         var cache = Object.create(null);
-        return (function cachedFn (str) {
+        return (function cachedFn(str) {
             var hit = cache[str];
             return hit || (cache[str] = fn(str))
         })
@@ -97,7 +103,9 @@
      */
     var camelizeRE = /-(\w)/g;
     var camelize = cached(function (str) {
-        return str.replace(camelizeRE, function (_, c) { return c ? c.toUpperCase() : ''; })
+        return str.replace(camelizeRE, function (_, c) {
+            return c ? c.toUpperCase() : '';
+        })
     });
 
     /**
@@ -121,8 +129,8 @@
     /**
      * Simple bind, faster than native
      */
-    function bind (fn, ctx) {
-        function boundFn (a) {
+    function bind(fn, ctx) {
+        function boundFn(a) {
             var l = arguments.length;
             return l
                 ? l > 1
@@ -130,6 +138,7 @@
                     : fn.call(ctx, a)
                 : fn.call(ctx)
         }
+
         // record original fn length
         boundFn._length = fn.length;
         return boundFn
@@ -138,7 +147,7 @@
     /**
      * Convert an Array-like object to a real Array.
      */
-    function toArray (list, start) {
+    function toArray(list, start) {
         start = start || 0;
         var i = list.length - start;
         var ret = new Array(i);
@@ -151,7 +160,7 @@
     /**
      * Mix properties into target object.
      */
-    function extend (to, _from) {
+    function extend(to, _from) {
         for (var key in _from) {
             to[key] = _from[key];
         }
@@ -163,7 +172,7 @@
      * Objects from primitive values when we know the value
      * is a JSON-compliant type.
      */
-    function isObject (obj) {
+    function isObject(obj) {
         return obj !== null && typeof obj === 'object'
     }
 
@@ -173,14 +182,15 @@
      */
     var toString = Object.prototype.toString;
     var OBJECT_STRING = '[object Object]';
-    function isPlainObject (obj) {
+
+    function isPlainObject(obj) {
         return toString.call(obj) === OBJECT_STRING
     }
 
     /**
      * Merge an Array of Objects into a single Object.
      */
-    function toObject (arr) {
+    function toObject(arr) {
         var res = {};
         for (var i = 0; i < arr.length; i++) {
             if (arr[i]) {
@@ -193,22 +203,27 @@
     /**
      * Perform no operation.
      */
-    function noop () {}
+    function noop() {
+    }
 
     /**
      * Always return false.
      */
-    var no = function () { return false; };
+    var no = function () {
+        return false;
+    };
 
     /**
      * Return same value
      */
-    var identity = function (_) { return _; };
+    var identity = function (_) {
+        return _;
+    };
 
     /**
      * Generate a static keys string from compiler modules.
      */
-    function genStaticKeys (modules) {
+    function genStaticKeys(modules) {
         return modules.reduce(function (keys, m) {
             return keys.concat(m.staticKeys || [])
         }, []).join(',')
@@ -218,7 +233,7 @@
      * Check if two values are loosely equal - that is,
      * if they are plain objects, do they have the same shape?
      */
-    function looseEqual (a, b) {
+    function looseEqual(a, b) {
         var isObjectA = isObject(a);
         var isObjectB = isObject(b);
         if (isObjectA && isObjectB) {
@@ -235,9 +250,11 @@
         }
     }
 
-    function looseIndexOf (arr, val) {
+    function looseIndexOf(arr, val) {
         for (var i = 0; i < arr.length; i++) {
-            if (looseEqual(arr[i], val)) { return i }
+            if (looseEqual(arr[i], val)) {
+                return i
+            }
         }
         return -1
     }
@@ -245,7 +262,7 @@
     /**
      * Ensure a function is called only once.
      */
-    function once (fn) {
+    function once(fn) {
         var called = false;
         return function () {
             if (!called) {
@@ -394,7 +411,7 @@
     var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
     /* istanbul ignore next */
-    function isNative (Ctor) {
+    function isNative(Ctor) {
         return /native code/.test(Ctor.toString())
     }
 
@@ -410,7 +427,7 @@
         var pending = false;
         var timerFunc;
 
-        function nextTickHandler () {
+        function nextTickHandler() {
             pending = false;
             var copies = callbacks.slice(0);
             callbacks.length = 0;
@@ -428,7 +445,9 @@
         /* istanbul ignore if */
         if (typeof Promise !== 'undefined' && isNative(Promise)) {
             var p = Promise.resolve();
-            var logError = function (err) { console.error(err); };
+            var logError = function (err) {
+                console.error(err);
+            };
             timerFunc = function () {
                 p.then(nextTickHandler).catch(logError);
                 // in problematic UIWebViews, Promise.then doesn't completely break, but
@@ -436,7 +455,9 @@
                 // microtask queue but the queue isn't being flushed, until the browser
                 // needs to do some other work, e.g. handle a timer. Therefore we can
                 // "force" the microtask queue to be flushed by adding an empty timer.
-                if (isIOS) { setTimeout(noop); }
+                if (isIOS) {
+                    setTimeout(noop);
+                }
             };
         } else if (typeof MutationObserver !== 'undefined' && (
             isNative(MutationObserver) ||
@@ -463,11 +484,15 @@
             };
         }
 
-        return function queueNextTick (cb, ctx) {
+        return function queueNextTick(cb, ctx) {
             var _resolve;
             callbacks.push(function () {
-                if (cb) { cb.call(ctx); }
-                if (_resolve) { _resolve(ctx); }
+                if (cb) {
+                    cb.call(ctx);
+                }
+                if (_resolve) {
+                    _resolve(ctx);
+                }
             });
             if (!pending) {
                 pending = true;
@@ -489,16 +514,17 @@
     } else {
         // a non-standard Set polyfill that only works with primitive keys.
         _Set = (function () {
-            function Set () {
+            function Set() {
                 this.set = Object.create(null);
             }
-            Set.prototype.has = function has (key) {
+
+            Set.prototype.has = function has(key) {
                 return this.set[key] === true
             };
-            Set.prototype.add = function add (key) {
+            Set.prototype.add = function add(key) {
                 this.set[key] = true;
             };
-            Set.prototype.clear = function clear () {
+            Set.prototype.clear = function clear() {
                 this.set = Object.create(null);
             };
 
@@ -522,7 +548,7 @@
     /**
      * Check if a string starts with $ or _
      */
-    function isReserved (str) {
+    function isReserved(str) {
         var c = (str + '').charCodeAt(0);
         return c === 0x24 || c === 0x5F
     }
@@ -530,7 +556,7 @@
     /**
      * Define a property.
      */
-    function def (obj, key, val, enumerable) {
+    function def(obj, key, val, enumerable) {
         Object.defineProperty(obj, key, {
             value: val,
             enumerable: !!enumerable,
@@ -543,14 +569,17 @@
      * Parse simple path.
      */
     var bailRE = /[^\w.$]/;
-    function parsePath (path) {
+
+    function parsePath(path) {
         if (bailRE.test(path)) {
             return
         }
         var segments = path.split('.');
         return function (obj) {
             for (var i = 0; i < segments.length; i++) {
-                if (!obj) { return }
+                if (!obj) {
+                    return
+                }
                 obj = obj[segments[i]];
             }
             return obj
@@ -564,9 +593,13 @@
     {
         var hasConsole = typeof console !== 'undefined';
         var classifyRE = /(?:^|[-_])(\w)/g;
-        var classify = function (str) { return str
-            .replace(classifyRE, function (c) { return c.toUpperCase(); })
-            .replace(/[-_]/g, ''); };
+        var classify = function (str) {
+            return str
+                .replace(classifyRE, function (c) {
+                    return c.toUpperCase();
+                })
+                .replace(/[-_]/g, '');
+        };
 
         warn = function (msg, vm) {
             if (hasConsole && (!config.silent)) {
@@ -621,26 +654,26 @@
      * A dep is an observable that can have multiple
      * directives subscribing to it.
      */
-    var Dep = function Dep () {
+    var Dep = function Dep() {
         this.id = uid$1++;
         this.subs = [];
     };
 
-    Dep.prototype.addSub = function addSub (sub) {
+    Dep.prototype.addSub = function addSub(sub) {
         this.subs.push(sub);
     };
 
-    Dep.prototype.removeSub = function removeSub (sub) {
+    Dep.prototype.removeSub = function removeSub(sub) {
         remove(this.subs, sub);
     };
 
-    Dep.prototype.depend = function depend () {
+    Dep.prototype.depend = function depend() {
         if (Dep.target) {
             Dep.target.addDep(this);
         }
     };
 
-    Dep.prototype.notify = function notify () {
+    Dep.prototype.notify = function notify() {
         // stabilize the subscriber list first
         var subs = this.subs.slice();
         for (var i = 0, l = subs.length; i < l; i++) {
@@ -654,12 +687,14 @@
     Dep.target = null;
     var targetStack = [];
 
-    function pushTarget (_target) {
-        if (Dep.target) { targetStack.push(Dep.target); }
+    function pushTarget(_target) {
+        if (Dep.target) {
+            targetStack.push(Dep.target);
+        }
         Dep.target = _target;
     }
 
-    function popTarget () {
+    function popTarget() {
         Dep.target = targetStack.pop();
     }
 
@@ -669,7 +704,8 @@
  */
 
     var arrayProto = Array.prototype;
-    var arrayMethods = Object.create(arrayProto);[
+    var arrayMethods = Object.create(arrayProto);
+    [
         'push',
         'pop',
         'shift',
@@ -681,7 +717,7 @@
         .forEach(function (method) {
             // cache original method
             var original = arrayProto[method];
-            def(arrayMethods, method, function mutator () {
+            def(arrayMethods, method, function mutator() {
                 var arguments$1 = arguments;
 
                 // avoid leaking arguments:
@@ -705,7 +741,9 @@
                         inserted = args.slice(2);
                         break
                 }
-                if (inserted) { ob.observeArray(inserted); }
+                if (inserted) {
+                    ob.observeArray(inserted);
+                }
                 // notify change
                 ob.dep.notify();
                 return result
@@ -733,7 +771,7 @@
      * object's property keys into getter/setters that
      * collect dependencies and dispatches updates.
      */
-    var Observer = function Observer (value) {
+    var Observer = function Observer(value) {
         this.value = value;
         this.dep = new Dep();
         this.vmCount = 0;
@@ -754,7 +792,7 @@
      * getter/setters. This method should only be called when
      * value type is Object.
      */
-    Observer.prototype.walk = function walk (obj) {
+    Observer.prototype.walk = function walk(obj) {
         var keys = Object.keys(obj);
         for (var i = 0; i < keys.length; i++) {
             defineReactive$$1(obj, keys[i], obj[keys[i]]);
@@ -764,7 +802,7 @@
     /**
      * Observe a list of Array items.
      */
-    Observer.prototype.observeArray = function observeArray (items) {
+    Observer.prototype.observeArray = function observeArray(items) {
         for (var i = 0, l = items.length; i < l; i++) {
             observe(items[i]);
         }
@@ -776,7 +814,7 @@
      * Augment an target Object or Array by intercepting
      * the prototype chain using __proto__
      */
-    function protoAugment (target, src) {
+    function protoAugment(target, src) {
         /* eslint-disable no-proto */
         target.__proto__ = src;
         /* eslint-enable no-proto */
@@ -786,8 +824,9 @@
      * Augment an target Object or Array by defining
      * hidden properties.
      */
+
     /* istanbul ignore next */
-    function copyAugment (target, src, keys) {
+    function copyAugment(target, src, keys) {
         for (var i = 0, l = keys.length; i < l; i++) {
             var key = keys[i];
             def(target, key, src[key]);
@@ -799,7 +838,7 @@
      * returns the new observer if successfully observed,
      * or the existing observer if the value already has one.
      */
-    function observe (value, asRootData) {
+    function observe(value, asRootData) {
         if (!isObject(value)) {
             return
         }
@@ -824,7 +863,7 @@
     /**
      * Define a reactive property on an Object.
      */
-    function defineReactive$$1 (
+    function defineReactive$$1(
         obj,
         key,
         val,
@@ -845,7 +884,7 @@
         Object.defineProperty(obj, key, {
             enumerable: true,
             configurable: true,
-            get: function reactiveGetter () {
+            get: function reactiveGetter() {
                 var value = getter ? getter.call(obj) : val;
                 if (Dep.target) {
                     dep.depend();
@@ -858,7 +897,7 @@
                 }
                 return value
             },
-            set: function reactiveSetter (newVal) {
+            set: function reactiveSetter(newVal) {
                 var value = getter ? getter.call(obj) : val;
                 /* eslint-disable no-self-compare */
                 if (newVal === value || (newVal !== newVal && value !== value)) {
@@ -884,7 +923,7 @@
      * triggers change notification if the property doesn't
      * already exist.
      */
-    function set (target, key, val) {
+    function set(target, key, val) {
         if (Array.isArray(target)) {
             target.length = Math.max(target.length, key);
             target.splice(key, 1, val);
@@ -914,7 +953,7 @@
     /**
      * Delete a property and trigger change if necessary.
      */
-    function del (target, key) {
+    function del(target, key) {
         if (Array.isArray(target)) {
             target.splice(key, 1);
             return
@@ -941,7 +980,7 @@
      * Collect dependencies on array elements when the array is touched, since
      * we cannot intercept array element access like property getters.
      */
-    function dependArray (value) {
+    function dependArray(value) {
         for (var e = (void 0), i = 0, l = value.length; i < l; i++) {
             e = value[i];
             e && e.__ob__ && e.__ob__.dep.depend();
@@ -978,8 +1017,10 @@
     /**
      * Helper that recursively merges two data objects together.
      */
-    function mergeData (to, from) {
-        if (!from) { return to }
+    function mergeData(to, from) {
+        if (!from) {
+            return to
+        }
         var key, toVal, fromVal;
         var keys = Object.keys(from);
         for (var i = 0; i < keys.length; i++) {
@@ -1025,14 +1066,14 @@
             // merged result of both functions... no need to
             // check if parentVal is a function here because
             // it has to be a function to pass previous merges.
-            return function mergedDataFn () {
+            return function mergedDataFn() {
                 return mergeData(
                     childVal.call(this),
                     parentVal.call(this)
                 )
             }
         } else if (parentVal || childVal) {
-            return function mergedInstanceDataFn () {
+            return function mergedInstanceDataFn() {
                 // instance merge
                 var instanceData = typeof childVal === 'function'
                     ? childVal.call(vm)
@@ -1052,7 +1093,7 @@
     /**
      * Hooks and props are merged as arrays.
      */
-    function mergeHook (
+    function mergeHook(
         parentVal,
         childVal
     ) {
@@ -1076,7 +1117,7 @@
      * a three-way merge between constructor options, instance
      * options and parent options.
      */
-    function mergeAssets (parentVal, childVal) {
+    function mergeAssets(parentVal, childVal) {
         var res = Object.create(parentVal || null);
         return childVal
             ? extend(res, childVal)
@@ -1095,8 +1136,12 @@
      */
     strats.watch = function (parentVal, childVal) {
         /* istanbul ignore if */
-        if (!childVal) { return Object.create(parentVal || null) }
-        if (!parentVal) { return childVal }
+        if (!childVal) {
+            return Object.create(parentVal || null)
+        }
+        if (!parentVal) {
+            return childVal
+        }
         var ret = {};
         extend(ret, parentVal);
         for (var key in childVal) {
@@ -1118,8 +1163,12 @@
     strats.props =
         strats.methods =
             strats.computed = function (parentVal, childVal) {
-                if (!childVal) { return Object.create(parentVal || null) }
-                if (!parentVal) { return childVal }
+                if (!childVal) {
+                    return Object.create(parentVal || null)
+                }
+                if (!parentVal) {
+                    return childVal
+                }
                 var ret = Object.create(null);
                 extend(ret, parentVal);
                 extend(ret, childVal);
@@ -1138,7 +1187,7 @@
     /**
      * Validate component names
      */
-    function checkComponents (options) {
+    function checkComponents(options) {
         for (var key in options.components) {
             var lower = key.toLowerCase();
             if (isBuiltInTag(lower) || config.isReservedTag(lower)) {
@@ -1154,9 +1203,11 @@
      * Ensure all props option syntax are normalized into the
      * Object-based format.
      */
-    function normalizeProps (options) {
+    function normalizeProps(options) {
         var props = options.props;
-        if (!props) { return }
+        if (!props) {
+            return
+        }
         var res = {};
         var i, val, name;
         if (Array.isArray(props)) {
@@ -1165,7 +1216,7 @@
                 val = props[i];
                 if (typeof val === 'string') {
                     name = camelize(val);
-                    res[name] = { type: null };
+                    res[name] = {type: null};
                 } else {
                     warn('props must be strings when using array syntax.');
                 }
@@ -1176,7 +1227,7 @@
                 name = camelize(key);
                 res[name] = isPlainObject(val)
                     ? val
-                    : { type: val };
+                    : {type: val};
             }
         }
         options.props = res;
@@ -1185,13 +1236,13 @@
     /**
      * Normalize raw function directives into object format.
      */
-    function normalizeDirectives (options) {
+    function normalizeDirectives(options) {
         var dirs = options.directives;
         if (dirs) {
             for (var key in dirs) {
                 var def = dirs[key];
                 if (typeof def === 'function') {
-                    dirs[key] = { bind: def, update: def };
+                    dirs[key] = {bind: def, update: def};
                 }
             }
         }
@@ -1201,7 +1252,7 @@
      * Merge two option objects into a new one.
      * Core utility used in both instantiation and inheritance.
      */
-    function mergeOptions (
+    function mergeOptions(
         parent,
         child,
         vm
@@ -1236,10 +1287,12 @@
                 mergeField(key);
             }
         }
-        function mergeField (key) {
+
+        function mergeField(key) {
             var strat = strats[key] || defaultStrat;
             options[key] = strat(parent[key], child[key], vm, key);
         }
+
         return options
     }
 
@@ -1248,7 +1301,7 @@
      * This function is used because child instances need access
      * to assets defined in its ancestor chain.
      */
-    function resolveAsset (
+    function resolveAsset(
         options,
         type,
         id,
@@ -1260,11 +1313,17 @@
         }
         var assets = options[type];
         // check local registration variations first
-        if (hasOwn(assets, id)) { return assets[id] }
+        if (hasOwn(assets, id)) {
+            return assets[id]
+        }
         var camelizedId = camelize(id);
-        if (hasOwn(assets, camelizedId)) { return assets[camelizedId] }
+        if (hasOwn(assets, camelizedId)) {
+            return assets[camelizedId]
+        }
         var PascalCaseId = capitalize(camelizedId);
-        if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
+        if (hasOwn(assets, PascalCaseId)) {
+            return assets[PascalCaseId]
+        }
         // fallback to prototype chain
         var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
         if ("development" !== 'production' && warnMissing && !res) {
@@ -1278,7 +1337,7 @@
 
     /*  */
 
-    function validateProp (
+    function validateProp(
         key,
         propOptions,
         propsData,
@@ -1314,7 +1373,7 @@
     /**
      * Get the default value of a prop.
      */
-    function getPropDefaultValue (vm, prop, key) {
+    function getPropDefaultValue(vm, prop, key) {
         // no default, return undefined
         if (!hasOwn(prop, 'default')) {
             return undefined
@@ -1346,7 +1405,7 @@
     /**
      * Assert whether a prop is valid.
      */
-    function assertProp (
+    function assertProp(
         prop,
         name,
         value,
@@ -1399,7 +1458,7 @@
     /**
      * Assert the type of a value
      */
-    function assertType (value, type) {
+    function assertType(value, type) {
         var valid;
         var expectedType = getType(type);
         if (expectedType === 'String') {
@@ -1428,12 +1487,12 @@
      * because a simple equality check will fail when running
      * across different vms / iframes.
      */
-    function getType (fn) {
+    function getType(fn) {
         var match = fn && fn.toString().match(/^\s*function (\w+)/);
         return match && match[1]
     }
 
-    function isType (type, fn) {
+    function isType(type, fn) {
         if (!Array.isArray(fn)) {
             return getType(fn) === getType(type)
         }
@@ -1446,7 +1505,7 @@
         return false
     }
 
-    function handleError (err, vm, info) {
+    function handleError(err, vm, info) {
         if (config.errorHandler) {
             config.errorHandler.call(null, err, vm, info);
         } else {
@@ -1490,7 +1549,7 @@
         if (hasProxy) {
             var isBuiltInModifier = makeMap('stop,prevent,self,ctrl,shift,alt,meta');
             config.keyCodes = new Proxy(config.keyCodes, {
-                set: function set (target, key, value) {
+                set: function set(target, key, value) {
                     if (isBuiltInModifier(key)) {
                         warn(("Avoid overwriting built-in modifier in config.keyCodes: ." + key));
                         return false
@@ -1503,7 +1562,7 @@
         }
 
         var hasHandler = {
-            has: function has (target, key) {
+            has: function has(target, key) {
                 var has = key in target;
                 var isAllowed = allowedGlobals(key) || key.charAt(0) === '_';
                 if (!has && !isAllowed) {
@@ -1514,7 +1573,7 @@
         };
 
         var getHandler = {
-            get: function get (target, key) {
+            get: function get(target, key) {
                 if (typeof key === 'string' && !(key in target)) {
                     warnNonPresent(target, key);
                 }
@@ -1522,7 +1581,7 @@
             }
         };
 
-        initProxy = function initProxy (vm) {
+        initProxy = function initProxy(vm) {
             if (hasProxy) {
                 // determine which proxy handler to use
                 var options = vm.$options;
@@ -1538,7 +1597,7 @@
 
     /*  */
 
-    var VNode = function VNode (
+    var VNode = function VNode(
         tag,
         data,
         children,
@@ -1567,7 +1626,7 @@
         this.isOnce = false;
     };
 
-    var prototypeAccessors = { child: {} };
+    var prototypeAccessors = {child: {}};
 
 // DEPRECATED: alias for componentInstance for backwards compat.
     /* istanbul ignore next */
@@ -1575,7 +1634,7 @@
         return this.componentInstance
     };
 
-    Object.defineProperties( VNode.prototype, prototypeAccessors );
+    Object.defineProperties(VNode.prototype, prototypeAccessors);
 
     var createEmptyVNode = function () {
         var node = new VNode();
@@ -1584,7 +1643,7 @@
         return node
     };
 
-    function createTextVNode (val) {
+    function createTextVNode(val) {
         return new VNode(undefined, undefined, undefined, String(val))
     }
 
@@ -1592,7 +1651,7 @@
 // used for static nodes and slot nodes because they may be reused across
 // multiple renders, cloning them avoids errors when DOM manipulations rely
 // on their elm reference.
-    function cloneVNode (vnode) {
+    function cloneVNode(vnode) {
         var cloned = new VNode(
             vnode.tag,
             vnode.data,
@@ -1609,7 +1668,7 @@
         return cloned
     }
 
-    function cloneVNodes (vnodes) {
+    function cloneVNodes(vnodes) {
         var len = vnodes.length;
         var res = new Array(len);
         for (var i = 0; i < len; i++) {
@@ -1632,8 +1691,8 @@
         }
     });
 
-    function createFnInvoker (fns) {
-        function invoker () {
+    function createFnInvoker(fns) {
+        function invoker() {
             var arguments$1 = arguments;
 
             var fns = invoker.fns;
@@ -1646,11 +1705,12 @@
                 return fns.apply(null, arguments)
             }
         }
+
         invoker.fns = fns;
         return invoker
     }
 
-    function updateListeners (
+    function updateListeners(
         on,
         oldOn,
         add,
@@ -1687,11 +1747,11 @@
 
     /*  */
 
-    function mergeVNodeHook (def, hookKey, hook) {
+    function mergeVNodeHook(def, hookKey, hook) {
         var invoker;
         var oldHook = def[hookKey];
 
-        function wrappedHook () {
+        function wrappedHook() {
             hook.apply(this, arguments);
             // important: remove merged hook to ensure it's called only once
             // and prevent memory leak
@@ -1731,7 +1791,7 @@
 // normalization is needed - if any child is an Array, we flatten the whole
 // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
 // because functional components already normalize their own children.
-    function simpleNormalizeChildren (children) {
+    function simpleNormalizeChildren(children) {
         for (var i = 0; i < children.length; i++) {
             if (Array.isArray(children[i])) {
                 return Array.prototype.concat.apply([], children)
@@ -1744,7 +1804,7 @@
 // e.g. <template>, <slot>, v-for, or when the children is provided by user
 // with hand-written render functions / JSX. In such cases a full normalization
 // is needed to cater to all possible types of children values.
-    function normalizeChildren (children) {
+    function normalizeChildren(children) {
         return isPrimitive(children)
             ? [createTextVNode(children)]
             : Array.isArray(children)
@@ -1752,12 +1812,14 @@
                 : undefined
     }
 
-    function normalizeArrayChildren (children, nestedIndex) {
+    function normalizeArrayChildren(children, nestedIndex) {
         var res = [];
         var i, c, last;
         for (i = 0; i < children.length; i++) {
             c = children[i];
-            if (c == null || typeof c === 'boolean') { continue }
+            if (c == null || typeof c === 'boolean') {
+                continue
+            }
             last = res[res.length - 1];
             //  nested
             if (Array.isArray(c)) {
@@ -1786,13 +1848,15 @@
 
     /*  */
 
-    function getFirstComponentChild (children) {
-        return children && children.filter(function (c) { return c && c.componentOptions; })[0]
+    function getFirstComponentChild(children) {
+        return children && children.filter(function (c) {
+            return c && c.componentOptions;
+        })[0]
     }
 
     /*  */
 
-    function initEvents (vm) {
+    function initEvents(vm) {
         vm._events = Object.create(null);
         vm._hasHookEvent = false;
         // init parent attached events
@@ -1804,7 +1868,7 @@
 
     var target;
 
-    function add (event, fn, once$$1) {
+    function add(event, fn, once$$1) {
         if (once$$1) {
             target.$once(event, fn);
         } else {
@@ -1812,11 +1876,11 @@
         }
     }
 
-    function remove$1 (event, fn) {
+    function remove$1(event, fn) {
         target.$off(event, fn);
     }
 
-    function updateComponentListeners (
+    function updateComponentListeners(
         vm,
         listeners,
         oldListeners
@@ -1825,7 +1889,7 @@
         updateListeners(listeners, oldListeners || {}, add, remove$1, vm);
     }
 
-    function eventsMixin (Vue) {
+    function eventsMixin(Vue) {
         var hookRE = /^hook:/;
         Vue.prototype.$on = function (event, fn) {
             var this$1 = this;
@@ -1848,10 +1912,12 @@
 
         Vue.prototype.$once = function (event, fn) {
             var vm = this;
-            function on () {
+
+            function on() {
                 vm.$off(event, on);
                 fn.apply(vm, arguments);
             }
+
             on.fn = fn;
             vm.$on(event, on);
             return vm
@@ -1914,7 +1980,7 @@
     /**
      * Runtime helper for resolving raw children VNodes into a slot object.
      */
-    function resolveSlots (
+    function resolveSlots(
         children,
         context
     ) {
@@ -1947,11 +2013,11 @@
         return slots
     }
 
-    function isWhitespace (node) {
+    function isWhitespace(node) {
         return node.isComment || node.text === ' '
     }
 
-    function resolveScopedSlots (
+    function resolveScopedSlots(
         fns
     ) {
         var res = {};
@@ -1965,7 +2031,7 @@
 
     var activeInstance = null;
 
-    function initLifecycle (vm) {
+    function initLifecycle(vm) {
         var options = vm.$options;
 
         // locate first non-abstract parent
@@ -1991,7 +2057,7 @@
         vm._isBeingDestroyed = false;
     }
 
-    function lifecycleMixin (Vue) {
+    function lifecycleMixin(Vue) {
         Vue.prototype._update = function (vnode, hydrating) {
             var vm = this;
             if (vm._isMounted) {
@@ -2077,7 +2143,7 @@
         };
     }
 
-    function mountComponent (
+    function mountComponent(
         vm,
         el,
         hydrating
@@ -2139,7 +2205,7 @@
         return vm
     }
 
-    function updateChildComponent (
+    function updateChildComponent(
         vm,
         propsData,
         listeners,
@@ -2194,14 +2260,16 @@
         }
     }
 
-    function isInInactiveTree (vm) {
+    function isInInactiveTree(vm) {
         while (vm && (vm = vm.$parent)) {
-            if (vm._inactive) { return true }
+            if (vm._inactive) {
+                return true
+            }
         }
         return false
     }
 
-    function activateChildComponent (vm, direct) {
+    function activateChildComponent(vm, direct) {
         if (direct) {
             vm._directInactive = false;
             if (isInInactiveTree(vm)) {
@@ -2219,7 +2287,7 @@
         }
     }
 
-    function deactivateChildComponent (vm, direct) {
+    function deactivateChildComponent(vm, direct) {
         if (direct) {
             vm._directInactive = true;
             if (isInInactiveTree(vm)) {
@@ -2235,7 +2303,7 @@
         }
     }
 
-    function callHook (vm, hook) {
+    function callHook(vm, hook) {
         var handlers = vm.$options[hook];
         if (handlers) {
             for (var i = 0, j = handlers.length; i < j; i++) {
@@ -2264,7 +2332,7 @@
     /**
      * Reset the scheduler's state.
      */
-    function resetSchedulerState () {
+    function resetSchedulerState() {
         queue.length = 0;
         has = {};
         {
@@ -2276,7 +2344,7 @@
     /**
      * Flush both queues and run the watchers.
      */
-    function flushSchedulerQueue () {
+    function flushSchedulerQueue() {
         flushing = true;
         var watcher, id, vm;
 
@@ -2288,7 +2356,9 @@
         //    user watchers are created before the render watcher)
         // 3. If a component is destroyed during a parent component's watcher run,
         //    its watchers can be skipped.
-        queue.sort(function (a, b) { return a.id - b.id; });
+        queue.sort(function (a, b) {
+            return a.id - b.id;
+        });
 
         // do not cache length because more watchers might be pushed
         // as we run existing watchers
@@ -2338,7 +2408,7 @@
      * Jobs with duplicate IDs will be skipped unless it's
      * pushed when the queue is being flushed.
      */
-    function queueWatcher (watcher) {
+    function queueWatcher(watcher) {
         var id = watcher.id;
         if (has[id] == null) {
             has[id] = true;
@@ -2370,7 +2440,7 @@
      * and fires callback when the expression value changes.
      * This is used for both the $watch() api and directives.
      */
-    var Watcher = function Watcher (
+    var Watcher = function Watcher(
         vm,
         expOrFn,
         cb,
@@ -2402,7 +2472,8 @@
         } else {
             this.getter = parsePath(expOrFn);
             if (!this.getter) {
-                this.getter = function () {};
+                this.getter = function () {
+                };
                 "development" !== 'production' && warn(
                     "Failed watching path: \"" + expOrFn + "\" " +
                     'Watcher only accepts simple dot-delimited paths. ' +
@@ -2419,7 +2490,7 @@
     /**
      * Evaluate the getter, and re-collect dependencies.
      */
-    Watcher.prototype.get = function get () {
+    Watcher.prototype.get = function get() {
         pushTarget(this);
         var value;
         var vm = this.vm;
@@ -2445,7 +2516,7 @@
     /**
      * Add a dependency to this directive.
      */
-    Watcher.prototype.addDep = function addDep (dep) {
+    Watcher.prototype.addDep = function addDep(dep) {
         var id = dep.id;
         if (!this.newDepIds.has(id)) {
             this.newDepIds.add(id);
@@ -2459,7 +2530,7 @@
     /**
      * Clean up for dependency collection.
      */
-    Watcher.prototype.cleanupDeps = function cleanupDeps () {
+    Watcher.prototype.cleanupDeps = function cleanupDeps() {
         var this$1 = this;
 
         var i = this.deps.length;
@@ -2483,7 +2554,7 @@
      * Subscriber interface.
      * Will be called when a dependency changes.
      */
-    Watcher.prototype.update = function update () {
+    Watcher.prototype.update = function update() {
         /* istanbul ignore else */
         if (this.lazy) {
             this.dirty = true;
@@ -2498,7 +2569,7 @@
      * Scheduler job interface.
      * Will be called by the scheduler.
      */
-    Watcher.prototype.run = function run () {
+    Watcher.prototype.run = function run() {
         if (this.active) {
             var value = this.get();
             if (
@@ -2529,7 +2600,7 @@
      * Evaluate the value of the watcher.
      * This only gets called for lazy watchers.
      */
-    Watcher.prototype.evaluate = function evaluate () {
+    Watcher.prototype.evaluate = function evaluate() {
         this.value = this.get();
         this.dirty = false;
     };
@@ -2537,7 +2608,7 @@
     /**
      * Depend on all deps collected by this watcher.
      */
-    Watcher.prototype.depend = function depend () {
+    Watcher.prototype.depend = function depend() {
         var this$1 = this;
 
         var i = this.deps.length;
@@ -2549,7 +2620,7 @@
     /**
      * Remove self from all dependencies' subscriber list.
      */
-    Watcher.prototype.teardown = function teardown () {
+    Watcher.prototype.teardown = function teardown() {
         var this$1 = this;
 
         if (this.active) {
@@ -2573,12 +2644,13 @@
      * is collected as a "deep" dependency.
      */
     var seenObjects = new _Set();
-    function traverse (val) {
+
+    function traverse(val) {
         seenObjects.clear();
         _traverse(val, seenObjects);
     }
 
-    function _traverse (val, seen) {
+    function _traverse(val, seen) {
         var i, keys;
         var isA = Array.isArray(val);
         if ((!isA && !isObject(val)) || !Object.isExtensible(val)) {
@@ -2593,11 +2665,15 @@
         }
         if (isA) {
             i = val.length;
-            while (i--) { _traverse(val[i], seen); }
+            while (i--) {
+                _traverse(val[i], seen);
+            }
         } else {
             keys = Object.keys(val);
             i = keys.length;
-            while (i--) { _traverse(val[keys[i]], seen); }
+            while (i--) {
+                _traverse(val[keys[i]], seen);
+            }
         }
     }
 
@@ -2610,33 +2686,41 @@
         set: noop
     };
 
-    function proxy (target, sourceKey, key) {
-        sharedPropertyDefinition.get = function proxyGetter () {
+    function proxy(target, sourceKey, key) {
+        sharedPropertyDefinition.get = function proxyGetter() {
             return this[sourceKey][key]
         };
-        sharedPropertyDefinition.set = function proxySetter (val) {
+        sharedPropertyDefinition.set = function proxySetter(val) {
             this[sourceKey][key] = val;
         };
         Object.defineProperty(target, key, sharedPropertyDefinition);
     }
 
-    function initState (vm) {
+    function initState(vm) {
         vm._watchers = [];
         var opts = vm.$options;
-        if (opts.props) { initProps(vm, opts.props); }
-        if (opts.methods) { initMethods(vm, opts.methods); }
+        if (opts.props) {
+            initProps(vm, opts.props);
+        }
+        if (opts.methods) {
+            initMethods(vm, opts.methods);
+        }
         if (opts.data) {
             initData(vm);
         } else {
             observe(vm._data = {}, true /* asRootData */);
         }
-        if (opts.computed) { initComputed(vm, opts.computed); }
-        if (opts.watch) { initWatch(vm, opts.watch); }
+        if (opts.computed) {
+            initComputed(vm, opts.computed);
+        }
+        if (opts.watch) {
+            initWatch(vm, opts.watch);
+        }
     }
 
-    var isReservedProp = { key: 1, ref: 1, slot: 1 };
+    var isReservedProp = {key: 1, ref: 1, slot: 1};
 
-    function initProps (vm, propsOptions) {
+    function initProps(vm, propsOptions) {
         var propsData = vm.$options.propsData || {};
         var props = vm._props = {};
         // cache prop keys so that future props updates can iterate using Array
@@ -2645,7 +2729,7 @@
         var isRoot = !vm.$parent;
         // root instance props should be converted
         observerState.shouldConvert = isRoot;
-        var loop = function ( key ) {
+        var loop = function (key) {
             keys.push(key);
             var value = validateProp(key, propsOptions, propsData, vm);
             /* istanbul ignore else */
@@ -2676,11 +2760,11 @@
             }
         };
 
-        for (var key in propsOptions) loop( key );
+        for (var key in propsOptions) loop(key);
         observerState.shouldConvert = true;
     }
 
-    function initData (vm) {
+    function initData(vm) {
         var data = vm.$options.data;
         data = vm._data = typeof data === 'function'
             ? data.call(vm)
@@ -2712,9 +2796,9 @@
         observe(data, true /* asRootData */);
     }
 
-    var computedWatcherOptions = { lazy: true };
+    var computedWatcherOptions = {lazy: true};
 
-    function initComputed (vm, computed) {
+    function initComputed(vm, computed) {
         var watchers = vm._computedWatchers = Object.create(null);
 
         for (var key in computed) {
@@ -2732,7 +2816,7 @@
         }
     }
 
-    function defineComputed (target, key, userDef) {
+    function defineComputed(target, key, userDef) {
         if (typeof userDef === 'function') {
             sharedPropertyDefinition.get = createComputedGetter(key);
             sharedPropertyDefinition.set = noop;
@@ -2749,8 +2833,8 @@
         Object.defineProperty(target, key, sharedPropertyDefinition);
     }
 
-    function createComputedGetter (key) {
-        return function computedGetter () {
+    function createComputedGetter(key) {
+        return function computedGetter() {
             var watcher = this._computedWatchers && this._computedWatchers[key];
             if (watcher) {
                 if (watcher.dirty) {
@@ -2764,7 +2848,7 @@
         }
     }
 
-    function initMethods (vm, methods) {
+    function initMethods(vm, methods) {
         var props = vm.$options.props;
         for (var key in methods) {
             vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
@@ -2786,7 +2870,7 @@
         }
     }
 
-    function initWatch (vm, watch) {
+    function initWatch(vm, watch) {
         for (var key in watch) {
             var handler = watch[key];
             if (Array.isArray(handler)) {
@@ -2799,7 +2883,7 @@
         }
     }
 
-    function createWatcher (vm, key, handler) {
+    function createWatcher(vm, key, handler) {
         var options;
         if (isPlainObject(handler)) {
             options = handler;
@@ -2811,14 +2895,18 @@
         vm.$watch(key, handler, options);
     }
 
-    function stateMixin (Vue) {
+    function stateMixin(Vue) {
         // flow somehow has problems with directly declared definition object
         // when using Object.defineProperty, so we have to procedurally build up
         // the object here.
         var dataDef = {};
-        dataDef.get = function () { return this._data };
+        dataDef.get = function () {
+            return this._data
+        };
         var propsDef = {};
-        propsDef.get = function () { return this._props };
+        propsDef.get = function () {
+            return this._props
+        };
         {
             dataDef.set = function (newData) {
                 warn(
@@ -2849,7 +2937,7 @@
             if (options.immediate) {
                 cb.call(vm, watcher.value);
             }
-            return function unwatchFn () {
+            return function unwatchFn() {
                 watcher.teardown();
             }
         };
@@ -2857,10 +2945,10 @@
 
     /*  */
 
-    var hooks = { init: init, prepatch: prepatch, insert: insert, destroy: destroy };
+    var hooks = {init: init, prepatch: prepatch, insert: insert, destroy: destroy};
     var hooksToMerge = Object.keys(hooks);
 
-    function createComponent (
+    function createComponent(
         Ctor,
         data,
         context,
@@ -2940,12 +3028,12 @@
         var vnode = new VNode(
             ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
             data, undefined, undefined, undefined, context,
-            { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children }
+            {Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children}
         );
         return vnode
     }
 
-    function createFunctionalComponent (
+    function createFunctionalComponent(
         Ctor,
         propsData,
         data,
@@ -2962,13 +3050,17 @@
         // ensure the createElement function in functional components
         // gets a unique context - this is necessary for correct named slot check
         var _context = Object.create(context);
-        var h = function (a, b, c, d) { return createElement(_context, a, b, c, d, true); };
+        var h = function (a, b, c, d) {
+            return createElement(_context, a, b, c, d, true);
+        };
         var vnode = Ctor.options.render.call(null, h, {
             props: props,
             data: data,
             parent: context,
             children: children,
-            slots: function () { return resolveSlots(children, context); }
+            slots: function () {
+                return resolveSlots(children, context);
+            }
         });
         if (vnode instanceof VNode) {
             vnode.functionalContext = context;
@@ -2979,7 +3071,7 @@
         return vnode
     }
 
-    function createComponentInstanceForVnode (
+    function createComponentInstanceForVnode(
         vnode, // we know it's MountedComponentVNode but flow doesn't
         parent, // activeInstance in lifecycle state
         parentElm,
@@ -3006,7 +3098,7 @@
         return new vnodeComponentOptions.Ctor(options)
     }
 
-    function init (
+    function init(
         vnode,
         hydrating,
         parentElm,
@@ -3027,7 +3119,7 @@
         }
     }
 
-    function prepatch (
+    function prepatch(
         oldVnode,
         vnode
     ) {
@@ -3042,7 +3134,7 @@
         );
     }
 
-    function insert (vnode) {
+    function insert(vnode) {
         if (!vnode.componentInstance._isMounted) {
             vnode.componentInstance._isMounted = true;
             callHook(vnode.componentInstance, 'mounted');
@@ -3052,7 +3144,7 @@
         }
     }
 
-    function destroy (vnode) {
+    function destroy(vnode) {
         if (!vnode.componentInstance._isDestroyed) {
             if (!vnode.data.keepAlive) {
                 vnode.componentInstance.$destroy();
@@ -3062,7 +3154,7 @@
         }
     }
 
-    function resolveAsyncComponent (
+    function resolveAsyncComponent(
         factory,
         baseCtor,
         cb
@@ -3110,7 +3202,7 @@
         }
     }
 
-    function extractProps (data, Ctor) {
+    function extractProps(data, Ctor) {
         // we are only extracting raw values here.
         // validation and default values are handled in the child
         // component itself.
@@ -3133,7 +3225,7 @@
         return res
     }
 
-    function checkProp (
+    function checkProp(
         res,
         hash,
         key,
@@ -3158,7 +3250,7 @@
         return false
     }
 
-    function mergeHooks (data) {
+    function mergeHooks(data) {
         if (!data.hook) {
             data.hook = {};
         }
@@ -3170,7 +3262,7 @@
         }
     }
 
-    function mergeHook$1 (one, two) {
+    function mergeHook$1(one, two) {
         return function (a, b, c, d) {
             one(a, b, c, d);
             two(a, b, c, d);
@@ -3179,9 +3271,10 @@
 
 // transform component v-model info (value and callback) into
 // prop and event handler respectively.
-    function transformModel (options, data) {
+    function transformModel(options, data) {
         var prop = (options.model && options.model.prop) || 'value';
-        var event = (options.model && options.model.event) || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
+        var event = (options.model && options.model.event) || 'input';
+        (data.props || (data.props = {}))[prop] = data.model.value;
         var on = data.on || (data.on = {});
         if (on[event]) {
             on[event] = [data.model.callback].concat(on[event]);
@@ -3197,7 +3290,7 @@
 
 // wrapper function for providing a more flexible interface
 // without getting yelled at by flow
-    function createElement (
+    function createElement(
         context,
         tag,
         data,
@@ -3210,11 +3303,13 @@
             children = data;
             data = undefined;
         }
-        if (alwaysNormalize) { normalizationType = ALWAYS_NORMALIZE; }
+        if (alwaysNormalize) {
+            normalizationType = ALWAYS_NORMALIZE;
+        }
         return _createElement(context, tag, data, children, normalizationType)
     }
 
-    function _createElement (
+    function _createElement(
         context,
         tag,
         data,
@@ -3237,7 +3332,7 @@
         if (Array.isArray(children) &&
             typeof children[0] === 'function') {
             data = data || {};
-            data.scopedSlots = { default: children[0] };
+            data.scopedSlots = {default: children[0]};
             children.length = 0;
         }
         if (normalizationType === ALWAYS_NORMALIZE) {
@@ -3272,14 +3367,16 @@
             vnode = createComponent(tag, data, context, children);
         }
         if (vnode) {
-            if (ns) { applyNS(vnode, ns); }
+            if (ns) {
+                applyNS(vnode, ns);
+            }
             return vnode
         } else {
             return createEmptyVNode()
         }
     }
 
-    function applyNS (vnode, ns) {
+    function applyNS(vnode, ns) {
         vnode.ns = ns;
         if (vnode.tag === 'foreignObject') {
             // use default namespace inside foreignObject
@@ -3300,7 +3397,7 @@
     /**
      * Runtime helper for rendering v-for lists.
      */
-    function renderList (
+    function renderList(
         val,
         render
     ) {
@@ -3331,7 +3428,7 @@
     /**
      * Runtime helper for rendering <slot>
      */
-    function renderSlot (
+    function renderSlot(
         name,
         fallback,
         props,
@@ -3364,7 +3461,7 @@
     /**
      * Runtime helper for resolving filters
      */
-    function resolveFilter (id) {
+    function resolveFilter(id) {
         return resolveAsset(this.$options, 'filters', id, true) || identity
     }
 
@@ -3373,7 +3470,7 @@
     /**
      * Runtime helper for checking keyCodes from config.
      */
-    function checkKeyCodes (
+    function checkKeyCodes(
         eventKeyCode,
         key,
         builtInAlias
@@ -3391,7 +3488,7 @@
     /**
      * Runtime helper for merging v-bind="object" into a VNode's data.
      */
-    function bindObjectProps (
+    function bindObjectProps(
         data,
         tag,
         value,
@@ -3428,7 +3525,7 @@
     /**
      * Runtime helper for rendering static trees.
      */
-    function renderStatic (
+    function renderStatic(
         index,
         isInFor
     ) {
@@ -3451,7 +3548,7 @@
      * Runtime helper for v-once.
      * Effectively it means marking the node as static with a unique key.
      */
-    function markOnce (
+    function markOnce(
         tree,
         index,
         key
@@ -3460,7 +3557,7 @@
         return tree
     }
 
-    function markStatic (
+    function markStatic(
         tree,
         key,
         isOnce
@@ -3476,7 +3573,7 @@
         }
     }
 
-    function markStaticNode (node, key, isOnce) {
+    function markStaticNode(node, key, isOnce) {
         node.isStatic = true;
         node.key = key;
         node.isOnce = isOnce;
@@ -3484,7 +3581,7 @@
 
     /*  */
 
-    function initRender (vm) {
+    function initRender(vm) {
         vm.$vnode = null; // the placeholder node in parent tree
         vm._vnode = null; // the root of the child tree
         vm._staticTrees = null;
@@ -3496,13 +3593,17 @@
         // so that we get proper render context inside it.
         // args order: tag, data, children, normalizationType, alwaysNormalize
         // internal version is used by render functions compiled from templates
-        vm._c = function (a, b, c, d) { return createElement(vm, a, b, c, d, false); };
+        vm._c = function (a, b, c, d) {
+            return createElement(vm, a, b, c, d, false);
+        };
         // normalization is always applied for the public version, used in
         // user-written render functions.
-        vm.$createElement = function (a, b, c, d) { return createElement(vm, a, b, c, d, true); };
+        vm.$createElement = function (a, b, c, d) {
+            return createElement(vm, a, b, c, d, true);
+        };
     }
 
-    function renderMixin (Vue) {
+    function renderMixin(Vue) {
         Vue.prototype.$nextTick = function (fn) {
             return nextTick(fn, this)
         };
@@ -3581,7 +3682,7 @@
 
     /*  */
 
-    function initProvide (vm) {
+    function initProvide(vm) {
         var provide = vm.$options.provide;
         if (provide) {
             vm._provided = typeof provide === 'function'
@@ -3590,7 +3691,7 @@
         }
     }
 
-    function initInjections (vm) {
+    function initInjections(vm) {
         var inject = vm.$options.inject;
         if (inject) {
             // inject is :any because flow is not smart enough to figure out cached
@@ -3621,7 +3722,7 @@
 
     var uid = 0;
 
-    function initMixin (Vue) {
+    function initMixin(Vue) {
         Vue.prototype._init = function (options) {
             /* istanbul ignore if */
             if ("development" !== 'production' && config.performance && perf) {
@@ -3674,7 +3775,7 @@
         };
     }
 
-    function initInternalComponent (vm, options) {
+    function initInternalComponent(vm, options) {
         var opts = vm.$options = Object.create(vm.constructor.options);
         // doing this because it's faster than dynamic enumeration.
         opts.parent = options.parent;
@@ -3691,7 +3792,7 @@
         }
     }
 
-    function resolveConstructorOptions (Ctor) {
+    function resolveConstructorOptions(Ctor) {
         var options = Ctor.options;
         if (Ctor.super) {
             var superOptions = resolveConstructorOptions(Ctor.super);
@@ -3715,20 +3816,22 @@
         return options
     }
 
-    function resolveModifiedOptions (Ctor) {
+    function resolveModifiedOptions(Ctor) {
         var modified;
         var latest = Ctor.options;
         var sealed = Ctor.sealedOptions;
         for (var key in latest) {
             if (latest[key] !== sealed[key]) {
-                if (!modified) { modified = {}; }
+                if (!modified) {
+                    modified = {};
+                }
                 modified[key] = dedupe(latest[key], sealed[key]);
             }
         }
         return modified
     }
 
-    function dedupe (latest, sealed) {
+    function dedupe(latest, sealed) {
         // compare latest and sealed to ensure lifecycle hooks won't be duplicated
         // between merges
         if (Array.isArray(latest)) {
@@ -3745,7 +3848,7 @@
         }
     }
 
-    function Vue$3 (options) {
+    function Vue$3(options) {
         if ("development" !== 'production' &&
             !(this instanceof Vue$3)) {
             warn('Vue is a constructor and should be called with the `new` keyword');
@@ -3761,7 +3864,7 @@
 
     /*  */
 
-    function initUse (Vue) {
+    function initUse(Vue) {
         Vue.use = function (plugin) {
             /* istanbul ignore if */
             if (plugin.installed) {
@@ -3782,7 +3885,7 @@
 
     /*  */
 
-    function initMixin$1 (Vue) {
+    function initMixin$1(Vue) {
         Vue.mixin = function (mixin) {
             this.options = mergeOptions(this.options, mixin);
         };
@@ -3790,7 +3893,7 @@
 
     /*  */
 
-    function initExtend (Vue) {
+    function initExtend(Vue) {
         /**
          * Each instance constructor, including Vue, has a unique
          * cid. This enables us to create wrapped "child
@@ -3822,7 +3925,7 @@
                 }
             }
 
-            var Sub = function VueComponent (options) {
+            var Sub = function VueComponent(options) {
                 this._init(options);
             };
             Sub.prototype = Object.create(Super.prototype);
@@ -3872,14 +3975,14 @@
         };
     }
 
-    function initProps$1 (Comp) {
+    function initProps$1(Comp) {
         var props = Comp.options.props;
         for (var key in props) {
             proxy(Comp.prototype, "_props", key);
         }
     }
 
-    function initComputed$1 (Comp) {
+    function initComputed$1(Comp) {
         var computed = Comp.options.computed;
         for (var key in computed) {
             defineComputed(Comp.prototype, key, computed[key]);
@@ -3888,7 +3991,7 @@
 
     /*  */
 
-    function initAssetRegisters (Vue) {
+    function initAssetRegisters(Vue) {
         /**
          * Create asset registration methods.
          */
@@ -3914,7 +4017,7 @@
                         definition = this.options._base.extend(definition);
                     }
                     if (type === 'directive' && typeof definition === 'function') {
-                        definition = { bind: definition, update: definition };
+                        definition = {bind: definition, update: definition};
                     }
                     this.options[type + 's'][id] = definition;
                     return definition
@@ -3927,11 +4030,11 @@
 
     var patternTypes = [String, RegExp];
 
-    function getComponentName (opts) {
+    function getComponentName(opts) {
         return opts && (opts.Ctor.options.name || opts.tag)
     }
 
-    function matches (pattern, name) {
+    function matches(pattern, name) {
         if (typeof pattern === 'string') {
             return pattern.split(',').indexOf(name) > -1
         } else if (pattern instanceof RegExp) {
@@ -3941,7 +4044,7 @@
         return false
     }
 
-    function pruneCache (cache, filter) {
+    function pruneCache(cache, filter) {
         for (var key in cache) {
             var cachedNode = cache[key];
             if (cachedNode) {
@@ -3954,7 +4057,7 @@
         }
     }
 
-    function pruneCacheEntry (vnode) {
+    function pruneCacheEntry(vnode) {
         if (vnode) {
             if (!vnode.componentInstance._inactive) {
                 callHook(vnode.componentInstance, 'deactivated');
@@ -3972,11 +4075,11 @@
             exclude: patternTypes
         },
 
-        created: function created () {
+        created: function created() {
             this.cache = Object.create(null);
         },
 
-        destroyed: function destroyed () {
+        destroyed: function destroyed() {
             var this$1 = this;
 
             for (var key in this$1.cache) {
@@ -3985,15 +4088,19 @@
         },
 
         watch: {
-            include: function include (val) {
-                pruneCache(this.cache, function (name) { return matches(val, name); });
+            include: function include(val) {
+                pruneCache(this.cache, function (name) {
+                    return matches(val, name);
+                });
             },
-            exclude: function exclude (val) {
-                pruneCache(this.cache, function (name) { return !matches(val, name); });
+            exclude: function exclude(val) {
+                pruneCache(this.cache, function (name) {
+                    return !matches(val, name);
+                });
             }
         },
 
-        render: function render () {
+        render: function render() {
             var vnode = getFirstComponentChild(this.$slots.default);
             var componentOptions = vnode && vnode.componentOptions;
             if (componentOptions) {
@@ -4027,10 +4134,12 @@
 
     /*  */
 
-    function initGlobalAPI (Vue) {
+    function initGlobalAPI(Vue) {
         // config
         var configDef = {};
-        configDef.get = function () { return config; };
+        configDef.get = function () {
+            return config;
+        };
         {
             configDef.set = function () {
                 warn(
@@ -4119,7 +4228,7 @@
 
     /*  */
 
-    function genClassForVnode (vnode) {
+    function genClassForVnode(vnode) {
         var data = vnode.data;
         var parentNode = vnode;
         var childNode = vnode;
@@ -4137,7 +4246,7 @@
         return genClassFromData(data)
     }
 
-    function mergeClassData (child, parent) {
+    function mergeClassData(child, parent) {
         return {
             staticClass: concat(child.staticClass, parent.staticClass),
             class: child.class
@@ -4146,7 +4255,7 @@
         }
     }
 
-    function genClassFromData (data) {
+    function genClassFromData(data) {
         var dynamicClass = data.class;
         var staticClass = data.staticClass;
         if (staticClass || dynamicClass) {
@@ -4156,11 +4265,11 @@
         return ''
     }
 
-    function concat (a, b) {
+    function concat(a, b) {
         return a ? b ? (a + ' ' + b) : a : (b || '')
     }
 
-    function stringifyClass (value) {
+    function stringifyClass(value) {
         var res = '';
         if (!value) {
             return res
@@ -4181,7 +4290,9 @@
         }
         if (isObject(value)) {
             for (var key in value) {
-                if (value[key]) { res += key + ' '; }
+                if (value[key]) {
+                    res += key + ' ';
+                }
             }
             return res.slice(0, -1)
         }
@@ -4219,13 +4330,15 @@
         true
     );
 
-    var isPreTag = function (tag) { return tag === 'pre'; };
+    var isPreTag = function (tag) {
+        return tag === 'pre';
+    };
 
     var isReservedTag = function (tag) {
         return isHTMLTag(tag) || isSVG(tag)
     };
 
-    function getTagNamespace (tag) {
+    function getTagNamespace(tag) {
         if (isSVG(tag)) {
             return 'svg'
         }
@@ -4237,7 +4350,8 @@
     }
 
     var unknownElementCache = Object.create(null);
-    function isUnknownElement (tag) {
+
+    function isUnknownElement(tag) {
         /* istanbul ignore if */
         if (!inBrowser) {
             return true
@@ -4267,7 +4381,7 @@
     /**
      * Query an element selector if it's not an element already.
      */
-    function query (el) {
+    function query(el) {
         if (typeof el === 'string') {
             var selected = document.querySelector(el);
             if (!selected) {
@@ -4284,7 +4398,7 @@
 
     /*  */
 
-    function createElement$1 (tagName, vnode) {
+    function createElement$1(tagName, vnode) {
         var elm = document.createElement(tagName);
         if (tagName !== 'select') {
             return elm
@@ -4296,47 +4410,47 @@
         return elm
     }
 
-    function createElementNS (namespace, tagName) {
+    function createElementNS(namespace, tagName) {
         return document.createElementNS(namespaceMap[namespace], tagName)
     }
 
-    function createTextNode (text) {
+    function createTextNode(text) {
         return document.createTextNode(text)
     }
 
-    function createComment (text) {
+    function createComment(text) {
         return document.createComment(text)
     }
 
-    function insertBefore (parentNode, newNode, referenceNode) {
+    function insertBefore(parentNode, newNode, referenceNode) {
         parentNode.insertBefore(newNode, referenceNode);
     }
 
-    function removeChild (node, child) {
+    function removeChild(node, child) {
         node.removeChild(child);
     }
 
-    function appendChild (node, child) {
+    function appendChild(node, child) {
         node.appendChild(child);
     }
 
-    function parentNode (node) {
+    function parentNode(node) {
         return node.parentNode
     }
 
-    function nextSibling (node) {
+    function nextSibling(node) {
         return node.nextSibling
     }
 
-    function tagName (node) {
+    function tagName(node) {
         return node.tagName
     }
 
-    function setTextContent (node, text) {
+    function setTextContent(node, text) {
         node.textContent = text;
     }
 
-    function setAttribute (node, key, val) {
+    function setAttribute(node, key, val) {
         node.setAttribute(key, val);
     }
 
@@ -4359,23 +4473,25 @@
     /*  */
 
     var ref = {
-        create: function create (_, vnode) {
+        create: function create(_, vnode) {
             registerRef(vnode);
         },
-        update: function update (oldVnode, vnode) {
+        update: function update(oldVnode, vnode) {
             if (oldVnode.data.ref !== vnode.data.ref) {
                 registerRef(oldVnode, true);
                 registerRef(vnode);
             }
         },
-        destroy: function destroy (vnode) {
+        destroy: function destroy(vnode) {
             registerRef(vnode, true);
         }
     };
 
-    function registerRef (vnode, isRemoval) {
+    function registerRef(vnode, isRemoval) {
         var key = vnode.data.ref;
-        if (!key) { return }
+        if (!key) {
+            return
+        }
 
         var vm = vnode.context;
         var ref = vnode.componentInstance || vnode.elm;
@@ -4417,15 +4533,15 @@
 
     var hooks$1 = ['create', 'activate', 'update', 'remove', 'destroy'];
 
-    function isUndef (s) {
+    function isUndef(s) {
         return s == null
     }
 
-    function isDef (s) {
+    function isDef(s) {
         return s != null
     }
 
-    function sameVnode (vnode1, vnode2) {
+    function sameVnode(vnode1, vnode2) {
         return (
             vnode1.key === vnode2.key &&
             vnode1.tag === vnode2.tag &&
@@ -4434,17 +4550,19 @@
         )
     }
 
-    function createKeyToOldIdx (children, beginIdx, endIdx) {
+    function createKeyToOldIdx(children, beginIdx, endIdx) {
         var i, key;
         var map = {};
         for (i = beginIdx; i <= endIdx; ++i) {
             key = children[i].key;
-            if (isDef(key)) { map[key] = i; }
+            if (isDef(key)) {
+                map[key] = i;
+            }
         }
         return map
     }
 
-    function createPatchFunction (backend) {
+    function createPatchFunction(backend) {
         var i, j;
         var cbs = {};
 
@@ -4454,25 +4572,28 @@
         for (i = 0; i < hooks$1.length; ++i) {
             cbs[hooks$1[i]] = [];
             for (j = 0; j < modules.length; ++j) {
-                if (modules[j][hooks$1[i]] !== undefined) { cbs[hooks$1[i]].push(modules[j][hooks$1[i]]); }
+                if (modules[j][hooks$1[i]] !== undefined) {
+                    cbs[hooks$1[i]].push(modules[j][hooks$1[i]]);
+                }
             }
         }
 
-        function emptyNodeAt (elm) {
+        function emptyNodeAt(elm) {
             return new VNode(nodeOps.tagName(elm).toLowerCase(), {}, [], undefined, elm)
         }
 
-        function createRmCb (childElm, listeners) {
-            function remove$$1 () {
+        function createRmCb(childElm, listeners) {
+            function remove$$1() {
                 if (--remove$$1.listeners === 0) {
                     removeNode(childElm);
                 }
             }
+
             remove$$1.listeners = listeners;
             return remove$$1
         }
 
-        function removeNode (el) {
+        function removeNode(el) {
             var parent = nodeOps.parentNode(el);
             // element may have already been removed due to v-html / v-text
             if (parent) {
@@ -4481,7 +4602,8 @@
         }
 
         var inPre = 0;
-        function createElm (vnode, insertedVnodeQueue, parentElm, refElm, nested) {
+
+        function createElm(vnode, insertedVnodeQueue, parentElm, refElm, nested) {
             vnode.isRootInsert = !nested; // for transition enter check
             if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
                 return
@@ -4535,7 +4657,7 @@
             }
         }
 
-        function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+        function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
             var i = vnode.data;
             if (isDef(i)) {
                 var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
@@ -4556,7 +4678,7 @@
             }
         }
 
-        function initComponent (vnode, insertedVnodeQueue) {
+        function initComponent(vnode, insertedVnodeQueue) {
             if (vnode.data.pendingInsert) {
                 insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
             }
@@ -4573,7 +4695,7 @@
             }
         }
 
-        function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+        function reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
             var i;
             // hack for #4339: a reactivated component with inner transition
             // does not trigger because the inner node's created hooks are not called
@@ -4595,7 +4717,7 @@
             insert(parentElm, vnode.elm, refElm);
         }
 
-        function insert (parent, elm, ref) {
+        function insert(parent, elm, ref) {
             if (parent) {
                 if (ref) {
                     nodeOps.insertBefore(parent, elm, ref);
@@ -4605,7 +4727,7 @@
             }
         }
 
-        function createChildren (vnode, children, insertedVnodeQueue) {
+        function createChildren(vnode, children, insertedVnodeQueue) {
             if (Array.isArray(children)) {
                 for (var i = 0; i < children.length; ++i) {
                     createElm(children[i], insertedVnodeQueue, vnode.elm, null, true);
@@ -4615,28 +4737,32 @@
             }
         }
 
-        function isPatchable (vnode) {
+        function isPatchable(vnode) {
             while (vnode.componentInstance) {
                 vnode = vnode.componentInstance._vnode;
             }
             return isDef(vnode.tag)
         }
 
-        function invokeCreateHooks (vnode, insertedVnodeQueue) {
+        function invokeCreateHooks(vnode, insertedVnodeQueue) {
             for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
                 cbs.create[i$1](emptyNode, vnode);
             }
             i = vnode.data.hook; // Reuse variable
             if (isDef(i)) {
-                if (i.create) { i.create(emptyNode, vnode); }
-                if (i.insert) { insertedVnodeQueue.push(vnode); }
+                if (i.create) {
+                    i.create(emptyNode, vnode);
+                }
+                if (i.insert) {
+                    insertedVnodeQueue.push(vnode);
+                }
             }
         }
 
         // set scope id attribute for scoped CSS.
         // this is implemented as a special case to avoid the overhead
         // of going through the normal attribute patching process.
-        function setScope (vnode) {
+        function setScope(vnode) {
             var i;
             var ancestor = vnode;
             while (ancestor) {
@@ -4653,18 +4779,22 @@
             }
         }
 
-        function addVnodes (parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
+        function addVnodes(parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
             for (; startIdx <= endIdx; ++startIdx) {
                 createElm(vnodes[startIdx], insertedVnodeQueue, parentElm, refElm);
             }
         }
 
-        function invokeDestroyHook (vnode) {
+        function invokeDestroyHook(vnode) {
             var i, j;
             var data = vnode.data;
             if (isDef(data)) {
-                if (isDef(i = data.hook) && isDef(i = i.destroy)) { i(vnode); }
-                for (i = 0; i < cbs.destroy.length; ++i) { cbs.destroy[i](vnode); }
+                if (isDef(i = data.hook) && isDef(i = i.destroy)) {
+                    i(vnode);
+                }
+                for (i = 0; i < cbs.destroy.length; ++i) {
+                    cbs.destroy[i](vnode);
+                }
             }
             if (isDef(i = vnode.children)) {
                 for (j = 0; j < vnode.children.length; ++j) {
@@ -4673,7 +4803,7 @@
             }
         }
 
-        function removeVnodes (parentElm, vnodes, startIdx, endIdx) {
+        function removeVnodes(parentElm, vnodes, startIdx, endIdx) {
             for (; startIdx <= endIdx; ++startIdx) {
                 var ch = vnodes[startIdx];
                 if (isDef(ch)) {
@@ -4687,7 +4817,7 @@
             }
         }
 
-        function removeAndInvokeRemoveHook (vnode, rm) {
+        function removeAndInvokeRemoveHook(vnode, rm) {
             if (rm || isDef(vnode.data)) {
                 var listeners = cbs.remove.length + 1;
                 if (!rm) {
@@ -4715,7 +4845,7 @@
             }
         }
 
-        function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
+        function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
             var oldStartIdx = 0;
             var newStartIdx = 0;
             var oldEndIdx = oldCh.length - 1;
@@ -4755,7 +4885,9 @@
                     oldEndVnode = oldCh[--oldEndIdx];
                     newStartVnode = newCh[++newStartIdx];
                 } else {
-                    if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
+                    if (isUndef(oldKeyToIdx)) {
+                        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
+                    }
                     idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : null;
                     if (isUndef(idxInOld)) { // New element
                         createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm);
@@ -4790,7 +4922,7 @@
             }
         }
 
-        function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
+        function patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly) {
             if (oldVnode === vnode) {
                 return
             }
@@ -4816,14 +4948,22 @@
             var oldCh = oldVnode.children;
             var ch = vnode.children;
             if (hasData && isPatchable(vnode)) {
-                for (i = 0; i < cbs.update.length; ++i) { cbs.update[i](oldVnode, vnode); }
-                if (isDef(i = data.hook) && isDef(i = i.update)) { i(oldVnode, vnode); }
+                for (i = 0; i < cbs.update.length; ++i) {
+                    cbs.update[i](oldVnode, vnode);
+                }
+                if (isDef(i = data.hook) && isDef(i = i.update)) {
+                    i(oldVnode, vnode);
+                }
             }
             if (isUndef(vnode.text)) {
                 if (isDef(oldCh) && isDef(ch)) {
-                    if (oldCh !== ch) { updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly); }
+                    if (oldCh !== ch) {
+                        updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
+                    }
                 } else if (isDef(ch)) {
-                    if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
+                    if (isDef(oldVnode.text)) {
+                        nodeOps.setTextContent(elm, '');
+                    }
                     addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
                 } else if (isDef(oldCh)) {
                     removeVnodes(elm, oldCh, 0, oldCh.length - 1);
@@ -4834,11 +4974,13 @@
                 nodeOps.setTextContent(elm, vnode.text);
             }
             if (hasData) {
-                if (isDef(i = data.hook) && isDef(i = i.postpatch)) { i(oldVnode, vnode); }
+                if (isDef(i = data.hook) && isDef(i = i.postpatch)) {
+                    i(oldVnode, vnode);
+                }
             }
         }
 
-        function invokeInsertHook (vnode, queue, initial) {
+        function invokeInsertHook(vnode, queue, initial) {
             // delay insert hooks for component root nodes, invoke them after the
             // element is really inserted
             if (initial && vnode.parent) {
@@ -4856,7 +4998,7 @@
         var isRenderedModule = makeMap('attrs,style,class,staticClass,staticStyle,key');
 
         // Note: this is a browser-only function so we can assume elms are DOM nodes.
-        function hydrate (elm, vnode, insertedVnodeQueue) {
+        function hydrate(elm, vnode, insertedVnodeQueue) {
             {
                 if (!assertNodeMatch(elm, vnode)) {
                     return false
@@ -4867,7 +5009,9 @@
             var data = vnode.data;
             var children = vnode.children;
             if (isDef(data)) {
-                if (isDef(i = data.hook) && isDef(i = i.init)) { i(vnode, true /* hydrating */); }
+                if (isDef(i = data.hook) && isDef(i = i.init)) {
+                    i(vnode, true /* hydrating */);
+                }
                 if (isDef(i = vnode.componentInstance)) {
                     // child component. it should have hydrated its own tree.
                     initComponent(vnode, insertedVnodeQueue);
@@ -4917,7 +5061,7 @@
             return true
         }
 
-        function assertNodeMatch (node, vnode) {
+        function assertNodeMatch(node, vnode) {
             if (vnode.tag) {
                 return (
                     vnode.tag.indexOf('vue-component') === 0 ||
@@ -4928,9 +5072,11 @@
             }
         }
 
-        return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
+        return function patch(oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
             if (!vnode) {
-                if (oldVnode) { invokeDestroyHook(oldVnode); }
+                if (oldVnode) {
+                    invokeDestroyHook(oldVnode);
+                }
                 return
             }
 
@@ -5019,18 +5165,18 @@
     var directives = {
         create: updateDirectives,
         update: updateDirectives,
-        destroy: function unbindDirectives (vnode) {
+        destroy: function unbindDirectives(vnode) {
             updateDirectives(vnode, emptyNode);
         }
     };
 
-    function updateDirectives (oldVnode, vnode) {
+    function updateDirectives(oldVnode, vnode) {
         if (oldVnode.data.directives || vnode.data.directives) {
             _update(oldVnode, vnode);
         }
     }
 
-    function _update (oldVnode, vnode) {
+    function _update(oldVnode, vnode) {
         var isCreate = oldVnode === emptyNode;
         var isDestroy = vnode === emptyNode;
         var oldDirs = normalizeDirectives$1(oldVnode.data.directives, oldVnode.context);
@@ -5092,7 +5238,7 @@
 
     var emptyModifiers = Object.create(null);
 
-    function normalizeDirectives$1 (
+    function normalizeDirectives$1(
         dirs,
         vm
     ) {
@@ -5112,11 +5258,11 @@
         return res
     }
 
-    function getRawDirName (dir) {
+    function getRawDirName(dir) {
         return dir.rawName || ((dir.name) + "." + (Object.keys(dir.modifiers || {}).join('.')))
     }
 
-    function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
+    function callHook$1(dir, hook, vnode, oldVnode, isDestroy) {
         var fn = dir.def && dir.def[hook];
         if (fn) {
             fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
@@ -5130,7 +5276,7 @@
 
     /*  */
 
-    function updateAttrs (oldVnode, vnode) {
+    function updateAttrs(oldVnode, vnode) {
         if (!oldVnode.data.attrs && !vnode.data.attrs) {
             return
         }
@@ -5166,7 +5312,7 @@
         }
     }
 
-    function setAttr (el, key, value) {
+    function setAttr(el, key, value) {
         if (isBooleanAttr(key)) {
             // set attribute for blank value
             // e.g. <option disabled>Select one</option>
@@ -5199,7 +5345,7 @@
 
     /*  */
 
-    function updateClass (oldVnode, vnode) {
+    function updateClass(oldVnode, vnode) {
         var el = vnode.elm;
         var data = vnode.data;
         var oldData = oldVnode.data;
@@ -5232,7 +5378,7 @@
 
     var validDivisionCharRE = /[\w).+\-_$\]]/;
 
-    function parseFilters (exp) {
+    function parseFilters(exp) {
         var inSingle = false;
         var inDouble = false;
         var inTemplateString = false;
@@ -5247,13 +5393,21 @@
             prev = c;
             c = exp.charCodeAt(i);
             if (inSingle) {
-                if (c === 0x27 && prev !== 0x5C) { inSingle = false; }
+                if (c === 0x27 && prev !== 0x5C) {
+                    inSingle = false;
+                }
             } else if (inDouble) {
-                if (c === 0x22 && prev !== 0x5C) { inDouble = false; }
+                if (c === 0x22 && prev !== 0x5C) {
+                    inDouble = false;
+                }
             } else if (inTemplateString) {
-                if (c === 0x60 && prev !== 0x5C) { inTemplateString = false; }
+                if (c === 0x60 && prev !== 0x5C) {
+                    inTemplateString = false;
+                }
             } else if (inRegex) {
-                if (c === 0x2f && prev !== 0x5C) { inRegex = false; }
+                if (c === 0x2f && prev !== 0x5C) {
+                    inRegex = false;
+                }
             } else if (
                 c === 0x7C && // pipe
                 exp.charCodeAt(i + 1) !== 0x7C &&
@@ -5269,15 +5423,33 @@
                 }
             } else {
                 switch (c) {
-                    case 0x22: inDouble = true; break         // "
-                    case 0x27: inSingle = true; break         // '
-                    case 0x60: inTemplateString = true; break // `
-                    case 0x28: paren++; break                 // (
-                    case 0x29: paren--; break                 // )
-                    case 0x5B: square++; break                // [
-                    case 0x5D: square--; break                // ]
-                    case 0x7B: curly++; break                 // {
-                    case 0x7D: curly--; break                 // }
+                    case 0x22:
+                        inDouble = true;
+                        break         // "
+                    case 0x27:
+                        inSingle = true;
+                        break         // '
+                    case 0x60:
+                        inTemplateString = true;
+                        break // `
+                    case 0x28:
+                        paren++;
+                        break                 // (
+                    case 0x29:
+                        paren--;
+                        break                 // )
+                    case 0x5B:
+                        square++;
+                        break                // [
+                    case 0x5D:
+                        square--;
+                        break                // ]
+                    case 0x7B:
+                        curly++;
+                        break                 // {
+                    case 0x7D:
+                        curly--;
+                        break                 // }
                 }
                 if (c === 0x2f) { // /
                     var j = i - 1;
@@ -5285,7 +5457,9 @@
                     // find first non-whitespace prev char
                     for (; j >= 0; j--) {
                         p = exp.charAt(j);
-                        if (p !== ' ') { break }
+                        if (p !== ' ') {
+                            break
+                        }
                     }
                     if (!p || !validDivisionCharRE.test(p)) {
                         inRegex = true;
@@ -5300,7 +5474,7 @@
             pushFilter();
         }
 
-        function pushFilter () {
+        function pushFilter() {
             (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
             lastFilterIndex = i + 1;
         }
@@ -5314,7 +5488,7 @@
         return expression
     }
 
-    function wrapFilter (exp, filter) {
+    function wrapFilter(exp, filter) {
         var i = filter.indexOf('(');
         if (i < 0) {
             // _f: resolveFilter
@@ -5328,28 +5502,32 @@
 
     /*  */
 
-    function baseWarn (msg) {
+    function baseWarn(msg) {
         console.error(("[Vue compiler]: " + msg));
     }
 
-    function pluckModuleFunction (
+    function pluckModuleFunction(
         modules,
         key
     ) {
         return modules
-            ? modules.map(function (m) { return m[key]; }).filter(function (_) { return _; })
+            ? modules.map(function (m) {
+                return m[key];
+            }).filter(function (_) {
+                return _;
+            })
             : []
     }
 
-    function addProp (el, name, value) {
-        (el.props || (el.props = [])).push({ name: name, value: value });
+    function addProp(el, name, value) {
+        (el.props || (el.props = [])).push({name: name, value: value});
     }
 
-    function addAttr (el, name, value) {
-        (el.attrs || (el.attrs = [])).push({ name: name, value: value });
+    function addAttr(el, name, value) {
+        (el.attrs || (el.attrs = [])).push({name: name, value: value});
     }
 
-    function addDirective (
+    function addDirective(
         el,
         name,
         rawName,
@@ -5357,10 +5535,16 @@
         arg,
         modifiers
     ) {
-        (el.directives || (el.directives = [])).push({ name: name, rawName: rawName, value: value, arg: arg, modifiers: modifiers });
+        (el.directives || (el.directives = [])).push({
+            name: name,
+            rawName: rawName,
+            value: value,
+            arg: arg,
+            modifiers: modifiers
+        });
     }
 
-    function addHandler (
+    function addHandler(
         el,
         name,
         value,
@@ -5383,7 +5567,7 @@
         } else {
             events = el.events || (el.events = {});
         }
-        var newHandler = { value: value, modifiers: modifiers };
+        var newHandler = {value: value, modifiers: modifiers};
         var handlers = events[name];
         /* istanbul ignore if */
         if (Array.isArray(handlers)) {
@@ -5395,7 +5579,7 @@
         }
     }
 
-    function getBindingAttr (
+    function getBindingAttr(
         el,
         name,
         getStatic
@@ -5413,7 +5597,7 @@
         }
     }
 
-    function getAndRemoveAttr (el, name) {
+    function getAndRemoveAttr(el, name) {
         var val;
         if ((val = el.attrsMap[name]) != null) {
             var list = el.attrsList;
@@ -5432,7 +5616,7 @@
     /**
      * Cross-platform code generation for component v-model
      */
-    function genComponentModel (
+    function genComponentModel(
         el,
         value,
         modifiers
@@ -5464,7 +5648,7 @@
     /**
      * Cross-platform codegen helper for generating v-model value assignment code.
      */
-    function genAssignmentCode (
+    function genAssignmentCode(
         value,
         assignment
     ) {
@@ -5500,7 +5684,7 @@
     var expressionPos;
     var expressionEndPos;
 
-    function parseModel (val) {
+    function parseModel(val) {
         str = val;
         len = str.length;
         index$1 = expressionPos = expressionEndPos = 0;
@@ -5528,19 +5712,19 @@
         }
     }
 
-    function next () {
+    function next() {
         return str.charCodeAt(++index$1)
     }
 
-    function eof () {
+    function eof() {
         return index$1 >= len
     }
 
-    function isStringStart (chr) {
+    function isStringStart(chr) {
         return chr === 0x22 || chr === 0x27
     }
 
-    function parseBracket (chr) {
+    function parseBracket(chr) {
         var inBracket = 1;
         expressionPos = index$1;
         while (!eof()) {
@@ -5549,8 +5733,12 @@
                 parseString(chr);
                 continue
             }
-            if (chr === 0x5B) { inBracket++; }
-            if (chr === 0x5D) { inBracket--; }
+            if (chr === 0x5B) {
+                inBracket++;
+            }
+            if (chr === 0x5D) {
+                inBracket--;
+            }
             if (inBracket === 0) {
                 expressionEndPos = index$1;
                 break
@@ -5558,7 +5746,7 @@
         }
     }
 
-    function parseString (chr) {
+    function parseString(chr) {
         var stringQuote = chr;
         while (!eof()) {
             chr = next();
@@ -5577,7 +5765,7 @@
     var RANGE_TOKEN = '__r';
     var CHECKBOX_RADIO_TOKEN = '__c';
 
-    function model (
+    function model(
         el,
         dir,
         _warn
@@ -5631,7 +5819,7 @@
         return true
     }
 
-    function genCheckboxModel (
+    function genCheckboxModel(
         el,
         value,
         modifiers
@@ -5662,7 +5850,7 @@
         );
     }
 
-    function genRadioModel (
+    function genRadioModel(
         el,
         value,
         modifiers
@@ -5674,7 +5862,7 @@
         addHandler(el, CHECKBOX_RADIO_TOKEN, genAssignmentCode(value, valueBinding), null, true);
     }
 
-    function genSelect (
+    function genSelect(
         el,
         value,
         modifiers
@@ -5691,7 +5879,7 @@
         addHandler(el, 'change', code, null, true);
     }
 
-    function genDefaultModel (
+    function genDefaultModel(
         el,
         value,
         modifiers
@@ -5734,7 +5922,7 @@
 // it's important to place the event as the first in the array because
 // the whole point is ensuring the v-model callback gets called before
 // user-attached handlers.
-    function normalizeEvents (on) {
+    function normalizeEvents(on) {
         var event;
         /* istanbul ignore if */
         if (on[RANGE_TOKEN]) {
@@ -5753,7 +5941,7 @@
 
     var target$1;
 
-    function add$1 (
+    function add$1(
         event,
         handler,
         once,
@@ -5774,7 +5962,7 @@
         target$1.addEventListener(event, handler, capture);
     }
 
-    function remove$2 (
+    function remove$2(
         event,
         handler,
         capture,
@@ -5783,7 +5971,7 @@
         (_target || target$1).removeEventListener(event, handler, capture);
     }
 
-    function updateDOMListeners (oldVnode, vnode) {
+    function updateDOMListeners(oldVnode, vnode) {
         if (!oldVnode.data.on && !vnode.data.on) {
             return
         }
@@ -5801,7 +5989,7 @@
 
     /*  */
 
-    function updateDOMProps (oldVnode, vnode) {
+    function updateDOMProps(oldVnode, vnode) {
         if (!oldVnode.data.domProps && !vnode.data.domProps) {
             return
         }
@@ -5825,8 +6013,12 @@
             // as these will throw away existing DOM nodes and cause removal errors
             // on subsequent patches (#3360)
             if (key === 'textContent' || key === 'innerHTML') {
-                if (vnode.children) { vnode.children.length = 0; }
-                if (cur === oldProps[key]) { continue }
+                if (vnode.children) {
+                    vnode.children.length = 0;
+                }
+                if (cur === oldProps[key]) {
+                    continue
+                }
             }
 
             if (key === 'value') {
@@ -5847,7 +6039,7 @@
 // check platforms/web/util/attrs.js acceptValue
 
 
-    function shouldUpdateValue (
+    function shouldUpdateValue(
         elm,
         vnode,
         checkVal
@@ -5859,12 +6051,12 @@
         ))
     }
 
-    function isDirty (elm, checkVal) {
+    function isDirty(elm, checkVal) {
         // return true when textbox (.number and .trim) loses focus and its value is not equal to the updated value
         return document.activeElement !== elm && elm.value !== checkVal
     }
 
-    function isInputChanged (elm, newVal) {
+    function isInputChanged(elm, newVal) {
         var value = elm.value;
         var modifiers = elm._vModifiers; // injected by v-model runtime
         if ((modifiers && modifiers.number) || elm.type === 'number') {
@@ -5897,7 +6089,7 @@
     });
 
 // merge static and dynamic style data on the same vnode
-    function normalizeStyleData (data) {
+    function normalizeStyleData(data) {
         var style = normalizeStyleBinding(data.style);
         // static style is pre-processed into an object during compilation
         // and is always a fresh object, so it's safe to merge into it
@@ -5907,7 +6099,7 @@
     }
 
 // normalize possible array / string values into Object
-    function normalizeStyleBinding (bindingStyle) {
+    function normalizeStyleBinding(bindingStyle) {
         if (Array.isArray(bindingStyle)) {
             return toObject(bindingStyle)
         }
@@ -5921,7 +6113,7 @@
      * parent component style should be after child's
      * so that parent component's style could override it
      */
-    function getStyle (vnode, checkChild) {
+    function getStyle(vnode, checkChild) {
         var res = {};
         var styleData;
 
@@ -5981,7 +6173,7 @@
         }
     });
 
-    function updateStyle (oldVnode, vnode) {
+    function updateStyle(oldVnode, vnode) {
         var data = vnode.data;
         var oldData = oldVnode.data;
 
@@ -6029,7 +6221,7 @@
      * Add class with compatibility for SVG since classList is not supported on
      * SVG elements in IE
      */
-    function addClass (el, cls) {
+    function addClass(el, cls) {
         /* istanbul ignore if */
         if (!cls || !(cls = cls.trim())) {
             return
@@ -6038,7 +6230,9 @@
         /* istanbul ignore else */
         if (el.classList) {
             if (cls.indexOf(' ') > -1) {
-                cls.split(/\s+/).forEach(function (c) { return el.classList.add(c); });
+                cls.split(/\s+/).forEach(function (c) {
+                    return el.classList.add(c);
+                });
             } else {
                 el.classList.add(cls);
             }
@@ -6054,7 +6248,7 @@
      * Remove class with compatibility for SVG since classList is not supported on
      * SVG elements in IE
      */
-    function removeClass (el, cls) {
+    function removeClass(el, cls) {
         /* istanbul ignore if */
         if (!cls || !(cls = cls.trim())) {
             return
@@ -6063,7 +6257,9 @@
         /* istanbul ignore else */
         if (el.classList) {
             if (cls.indexOf(' ') > -1) {
-                cls.split(/\s+/).forEach(function (c) { return el.classList.remove(c); });
+                cls.split(/\s+/).forEach(function (c) {
+                    return el.classList.remove(c);
+                });
             } else {
                 el.classList.remove(cls);
             }
@@ -6079,7 +6275,7 @@
 
     /*  */
 
-    function resolveTransition (def$$1) {
+    function resolveTransition(def$$1) {
         if (!def$$1) {
             return
         }
@@ -6135,25 +6331,25 @@
         ? window.requestAnimationFrame.bind(window)
         : setTimeout;
 
-    function nextFrame (fn) {
+    function nextFrame(fn) {
         raf(function () {
             raf(fn);
         });
     }
 
-    function addTransitionClass (el, cls) {
+    function addTransitionClass(el, cls) {
         (el._transitionClasses || (el._transitionClasses = [])).push(cls);
         addClass(el, cls);
     }
 
-    function removeTransitionClass (el, cls) {
+    function removeTransitionClass(el, cls) {
         if (el._transitionClasses) {
             remove(el._transitionClasses, cls);
         }
         removeClass(el, cls);
     }
 
-    function whenTransitionEnds (
+    function whenTransitionEnds(
         el,
         expectedType,
         cb
@@ -6162,7 +6358,9 @@
         var type = ref.type;
         var timeout = ref.timeout;
         var propCount = ref.propCount;
-        if (!type) { return cb() }
+        if (!type) {
+            return cb()
+        }
         var event = type === TRANSITION ? transitionEndEvent : animationEndEvent;
         var ended = 0;
         var end = function () {
@@ -6186,7 +6384,7 @@
 
     var transformRE = /\b(transform|all)(,|$)/;
 
-    function getTransitionInfo (el, expectedType) {
+    function getTransitionInfo(el, expectedType) {
         var styles = window.getComputedStyle(el);
         var transitionDelays = styles[transitionProp + 'Delay'].split(', ');
         var transitionDurations = styles[transitionProp + 'Duration'].split(', ');
@@ -6235,7 +6433,7 @@
         }
     }
 
-    function getTimeout (delays, durations) {
+    function getTimeout(delays, durations) {
         /* istanbul ignore next */
         while (delays.length < durations.length) {
             delays = delays.concat(delays);
@@ -6246,13 +6444,13 @@
         }))
     }
 
-    function toMs (s) {
+    function toMs(s) {
         return Number(s.slice(0, -1)) * 1000
     }
 
     /*  */
 
-    function enter (vnode, toggleDisplay) {
+    function enter(vnode, toggleDisplay) {
         var el = vnode.elm;
 
         // call leave callback now
@@ -6400,7 +6598,7 @@
         }
     }
 
-    function leave (vnode, rm) {
+    function leave(vnode, rm) {
         var el = vnode.elm;
 
         // call enter callback now
@@ -6470,7 +6668,7 @@
             performLeave();
         }
 
-        function performLeave () {
+        function performLeave() {
             // the delayed leave may have already been cancelled
             if (cb.cancelled) {
                 return
@@ -6503,7 +6701,7 @@
     }
 
 // only used in dev mode
-    function checkDuration (val, name, vnode) {
+    function checkDuration(val, name, vnode) {
         if (typeof val !== 'number') {
             warn(
                 "<transition> explicit " + name + " duration is not a valid number - " +
@@ -6519,7 +6717,7 @@
         }
     }
 
-    function isValidDuration (val) {
+    function isValidDuration(val) {
         return typeof val === 'number' && !isNaN(val)
     }
 
@@ -6529,8 +6727,10 @@
      * - a wrapped component method (check ._length)
      * - a plain function (.length)
      */
-    function getHookArgumentsLength (fn) {
-        if (!fn) { return false }
+    function getHookArgumentsLength(fn) {
+        if (!fn) {
+            return false
+        }
         var invokerFns = fn.fns;
         if (invokerFns) {
             // invoker
@@ -6544,7 +6744,7 @@
         }
     }
 
-    function _enter (_, vnode) {
+    function _enter(_, vnode) {
         if (!vnode.data.show) {
             enter(vnode);
         }
@@ -6553,7 +6753,7 @@
     var transition = inBrowser ? {
         create: _enter,
         activate: _enter,
-        remove: function remove$$1 (vnode, rm) {
+        remove: function remove$$1(vnode, rm) {
             /* istanbul ignore else */
             if (!vnode.data.show) {
                 leave(vnode, rm);
@@ -6578,7 +6778,7 @@
 // built-in modules have been applied.
     var modules = platformModules.concat(baseModules);
 
-    var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
+    var patch = createPatchFunction({nodeOps: nodeOps, modules: modules});
 
     /**
      * Not type checking this file because flow doesn't like attaching
@@ -6597,7 +6797,7 @@
     }
 
     var model$1 = {
-        inserted: function inserted (el, binding, vnode) {
+        inserted: function inserted(el, binding, vnode) {
             if (vnode.tag === 'select') {
                 var cb = function () {
                     setSelected(el, binding, vnode.context);
@@ -6621,7 +6821,7 @@
                 }
             }
         },
-        componentUpdated: function componentUpdated (el, binding, vnode) {
+        componentUpdated: function componentUpdated(el, binding, vnode) {
             if (vnode.tag === 'select') {
                 setSelected(el, binding, vnode.context);
                 // in case the options rendered by v-for have changed,
@@ -6629,7 +6829,9 @@
                 // detect such cases and filter out values that no longer has a matching
                 // option in the DOM.
                 var needReset = el.multiple
-                    ? binding.value.some(function (v) { return hasNoMatchingOption(v, el.options); })
+                    ? binding.value.some(function (v) {
+                        return hasNoMatchingOption(v, el.options);
+                    })
                     : binding.value !== binding.oldValue && hasNoMatchingOption(binding.value, el.options);
                 if (needReset) {
                     trigger(el, 'change');
@@ -6638,7 +6840,7 @@
         }
     };
 
-    function setSelected (el, binding, vm) {
+    function setSelected(el, binding, vm) {
         var value = binding.value;
         var isMultiple = el.multiple;
         if (isMultiple && !Array.isArray(value)) {
@@ -6671,7 +6873,7 @@
         }
     }
 
-    function hasNoMatchingOption (value, options) {
+    function hasNoMatchingOption(value, options) {
         for (var i = 0, l = options.length; i < l; i++) {
             if (looseEqual(getValue(options[i]), value)) {
                 return false
@@ -6680,22 +6882,22 @@
         return true
     }
 
-    function getValue (option) {
+    function getValue(option) {
         return '_value' in option
             ? option._value
             : option.value
     }
 
-    function onCompositionStart (e) {
+    function onCompositionStart(e) {
         e.target.composing = true;
     }
 
-    function onCompositionEnd (e) {
+    function onCompositionEnd(e) {
         e.target.composing = false;
         trigger(e.target, 'input');
     }
 
-    function trigger (el, type) {
+    function trigger(el, type) {
         var e = document.createEvent('HTMLEvents');
         e.initEvent(type, true, true);
         el.dispatchEvent(e);
@@ -6704,14 +6906,14 @@
     /*  */
 
 // recursively search for possible transition defined inside the component root
-    function locateNode (vnode) {
+    function locateNode(vnode) {
         return vnode.componentInstance && (!vnode.data || !vnode.data.transition)
             ? locateNode(vnode.componentInstance._vnode)
             : vnode
     }
 
     var show = {
-        bind: function bind (el, ref, vnode) {
+        bind: function bind(el, ref, vnode) {
             var value = ref.value;
 
             vnode = locateNode(vnode);
@@ -6728,12 +6930,14 @@
             }
         },
 
-        update: function update (el, ref, vnode) {
+        update: function update(el, ref, vnode) {
             var value = ref.value;
             var oldValue = ref.oldValue;
 
             /* istanbul ignore if */
-            if (value === oldValue) { return }
+            if (value === oldValue) {
+                return
+            }
             vnode = locateNode(vnode);
             var transition = vnode.data && vnode.data.transition;
             if (transition && !isIE9) {
@@ -6752,7 +6956,7 @@
             }
         },
 
-        unbind: function unbind (
+        unbind: function unbind(
             el,
             binding,
             vnode,
@@ -6795,7 +6999,7 @@
 
 // in case the child is also an abstract component, e.g. <keep-alive>
 // we want to recursively retrieve the real component to be rendered
-    function getRealChild (vnode) {
+    function getRealChild(vnode) {
         var compOptions = vnode && vnode.componentOptions;
         if (compOptions && compOptions.Ctor.options.abstract) {
             return getRealChild(getFirstComponentChild(compOptions.children))
@@ -6804,7 +7008,7 @@
         }
     }
 
-    function extractTransitionData (comp) {
+    function extractTransitionData(comp) {
         var data = {};
         var options = comp.$options;
         // props
@@ -6820,13 +7024,13 @@
         return data
     }
 
-    function placeholder (h, rawChild) {
+    function placeholder(h, rawChild) {
         return /\d-keep-alive$/.test(rawChild.tag)
             ? h('keep-alive')
             : null
     }
 
-    function hasParentTransition (vnode) {
+    function hasParentTransition(vnode) {
         while ((vnode = vnode.parent)) {
             if (vnode.data.transition) {
                 return true
@@ -6834,7 +7038,7 @@
         }
     }
 
-    function isSameChild (child, oldChild) {
+    function isSameChild(child, oldChild) {
         return oldChild.key === child.key && oldChild.tag === child.tag
     }
 
@@ -6843,7 +7047,7 @@
         props: transitionProps,
         abstract: true,
 
-        render: function render (h) {
+        render: function render(h) {
             var this$1 = this;
 
             var children = this.$slots.default;
@@ -6852,7 +7056,9 @@
             }
 
             // filter out text nodes (possible whitespaces)
-            children = children.filter(function (c) { return c.tag; });
+            children = children.filter(function (c) {
+                return c.tag;
+            });
             /* istanbul ignore if */
             if (!children.length) {
                 return
@@ -6914,7 +7120,9 @@
 
             // mark v-show
             // so that the transition module can hand over the control to the directive
-            if (child.data.directives && child.data.directives.some(function (d) { return d.name === 'show'; })) {
+            if (child.data.directives && child.data.directives.some(function (d) {
+                return d.name === 'show';
+            })) {
                 child.data.show = true;
             }
 
@@ -6933,10 +7141,14 @@
                     return placeholder(h, rawChild)
                 } else if (mode === 'in-out') {
                     var delayedLeave;
-                    var performLeave = function () { delayedLeave(); };
+                    var performLeave = function () {
+                        delayedLeave();
+                    };
                     mergeVNodeHook(data, 'afterEnter', performLeave);
                     mergeVNodeHook(data, 'enterCancelled', performLeave);
-                    mergeVNodeHook(oldData, 'delayLeave', function (leave) { delayedLeave = leave; });
+                    mergeVNodeHook(oldData, 'delayLeave', function (leave) {
+                        delayedLeave = leave;
+                    });
                 }
             }
 
@@ -6967,7 +7179,7 @@
     var TransitionGroup = {
         props: props,
 
-        render: function render (h) {
+        render: function render(h) {
             var tag = this.tag || this.$vnode.data.tag || 'span';
             var map = Object.create(null);
             var prevChildren = this.prevChildren = this.children;
@@ -7010,7 +7222,7 @@
             return h(tag, null, children)
         },
 
-        beforeUpdate: function beforeUpdate () {
+        beforeUpdate: function beforeUpdate() {
             // force removing pass
             this.__patch__(
                 this._vnode,
@@ -7021,7 +7233,7 @@
             this._vnode = this.kept;
         },
 
-        updated: function updated () {
+        updated: function updated() {
             var children = this.prevChildren;
             var moveClass = this.moveClass || ((this.name || 'v') + '-move');
             if (!children.length || !this.hasMove(children[0].elm, moveClass)) {
@@ -7044,7 +7256,7 @@
                     var s = el.style;
                     addTransitionClass(el, moveClass);
                     s.transform = s.WebkitTransform = s.transitionDuration = '';
-                    el.addEventListener(transitionEndEvent, el._moveCb = function cb (e) {
+                    el.addEventListener(transitionEndEvent, el._moveCb = function cb(e) {
                         if (!e || /transform$/.test(e.propertyName)) {
                             el.removeEventListener(transitionEndEvent, cb);
                             el._moveCb = null;
@@ -7056,7 +7268,7 @@
         },
 
         methods: {
-            hasMove: function hasMove (el, moveClass) {
+            hasMove: function hasMove(el, moveClass) {
                 /* istanbul ignore if */
                 if (!hasTransition) {
                     return false
@@ -7071,7 +7283,9 @@
                 // is applied.
                 var clone = el.cloneNode();
                 if (el._transitionClasses) {
-                    el._transitionClasses.forEach(function (cls) { removeClass(clone, cls); });
+                    el._transitionClasses.forEach(function (cls) {
+                        removeClass(clone, cls);
+                    });
                 }
                 addClass(clone, moveClass);
                 clone.style.display = 'none';
@@ -7083,7 +7297,7 @@
         }
     };
 
-    function callPendingCbs (c) {
+    function callPendingCbs(c) {
         /* istanbul ignore if */
         if (c.elm._moveCb) {
             c.elm._moveCb();
@@ -7094,11 +7308,11 @@
         }
     }
 
-    function recordPosition (c) {
+    function recordPosition(c) {
         c.data.newPos = c.elm.getBoundingClientRect();
     }
 
-    function applyTranslation (c) {
+    function applyTranslation(c) {
         var oldPos = c.data.pos;
         var newPos = c.data.newPos;
         var dx = oldPos.left - newPos.left;
@@ -7167,7 +7381,7 @@
     /*  */
 
 // check whether current browser encodes a char inside attribute values
-    function shouldDecode (content, encoded) {
+    function shouldDecode(content, encoded) {
         var div = document.createElement('div');
         div.innerHTML = "<div a=\"" + content + "\">";
         return div.innerHTML.indexOf(encoded) > 0
@@ -7204,7 +7418,7 @@
 
     var decoder;
 
-    function decode (html) {
+    function decode(html) {
         decoder = decoder || document.createElement('div');
         decoder.innerHTML = html;
         return decoder.textContent
@@ -7268,12 +7482,14 @@
     var encodedAttr = /&(?:lt|gt|quot|amp);/g;
     var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#10);/g;
 
-    function decodeAttr (value, shouldDecodeNewlines) {
+    function decodeAttr(value, shouldDecodeNewlines) {
         var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
-        return value.replace(re, function (match) { return decodingMap[match]; })
+        return value.replace(re, function (match) {
+            return decodingMap[match];
+        })
     }
 
-    function parseHTML (html, options) {
+    function parseHTML(html, options) {
         var stack = [];
         var expectHTML = options.expectHTML;
         var isUnaryTag$$1 = options.isUnaryTag || no;
@@ -7340,7 +7556,9 @@
                         ) {
                         // < in plain text, be forgiving and treat it as text
                         next = rest$1.indexOf('<', 1);
-                        if (next < 0) { break }
+                        if (next < 0) {
+                            break
+                        }
                         textEnd += next;
                         rest$1 = html.slice(textEnd);
                     }
@@ -7389,12 +7607,12 @@
         // Clean up any remaining tags
         parseEndTag();
 
-        function advance (n) {
+        function advance(n) {
             index += n;
             html = html.substring(n);
         }
 
-        function parseStartTag () {
+        function parseStartTag() {
             var start = html.match(startTagOpen);
             if (start) {
                 var match = {
@@ -7417,7 +7635,7 @@
             }
         }
 
-        function handleStartTag (match) {
+        function handleStartTag(match) {
             var tagName = match.tagName;
             var unarySlash = match.unarySlash;
 
@@ -7438,9 +7656,15 @@
                 var args = match.attrs[i];
                 // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
                 if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
-                    if (args[3] === '') { delete args[3]; }
-                    if (args[4] === '') { delete args[4]; }
-                    if (args[5] === '') { delete args[5]; }
+                    if (args[3] === '') {
+                        delete args[3];
+                    }
+                    if (args[4] === '') {
+                        delete args[4];
+                    }
+                    if (args[5] === '') {
+                        delete args[5];
+                    }
                 }
                 var value = args[3] || args[4] || args[5] || '';
                 attrs[i] = {
@@ -7453,7 +7677,7 @@
             }
 
             if (!unary) {
-                stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs });
+                stack.push({tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs});
                 lastTag = tagName;
             }
 
@@ -7462,10 +7686,14 @@
             }
         }
 
-        function parseEndTag (tagName, start, end) {
+        function parseEndTag(tagName, start, end) {
             var pos, lowerCasedTagName;
-            if (start == null) { start = index; }
-            if (end == null) { end = index; }
+            if (start == null) {
+                start = index;
+            }
+            if (end == null) {
+                end = index;
+            }
 
             if (tagName) {
                 lowerCasedTagName = tagName.toLowerCase();
@@ -7527,7 +7755,7 @@
         return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
     });
 
-    function parseText (
+    function parseText(
         text,
         delimiters
     ) {
@@ -7580,7 +7808,7 @@
     /**
      * Convert HTML string to AST.
      */
-    function parse (
+    function parse(
         template,
         options
     ) {
@@ -7601,7 +7829,7 @@
         var inPre = false;
         var warned = false;
 
-        function endPre (element) {
+        function endPre(element) {
             // check pre state
             if (element.pre) {
                 inVPre = false;
@@ -7616,7 +7844,7 @@
             expectHTML: options.expectHTML,
             isUnaryTag: options.isUnaryTag,
             shouldDecodeNewlines: options.shouldDecodeNewlines,
-            start: function start (tag, attrs, unary) {
+            start: function start(tag, attrs, unary) {
                 // check namespace.
                 // inherit parent ns if there is one
                 var ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag);
@@ -7683,7 +7911,7 @@
                     processAttrs(element);
                 }
 
-                function checkRootConstraints (el) {
+                function checkRootConstraints(el) {
                     if ("development" !== 'production' && !warned) {
                         if (el.tag === 'slot' || el.tag === 'template') {
                             warned = true;
@@ -7728,7 +7956,8 @@
                         processIfConditions(element, currentParent);
                     } else if (element.slotScope) { // scoped slot
                         currentParent.plain = false;
-                        var name = element.slotTarget || '"default"';(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+                        var name = element.slotTarget || '"default"';
+                        (currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
                     } else {
                         currentParent.children.push(element);
                         element.parent = currentParent;
@@ -7746,7 +7975,7 @@
                 }
             },
 
-            end: function end () {
+            end: function end() {
                 // remove trailing whitespace
                 var element = stack[stack.length - 1];
                 var lastNode = element.children[element.children.length - 1];
@@ -7759,7 +7988,7 @@
                 endPre(element);
             },
 
-            chars: function chars (text) {
+            chars: function chars(text) {
                 if (!currentParent) {
                     if ("development" !== 'production' && !warned && text === template) {
                         warned = true;
@@ -7801,13 +8030,13 @@
         return root
     }
 
-    function processPre (el) {
+    function processPre(el) {
         if (getAndRemoveAttr(el, 'v-pre') != null) {
             el.pre = true;
         }
     }
 
-    function processRawAttrs (el) {
+    function processRawAttrs(el) {
         var l = el.attrsList.length;
         if (l) {
             var attrs = el.attrs = new Array(l);
@@ -7823,7 +8052,7 @@
         }
     }
 
-    function processKey (el) {
+    function processKey(el) {
         var exp = getBindingAttr(el, 'key');
         if (exp) {
             if ("development" !== 'production' && el.tag === 'template') {
@@ -7833,7 +8062,7 @@
         }
     }
 
-    function processRef (el) {
+    function processRef(el) {
         var ref = getBindingAttr(el, 'ref');
         if (ref) {
             el.ref = ref;
@@ -7841,7 +8070,7 @@
         }
     }
 
-    function processFor (el) {
+    function processFor(el) {
         var exp;
         if ((exp = getAndRemoveAttr(el, 'v-for'))) {
             var inMatch = exp.match(forAliasRE);
@@ -7866,7 +8095,7 @@
         }
     }
 
-    function processIf (el) {
+    function processIf(el) {
         var exp = getAndRemoveAttr(el, 'v-if');
         if (exp) {
             el.if = exp;
@@ -7885,7 +8114,7 @@
         }
     }
 
-    function processIfConditions (el, parent) {
+    function processIfConditions(el, parent) {
         var prev = findPrevElement(parent.children);
         if (prev && prev.if) {
             addIfCondition(prev, {
@@ -7900,7 +8129,7 @@
         }
     }
 
-    function findPrevElement (children) {
+    function findPrevElement(children) {
         var i = children.length;
         while (i--) {
             if (children[i].type === 1) {
@@ -7917,21 +8146,21 @@
         }
     }
 
-    function addIfCondition (el, condition) {
+    function addIfCondition(el, condition) {
         if (!el.ifConditions) {
             el.ifConditions = [];
         }
         el.ifConditions.push(condition);
     }
 
-    function processOnce (el) {
+    function processOnce(el) {
         var once$$1 = getAndRemoveAttr(el, 'v-once');
         if (once$$1 != null) {
             el.once = true;
         }
     }
 
-    function processSlot (el) {
+    function processSlot(el) {
         if (el.tag === 'slot') {
             el.slotName = getBindingAttr(el, 'name');
             if ("development" !== 'production' && el.key) {
@@ -7952,7 +8181,7 @@
         }
     }
 
-    function processComponent (el) {
+    function processComponent(el) {
         var binding;
         if ((binding = getBindingAttr(el, 'is'))) {
             el.component = binding;
@@ -7962,7 +8191,7 @@
         }
     }
 
-    function processAttrs (el) {
+    function processAttrs(el) {
         var list = el.attrsList;
         var i, l, name, rawName, value, arg, modifiers, isProp;
         for (i = 0, l = list.length; i < l; i++) {
@@ -7984,7 +8213,9 @@
                         if (modifiers.prop) {
                             isProp = true;
                             name = camelize(name);
-                            if (name === 'innerHtml') { name = 'innerHTML'; }
+                            if (name === 'innerHtml') {
+                                name = 'innerHTML';
+                            }
                         }
                         if (modifiers.camel) {
                             name = camelize(name);
@@ -8028,7 +8259,7 @@
         }
     }
 
-    function checkInFor (el) {
+    function checkInFor(el) {
         var parent = el;
         while (parent) {
             if (parent.for !== undefined) {
@@ -8039,16 +8270,18 @@
         return false
     }
 
-    function parseModifiers (name) {
+    function parseModifiers(name) {
         var match = name.match(modifierRE);
         if (match) {
             var ret = {};
-            match.forEach(function (m) { ret[m.slice(1)] = true; });
+            match.forEach(function (m) {
+                ret[m.slice(1)] = true;
+            });
             return ret
         }
     }
 
-    function makeAttrsMap (attrs) {
+    function makeAttrsMap(attrs) {
         var map = {};
         for (var i = 0, l = attrs.length; i < l; i++) {
             if ("development" !== 'production' && map[attrs[i].name] && !isIE) {
@@ -8059,7 +8292,7 @@
         return map
     }
 
-    function isForbiddenTag (el) {
+    function isForbiddenTag(el) {
         return (
             el.tag === 'style' ||
             (el.tag === 'script' && (
@@ -8073,7 +8306,7 @@
     var ieNSPrefix = /^NS\d+:/;
 
     /* istanbul ignore next */
-    function guardIESVGBug (attrs) {
+    function guardIESVGBug(attrs) {
         var res = [];
         for (var i = 0; i < attrs.length; i++) {
             var attr = attrs[i];
@@ -8085,7 +8318,7 @@
         return res
     }
 
-    function checkForAliasModel (el, value) {
+    function checkForAliasModel(el, value) {
         var _el = el;
         while (_el) {
             if (_el.for && _el.alias === value) {
@@ -8119,8 +8352,10 @@
      *    create fresh nodes for them on each re-render;
      * 2. Completely skip them in the patching process.
      */
-    function optimize (root, options) {
-        if (!root) { return }
+    function optimize(root, options) {
+        if (!root) {
+            return
+        }
         isStaticKey = genStaticKeysCached(options.staticKeys || '');
         isPlatformReservedTag = options.isReservedTag || no;
         // first pass: mark all non-static nodes.
@@ -8129,14 +8364,14 @@
         markStaticRoots(root, false);
     }
 
-    function genStaticKeys$1 (keys) {
+    function genStaticKeys$1(keys) {
         return makeMap(
             'type,tag,attrsList,attrsMap,plain,parent,children,attrs' +
             (keys ? ',' + keys : '')
         )
     }
 
-    function markStatic$1 (node) {
+    function markStatic$1(node) {
         node.static = isStatic(node);
         if (node.type === 1) {
             // do not make component slot content static. this avoids
@@ -8159,7 +8394,7 @@
         }
     }
 
-    function markStaticRoots (node, isInFor) {
+    function markStaticRoots(node, isInFor) {
         if (node.type === 1) {
             if (node.static || node.once) {
                 node.staticInFor = isInFor;
@@ -8187,13 +8422,13 @@
         }
     }
 
-    function walkThroughConditionsBlocks (conditionBlocks, isInFor) {
+    function walkThroughConditionsBlocks(conditionBlocks, isInFor) {
         for (var i = 1, len = conditionBlocks.length; i < len; i++) {
             markStaticRoots(conditionBlocks[i].block, isInFor);
         }
     }
 
-    function isStatic (node) {
+    function isStatic(node) {
         if (node.type === 2) { // expression
             return false
         }
@@ -8210,7 +8445,7 @@
         ))
     }
 
-    function isDirectChildOfTemplateFor (node) {
+    function isDirectChildOfTemplateFor(node) {
         while (node.parent) {
             node = node.parent;
             if (node.tag !== 'template') {
@@ -8244,7 +8479,9 @@
 // #4868: modifiers that prevent the execution of the listener
 // need to explicitly return null so that we can determine whether to remove
 // the listener for .once
-    var genGuard = function (condition) { return ("if(" + condition + ")return null;"); };
+    var genGuard = function (condition) {
+        return ("if(" + condition + ")return null;");
+    };
 
     var modifierCode = {
         stop: '$event.stopPropagation();',
@@ -8259,7 +8496,7 @@
         right: genGuard("'button' in $event && $event.button !== 2")
     };
 
-    function genHandlers (events, native) {
+    function genHandlers(events, native) {
         var res = native ? 'nativeOn:{' : 'on:{';
         for (var name in events) {
             res += "\"" + name + "\":" + (genHandler(name, events[name])) + ",";
@@ -8267,7 +8504,7 @@
         return res.slice(0, -1) + '}'
     }
 
-    function genHandler (
+    function genHandler(
         name,
         handler
     ) {
@@ -8276,7 +8513,9 @@
         }
 
         if (Array.isArray(handler)) {
-            return ("[" + (handler.map(function (handler) { return genHandler(name, handler); }).join(',')) + "]")
+            return ("[" + (handler.map(function (handler) {
+                return genHandler(name, handler);
+            }).join(',')) + "]")
         }
 
         var isMethodPath = simplePathRE.test(handler.value);
@@ -8312,11 +8551,11 @@
         }
     }
 
-    function genKeyFilter (keys) {
+    function genKeyFilter(keys) {
         return ("if(!('button' in $event)&&" + (keys.map(genFilterCode).join('&&')) + ")return null;")
     }
 
-    function genFilterCode (key) {
+    function genFilterCode(key) {
         var keyVal = parseInt(key, 10);
         if (keyVal) {
             return ("$event.keyCode!==" + keyVal)
@@ -8327,7 +8566,7 @@
 
     /*  */
 
-    function bind$1 (el, dir) {
+    function bind$1(el, dir) {
         el.wrapData = function (code) {
             return ("_b(" + code + ",'" + (el.tag) + "'," + (dir.value) + (dir.modifiers && dir.modifiers.prop ? ',true' : '') + ")")
         };
@@ -8352,7 +8591,7 @@
     var onceCount;
     var currentOptions;
 
-    function generate (
+    function generate(
         ast,
         options
     ) {
@@ -8376,7 +8615,7 @@
         }
     }
 
-    function genElement (el) {
+    function genElement(el) {
         if (el.staticRoot && !el.staticProcessed) {
             return genStatic(el)
         } else if (el.once && !el.onceProcessed) {
@@ -8409,14 +8648,14 @@
     }
 
 // hoist static sub-trees out
-    function genStatic (el) {
+    function genStatic(el) {
         el.staticProcessed = true;
         staticRenderFns.push(("with(this){return " + (genElement(el)) + "}"));
         return ("_m(" + (staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
     }
 
 // v-once
-    function genOnce (el) {
+    function genOnce(el) {
         el.onceProcessed = true;
         if (el.if && !el.ifProcessed) {
             return genIf(el)
@@ -8442,12 +8681,12 @@
         }
     }
 
-    function genIf (el) {
+    function genIf(el) {
         el.ifProcessed = true; // avoid recursion
         return genIfConditions(el.ifConditions.slice())
     }
 
-    function genIfConditions (conditions) {
+    function genIfConditions(conditions) {
         if (!conditions.length) {
             return '_e()'
         }
@@ -8460,12 +8699,12 @@
         }
 
         // v-if with v-once should generate code like (a)?_m(0):_m(1)
-        function genTernaryExp (el) {
+        function genTernaryExp(el) {
             return el.once ? genOnce(el) : genElement(el)
         }
     }
 
-    function genFor (el) {
+    function genFor(el) {
         var exp = el.for;
         var alias = el.alias;
         var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
@@ -8490,13 +8729,15 @@
             '})'
     }
 
-    function genData (el) {
+    function genData(el) {
         var data = '{';
 
         // directives first.
         // directives may mutate the el's other properties before they are generated.
         var dirs = genDirectives(el);
-        if (dirs) { data += dirs + ','; }
+        if (dirs) {
+            data += dirs + ',';
+        }
 
         // key
         if (el.key) {
@@ -8563,9 +8804,11 @@
         return data
     }
 
-    function genDirectives (el) {
+    function genDirectives(el) {
         var dirs = el.directives;
-        if (!dirs) { return }
+        if (!dirs) {
+            return
+        }
         var res = 'directives:[';
         var hasRuntime = false;
         var i, l, dir, needRuntime;
@@ -8588,7 +8831,7 @@
         }
     }
 
-    function genInlineTemplate (el) {
+    function genInlineTemplate(el) {
         var ast = el.children[0];
         if ("development" !== 'production' && (
             el.children.length > 1 || ast.type !== 1
@@ -8597,22 +8840,26 @@
         }
         if (ast.type === 1) {
             var inlineRenderFns = generate(ast, currentOptions);
-            return ("inlineTemplate:{render:function(){" + (inlineRenderFns.render) + "},staticRenderFns:[" + (inlineRenderFns.staticRenderFns.map(function (code) { return ("function(){" + code + "}"); }).join(',')) + "]}")
+            return ("inlineTemplate:{render:function(){" + (inlineRenderFns.render) + "},staticRenderFns:[" + (inlineRenderFns.staticRenderFns.map(function (code) {
+                return ("function(){" + code + "}");
+            }).join(',')) + "]}")
         }
     }
 
-    function genScopedSlots (slots) {
-        return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) { return genScopedSlot(key, slots[key]); }).join(',')) + "])")
+    function genScopedSlots(slots) {
+        return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) {
+            return genScopedSlot(key, slots[key]);
+        }).join(',')) + "])")
     }
 
-    function genScopedSlot (key, el) {
+    function genScopedSlot(key, el) {
         return "[" + key + ",function(" + (String(el.attrsMap.scope)) + "){" +
             "return " + (el.tag === 'template'
                 ? genChildren(el) || 'void 0'
                 : genElement(el)) + "}]"
     }
 
-    function genChildren (el, checkSkip) {
+    function genChildren(el, checkSkip) {
         var children = el.children;
         if (children.length) {
             var el$1 = children[0];
@@ -8632,7 +8879,7 @@
 // 0: no normalization needed
 // 1: simple normalization needed (possible 1-level deep nested array)
 // 2: full normalization needed
-    function getNormalizationType (children) {
+    function getNormalizationType(children) {
         var res = 0;
         for (var i = 0; i < children.length; i++) {
             var el = children[i];
@@ -8640,27 +8887,31 @@
                 continue
             }
             if (needsNormalization(el) ||
-                (el.ifConditions && el.ifConditions.some(function (c) { return needsNormalization(c.block); }))) {
+                (el.ifConditions && el.ifConditions.some(function (c) {
+                    return needsNormalization(c.block);
+                }))) {
                 res = 2;
                 break
             }
             if (maybeComponent(el) ||
-                (el.ifConditions && el.ifConditions.some(function (c) { return maybeComponent(c.block); }))) {
+                (el.ifConditions && el.ifConditions.some(function (c) {
+                    return maybeComponent(c.block);
+                }))) {
                 res = 1;
             }
         }
         return res
     }
 
-    function needsNormalization (el) {
+    function needsNormalization(el) {
         return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
     }
 
-    function maybeComponent (el) {
+    function maybeComponent(el) {
         return !isPlatformReservedTag$1(el.tag)
     }
 
-    function genNode (node) {
+    function genNode(node) {
         if (node.type === 1) {
             return genElement(node)
         } else {
@@ -8668,17 +8919,19 @@
         }
     }
 
-    function genText (text) {
+    function genText(text) {
         return ("_v(" + (text.type === 2
             ? text.expression // no need for () because already wrapped in _s()
             : transformSpecialNewlines(JSON.stringify(text.text))) + ")")
     }
 
-    function genSlot (el) {
+    function genSlot(el) {
         var slotName = el.slotName || '"default"';
         var children = genChildren(el);
         var res = "_t(" + slotName + (children ? ("," + children) : '');
-        var attrs = el.attrs && ("{" + (el.attrs.map(function (a) { return ((camelize(a.name)) + ":" + (a.value)); }).join(',')) + "}");
+        var attrs = el.attrs && ("{" + (el.attrs.map(function (a) {
+            return ((camelize(a.name)) + ":" + (a.value));
+        }).join(',')) + "}");
         var bind$$1 = el.attrsMap['v-bind'];
         if ((attrs || bind$$1) && !children) {
             res += ",null";
@@ -8693,12 +8946,12 @@
     }
 
 // componentName is el.component, take it as argument to shun flow's pessimistic refinement
-    function genComponent (componentName, el) {
+    function genComponent(componentName, el) {
         var children = el.inlineTemplate ? null : genChildren(el, true);
         return ("_c(" + componentName + "," + (genData(el)) + (children ? ("," + children) : '') + ")")
     }
 
-    function genProps (props) {
+    function genProps(props) {
         var res = '';
         for (var i = 0; i < props.length; i++) {
             var prop = props[i];
@@ -8708,7 +8961,7 @@
     }
 
 // #3895, #4268
-    function transformSpecialNewlines (text) {
+    function transformSpecialNewlines(text) {
         return text
             .replace(/\u2028/g, '\\u2028')
             .replace(/\u2029/g, '\\u2029')
@@ -8736,7 +8989,7 @@
     var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g;
 
 // detect problematic expressions in a template
-    function detectErrors (ast) {
+    function detectErrors(ast) {
         var errors = [];
         if (ast) {
             checkNode(ast, errors);
@@ -8744,7 +8997,7 @@
         return errors
     }
 
-    function checkNode (node, errors) {
+    function checkNode(node, errors) {
         if (node.type === 1) {
             for (var name in node.attrsMap) {
                 if (dirRE.test(name)) {
@@ -8770,7 +9023,7 @@
         }
     }
 
-    function checkEvent (exp, text, errors) {
+    function checkEvent(exp, text, errors) {
         var keywordMatch = exp.replace(stripStringRE, '').match(unaryOperatorsRE);
         if (keywordMatch) {
             errors.push(
@@ -8781,20 +9034,20 @@
         checkExpression(exp, text, errors);
     }
 
-    function checkFor (node, text, errors) {
+    function checkFor(node, text, errors) {
         checkExpression(node.for || '', text, errors);
         checkIdentifier(node.alias, 'v-for alias', text, errors);
         checkIdentifier(node.iterator1, 'v-for iterator', text, errors);
         checkIdentifier(node.iterator2, 'v-for iterator', text, errors);
     }
 
-    function checkIdentifier (ident, type, text, errors) {
+    function checkIdentifier(ident, type, text, errors) {
         if (typeof ident === 'string' && !identRE.test(ident)) {
             errors.push(("invalid " + type + " \"" + ident + "\" in expression: " + (text.trim())));
         }
     }
 
-    function checkExpression (exp, text, errors) {
+    function checkExpression(exp, text, errors) {
         try {
             new Function(("return " + exp));
         } catch (e) {
@@ -8812,7 +9065,7 @@
 
     /*  */
 
-    function baseCompile (
+    function baseCompile(
         template,
         options
     ) {
@@ -8826,19 +9079,19 @@
         }
     }
 
-    function makeFunction (code, errors) {
+    function makeFunction(code, errors) {
         try {
             return new Function(code)
         } catch (err) {
-            errors.push({ err: err, code: code });
+            errors.push({err: err, code: code});
             return noop
         }
     }
 
-    function createCompiler (baseOptions) {
+    function createCompiler(baseOptions) {
         var functionCompileCache = Object.create(null);
 
-        function compile (
+        function compile(
             template,
             options
         ) {
@@ -8878,7 +9131,7 @@
             return compiled
         }
 
-        function compileToFunctions (
+        function compileToFunctions(
             template,
             options,
             vm
@@ -8919,12 +9172,16 @@
                 if (compiled.errors && compiled.errors.length) {
                     warn(
                         "Error compiling template:\n\n" + template + "\n\n" +
-                        compiled.errors.map(function (e) { return ("- " + e); }).join('\n') + '\n',
+                        compiled.errors.map(function (e) {
+                            return ("- " + e);
+                        }).join('\n') + '\n',
                         vm
                     );
                 }
                 if (compiled.tips && compiled.tips.length) {
-                    compiled.tips.forEach(function (msg) { return tip(msg, vm); });
+                    compiled.tips.forEach(function (msg) {
+                        return tip(msg, vm);
+                    });
                 }
             }
 
@@ -8968,7 +9225,7 @@
 
     /*  */
 
-    function transformNode (el, options) {
+    function transformNode(el, options) {
         var warn = options.warn || baseWarn;
         var staticClass = getAndRemoveAttr(el, 'class');
         if ("development" !== 'production' && staticClass) {
@@ -8991,7 +9248,7 @@
         }
     }
 
-    function genData$1 (el) {
+    function genData$1(el) {
         var data = '';
         if (el.staticClass) {
             data += "staticClass:" + (el.staticClass) + ",";
@@ -9010,7 +9267,7 @@
 
     /*  */
 
-    function transformNode$1 (el, options) {
+    function transformNode$1(el, options) {
         var warn = options.warn || baseWarn;
         var staticStyle = getAndRemoveAttr(el, 'style');
         if (staticStyle) {
@@ -9035,7 +9292,7 @@
         }
     }
 
-    function genData$2 (el) {
+    function genData$2(el) {
         var data = '';
         if (el.staticStyle) {
             data += "staticStyle:" + (el.staticStyle) + ",";
@@ -9059,7 +9316,7 @@
 
     /*  */
 
-    function text (el, dir) {
+    function text(el, dir) {
         if (dir.value) {
             addProp(el, 'textContent', ("_s(" + (dir.value) + ")"));
         }
@@ -9067,7 +9324,7 @@
 
     /*  */
 
-    function html (el, dir) {
+    function html(el, dir) {
         if (dir.value) {
             addProp(el, 'innerHTML', ("_s(" + (dir.value) + ")"));
         }
@@ -9174,7 +9431,7 @@
      * Get outerHTML of elements, taking care
      * of SVG elements in IE as well.
      */
-    function getOuterHTML (el) {
+    function getOuterHTML(el) {
         if (el.outerHTML) {
             return el.outerHTML
         } else {

@@ -20,8 +20,11 @@
 
             <div class="block-area" id="Panel">
                 <div class="btn-group pull-right">
-                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt input-focused m-b-5">{{langDetails['AddTo']}}</a>
-                    <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">{{langDetails['Refresh']}}</button>
+                    <a @click="modalOpen(langDetails['AddTo'])" data-toggle="modal" href="#modalWider" type="button"
+                       class="btn btn-xs btn-alt input-focused m-b-5">{{langDetails['AddTo']}}</a>
+                    <button @click="refreshChoiceQuestion()" type="button" class="btn btn-xs btn-alt input-focused">
+                        {{langDetails['Refresh']}}
+                    </button>
                 </div>
                 <div style="clear: both; visibility:hidden;"></div>
 
@@ -43,8 +46,11 @@
                     <div class="panel-footer">
                         <span class="alert-success">{{langDetails['RightKey']}}: {{question.answer}}</span>
                         <div class="btn-group pull-right">
-                            <a @click="modalOpen(langDetails['Modify'], question)" data-toggle="modal" href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</a>
-                            <button @click="deleteChoiceQuestion([question.id])" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}</button>
+                            <a @click="modalOpen(langDetails['Modify'], question)" data-toggle="modal"
+                               href="#modalWider" type="button" class="btn btn-xs btn-alt badge input-focused">{{langDetails['Modify']}}</a>
+                            <button @click="deleteChoiceQuestion([question.id])" type="button"
+                                    class="btn btn-xs btn-alt badge input-focused">{{langDetails['Delete']}}
+                            </button>
                         </div>
                         <div style="clear: both; visibility:hidden;"></div>
                     </div>
@@ -72,18 +78,24 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <p>{{langDetails['Achievement']}}</p>
-                                    <input id="score" :value="question ? question.score : ''" @keyup="verification('integer', $event.currentTarget)" class="form-control input-sm m-b-10" type="text">
+                                    <input id="score" :value="question ? question.score : ''"
+                                           @keyup="verification('integer', $event.currentTarget)"
+                                           class="form-control input-sm m-b-10" type="text">
                                 </div>
                                 <div class="col-md-3">
                                     <p>{{langDetails['RightKey']}}</p>
-                                    <input id="answer" :value="question ? question.answer : ''" @keyup="verification('char', $event.currentTarget)" class="form-control input-sm" type="text">
+                                    <input id="answer" :value="question ? question.answer : ''"
+                                           @keyup="verification('char', $event.currentTarget)"
+                                           class="form-control input-sm" type="text">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>{{langDetails['Subject']}}</p>
-                                    <textarea id="title" :value="question ? question.title : ''" class="form-control auto-size m-b-10" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;">
+                                    <textarea id="title" :value="question ? question.title : ''"
+                                              class="form-control auto-size m-b-10"
+                                              style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;">
 
                                     </textarea>
                                 </div>
@@ -95,13 +107,17 @@
                                         <i class="icon">&#61943;</i>
                                     </button>
 
-                                    <div class="table-responsive overflow" tabindex="5003" style="overflow: hidden; outline: none;">
+                                    <div class="table-responsive overflow" tabindex="5003"
+                                         style="overflow: hidden; outline: none;">
                                         <table class="table table-bordered table-hover tile">
                                             <thead>
                                             <tr>
-                                                <th class="text-center" style="width: 50px">{{langDetails['Option']}}</th>
+                                                <th class="text-center" style="width: 50px">{{langDetails['Option']}}
+                                                </th>
                                                 <th>{{langDetails['Answer']}}</th>
-                                                <th class="text-center" style="width: 50px">{{langDetails['Operation']}}</th>
+                                                <th class="text-center" style="width: 50px">
+                                                    {{langDetails['Operation']}}
+                                                </th>
                                             </tr>
                                             </thead>
                                             <tbody id="answerTitle">
@@ -114,15 +130,18 @@
                         </div>
                         <div class="modal-footer">
                             <div class="pull-right">
-                                <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}</button>
-                                <button @click="choiceQuestionOk()" type="button" class="btn btn-sm">{{langDetails['Preservation']}}</button>
+                                <button type="button" class="btn btn-sm" data-dismiss="modal">{{langDetails['Close']}}
+                                </button>
+                                <button @click="choiceQuestionOk()" type="button" class="btn btn-sm">
+                                    {{langDetails['Preservation']}}
+                                </button>
                             </div>
                             <div style="clear: both; visibility:hidden;"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <hr class="whiter" />
+            <hr class="whiter"/>
         </section>
     </section>
 </div>
@@ -132,7 +151,7 @@
     const vm = new Vue({
         el: '#app',
         mixins: [myMixin],
-        data () {
+        data() {
             return {
                 questions: null,
                 question: null,
@@ -149,7 +168,7 @@
         methods: {
             choiceQuestionByType(type) {
                 let self = this;
-                axios. get('/choiceQuestionByType', {
+                axios.get('/choiceQuestionByType', {
                     params: {
                         type: type,
                         delete: 0
@@ -163,7 +182,7 @@
             },
             insertChoiceQuestion(submitJson) {
                 let self = this;
-                axios. put('/choiceQuestion', JSON.stringify(submitJson), {
+                axios.put('/choiceQuestion', JSON.stringify(submitJson), {
                     headers: {
                         'content-Type': 'application/json;charset=UTF-8'
                     },
@@ -175,10 +194,10 @@
                     console.log(error);
                 });
             },
-            updateChoiceQuestion (submitJson){
+            updateChoiceQuestion(submitJson) {
                 let self = this;
                 submitJson['id'] = this.question.id;
-                axios. post('/choiceQuestion', JSON.stringify(submitJson), {
+                axios.post('/choiceQuestion', JSON.stringify(submitJson), {
                     headers: {
                         'content-Type': 'application/json;charset=UTF-8'
                     },
@@ -191,7 +210,7 @@
                 });
             },
             choiceQuestionOk() {
-                if(this.verificationSubmission()) return;
+                if (this.verificationSubmission()) return;
                 let submitJson = {};
                 submitJson["type"] = $("#type").val();
                 submitJson["score"] = $("#score").val();
@@ -208,15 +227,16 @@
                 })
                 submitJson["choiceQuestionOptions"] = choiceQuestionOptions;
 
-                if(this.question) this.updateChoiceQuestion(submitJson);
+                if (this.question) this.updateChoiceQuestion(submitJson);
                 else this.insertChoiceQuestion(submitJson);
             },
             deleteChoiceQuestion(ids) {
                 let self = this;
                 this.confirmModalOpen(this.langDetails['Tips'], this.langDetails['AreYouSureYouWantToDeleteIt'], doDeleteChoiceQuestion);
+
                 function doDeleteChoiceQuestion() {
-                    axios. post('/deleteChoiceQuestion', ids, {
-                        headers:{
+                    axios.post('/deleteChoiceQuestion', ids, {
+                        headers: {
                             'content-Type': 'application/json;charset=UTF-8'
                         }
                     }).then(function (response) {
@@ -231,22 +251,21 @@
                 this.refreshIcon();
                 this.choiceQuestionByType();
             },
-            modalOpen (title, question) {
+            modalOpen(title, question) {
                 let self = this;
                 $("#modalWider .modal-title").text(title);
                 $("#answerTitle").empty();
-                if(question) {
+                if (question) {
                     this.question = question;
                     //添加非input 及 selectPicker 插件的值
                     $('#type').selectpicker('val', question['type']);
 
-                    if(question['choiceQuestionOptions'].length) {
+                    if (question['choiceQuestionOptions'].length) {
                         question['choiceQuestionOptions'].forEach(function (value) {
                             self.addAnswer(value['title'], value['value']);
                         })
                     }
-                }
-                else {
+                } else {
                     this.question = null;
                     //还原非input 及 selectPicker 插件的值
                     $('#type').selectpicker('val', 0);
@@ -255,12 +274,12 @@
                 }
             },
             addAnswer(option, answer) {
-                if(option == undefined) option = "";
-                if(answer == undefined) answer = "";
+                if (option == undefined) option = "";
+                if (answer == undefined) answer = "";
                 $("#answerTitle").append('' +
                     '<tr>\n' +
-                    '    <td class="text-center" contenteditable="true" onkeyup="verification(\'char\', this)">'+ option +'</td>\n' +
-                    '    <td contenteditable="true">'+ answer +'</td>\n' +
+                    '    <td class="text-center" contenteditable="true" onkeyup="verification(\'char\', this)">' + option + '</td>\n' +
+                    '    <td contenteditable="true">' + answer + '</td>\n' +
                     '    <td onclick="removeAnswer(this)" style="cursor: pointer" class="text-center">\n' +
                     '        <i class="icon">&#61754;</i>\n' +
                     '    </td>\n' +
@@ -269,50 +288,50 @@
             },
             removeAnswer(thisItem) {
                 let parent = $(thisItem).parent("tr");
-                if($("#answerTitle tr").length > 1)
+                if ($("#answerTitle tr").length > 1)
                     parent.remove();
             },
             verification(type, thisItem) {
-                if(type == 'integer') {
-                    if(!(/^[1-9]\d*$/.test($(thisItem).val()))) {
+                if (type == 'integer') {
+                    if (!(/^[1-9]\d*$/.test($(thisItem).val()))) {
                         this.mesBox(this.langDetails["PleaseEnterAPositiveInteger"], 2);
                         $(thisItem).val("");
                     }
                 }
-                if(type == 'char') {
-                    if(!(/^[A-Za-z]$/.test($(thisItem).val())) && thisItem.nodeName.toLowerCase() == "input") {
+                if (type == 'char') {
+                    if (!(/^[A-Za-z]$/.test($(thisItem).val())) && thisItem.nodeName.toLowerCase() == "input") {
                         this.mesBox(this.langDetails["PleaseEnterASingleLetter"], 2);
                         $(thisItem).val("");
                     }
-                    if(!(/^[A-Za-z]$/.test($(thisItem).text())) && thisItem.nodeName.toLowerCase() == "td") {
+                    if (!(/^[A-Za-z]$/.test($(thisItem).text())) && thisItem.nodeName.toLowerCase() == "td") {
                         this.mesBox(this.langDetails["PleaseEnterASingleLetter"], 2);
                         $(thisItem).text("");
                     }
                 }
             },
             verificationSubmission() {
-                if($("#score").val() == '') {
+                if ($("#score").val() == '') {
                     this.mesBox(this.langDetails["PleaseEnterYourScore"], 2);
                     return true;
                 }
 
-                if($("#answer").val() == '') {
+                if ($("#answer").val() == '') {
                     this.mesBox(this.langDetails["PleaseEnterTheCorrectAnswer"], 2);
                     return true;
                 }
 
-                if($("#title").val() == '') {
+                if ($("#title").val() == '') {
                     this.mesBox(this.langDetails["PleaseEnterATitle"], 2);
                     return true;
                 }
 
                 let tr = $("#answerTitle>tr");
-                for(let i=0; i<tr.length; i++) {
-                    if($(tr[i]).find("td").eq(0).text() == '') {
+                for (let i = 0; i < tr.length; i++) {
+                    if ($(tr[i]).find("td").eq(0).text() == '') {
                         this.mesBox(this.langDetails["PleaseEnterOptions"], 2);
                         return true;
                     }
-                    if($(tr[i]).find("td").eq(1).text() == '') {
+                    if ($(tr[i]).find("td").eq(1).text() == '') {
                         this.mesBox(this.langDetails["PleaseEnterTheAnswer"], 2);
                         return true;
                     }
@@ -325,11 +344,14 @@
             typeFilter: function (value) {
                 let re = '';
                 switch (value) {
-                    case 0 : re = vm.langDetails['SingleChoiceQuestion'];
+                    case 0 :
+                        re = vm.langDetails['SingleChoiceQuestion'];
                         break;
-                    case 1 : re = vm.langDetails['MultipleChoiceQuestions'];
+                    case 1 :
+                        re = vm.langDetails['MultipleChoiceQuestions'];
                         break;
-                    case 2 : re = vm.langDetails['AnswerQuestions'];
+                    case 2 :
+                        re = vm.langDetails['AnswerQuestions'];
                         break;
                 }
                 return re;
@@ -337,11 +359,14 @@
             stateFilter: function (value) {
                 let re = '';
                 switch (value) {
-                    case 0 : re = vm.langDetails['Prohibit'];
+                    case 0 :
+                        re = vm.langDetails['Prohibit'];
                         break;
-                    case 1 : re = vm.langDetails['InAudit'];
+                    case 1 :
+                        re = vm.langDetails['InAudit'];
                         break;
-                    case 2 : re = vm.langDetails['Release'];
+                    case 2 :
+                        re = vm.langDetails['Release'];
                         break;
                 }
                 return re;

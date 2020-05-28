@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class UrlUtil {
     /**
      * 在指定url后追加参数
+     *
      * @param url
      * @param data 参数集合 key = value
      * @return
@@ -29,6 +30,7 @@ public class UrlUtil {
 
     /**
      * 获取指定url中的某个参数
+     *
      * @param url
      * @param name
      * @return
@@ -40,7 +42,7 @@ public class UrlUtil {
         Pattern r = Pattern.compile(pattern);
 
         Matcher m = r.matcher(url);
-        if (m.find( )) {
+        if (m.find()) {
             System.out.println(m.group(0));
             return m.group(0).split("=")[1].replace("&", "");
         } else {

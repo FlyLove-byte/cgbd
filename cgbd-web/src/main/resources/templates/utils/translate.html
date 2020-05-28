@@ -5,125 +5,129 @@
 <body>
 <script>document.body.id = localStorage.getItem('skin') ? localStorage.getItem('skin') : 'skin-blur-violate';</script>
 <div id="app">
-<header th:replace="layout/header :: onLoadHeaderServant"></header>
-<div class="clearfix"></div>
+    <header th:replace="layout/header :: onLoadHeaderServant"></header>
+    <div class="clearfix"></div>
 
-<section id="main" class="p-relative" role="main">
+    <section id="main" class="p-relative" role="main">
 
-    <!-- Sidebar -->
-    <aside th:replace="layout/toolBar :: toolBarServant"></aside>
+        <!-- Sidebar -->
+        <aside th:replace="layout/toolBar :: toolBarServant"></aside>
 
-    <!-- Content -->
-    <section id="content" class="container">
+        <!-- Content -->
+        <section id="content" class="container">
 
-        <span th:replace="layout/drawer :: drawerServant"></span>
+            <span th:replace="layout/drawer :: drawerServant"></span>
 
-        <div class="block-area" id="Panel">
-            <div class="row">
-                <div class="panel panel-default tile">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">翻译</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group center">
-                                    <label class="text-center">(￢︿̫̿￢☆)</label>
-                                    <span  style="display: block;padding: 7px 0px;margin-bottom: 10px">原翻译</span>
+            <div class="block-area" id="Panel">
+                <div class="row">
+                    <div class="panel panel-default tile">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">翻译</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group center">
+                                        <label class="text-center">(￢︿̫̿￢☆)</label>
+                                        <span style="display: block;padding: 7px 0px;margin-bottom: 10px">原翻译</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>繁文：</label>
-                                    <input id="chtLang" style="margin-bottom: 10px" onblur="translateValue(this,'cht')" class="form-control">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>繁文：</label>
+                                        <input id="chtLang" style="margin-bottom: 10px"
+                                               onblur="translateValue(this,'cht')" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>中文：</label>
-                                    <input id="zhLang" style="margin-bottom: 10px" onblur="translateValue(this,'zh')" class="form-control">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>中文：</label>
+                                        <input id="zhLang" style="margin-bottom: 10px"
+                                               onblur="translateValue(this,'zh')" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>英文：</label>
-                                    <input id="enLang" style="margin-bottom: 10px" onblur="translateValue(this,'en')" class="form-control">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>英文：</label>
+                                        <input id="enLang" style="margin-bottom: 10px"
+                                               onblur="translateValue(this,'en')" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>日文：</label>
-                                    <input id="jpLang" style="margin-bottom: 10px" onblur="translateValue(this,'jp')" class="form-control">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>日文：</label>
+                                        <input id="jpLang" style="margin-bottom: 10px"
+                                               onblur="translateValue(this,'jp')" class="form-control">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>o((⊙﹏⊙))o.</label>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>o((⊙﹏⊙))o.</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel panel-default tile">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">记录</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form id="submitForm">
-                            <div id="valueSet">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group center">
-                                            <label class="text-center">(￢︿̫̿￢☆)</label>
+                    <div class="panel panel-default tile">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">记录</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="submitForm">
+                                <div id="valueSet">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group center">
+                                                <label class="text-center">(￢︿̫̿￢☆)</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>繁文：</label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>繁文：</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>中文：</label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>中文：</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>英文：</label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>英文：</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>日文：</label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>日文：</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>o((⊙﹏⊙))o.</label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>o((⊙﹏⊙))o.</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="panel-footer text-right">
-                        <button class="btn input-focused btn-xs" onclick="exportInitICCM()">
-                            导出init(ICCM)
-                        </button>
-                        <button class="btn input-focused btn-xs" onclick="exportInitCGBD()">
-                            导出init(CGBD)
-                        </button>
-                        <!--<button class="btn btn-primary" onclick="exportSql()">添加sql</button>-->
-                        <!--<button class="btn btn-primary" onclick="exportHtml()">替换html</button>-->
+                            </form>
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn input-focused btn-xs" onclick="exportInitICCM()">
+                                导出init(ICCM)
+                            </button>
+                            <button class="btn input-focused btn-xs" onclick="exportInitCGBD()">
+                                导出init(CGBD)
+                            </button>
+                            <!--<button class="btn btn-primary" onclick="exportSql()">添加sql</button>-->
+                            <!--<button class="btn btn-primary" onclick="exportHtml()">替换html</button>-->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <hr class="whiter" />
+            <hr class="whiter"/>
 
+        </section>
     </section>
-</section>
 </div>
 <span th:replace="layout/onLoadJs :: onLoadJsServant"></span>
 
@@ -131,25 +135,23 @@
     const vm = new Vue({
         el: '#app',
         mixins: [myMixin],
-        data () {
-            return {
-
-            }
+        data() {
+            return {}
         },
     })
 
-    function translateValue(thisItem,lang) {
-        if($(thisItem).val() === ""){
+    function translateValue(thisItem, lang) {
+        if ($(thisItem).val() === "") {
             return;
         }
         $.ajax({
-            url:  "/translate",
+            url: "/translate",
             type: "get",
-            data:{
-                translateValue : $(thisItem).val(),
-                from : lang
+            data: {
+                translateValue: $(thisItem).val(),
+                from: lang
             },
-            success : function (mes) {
+            success: function (mes) {
                 $("#zhLang").val(mes["zh"]);
                 $("#chtLang").val(mes["cht"]);
                 $("#enLang").val(mes["en"]);
@@ -158,27 +160,27 @@
                     "                       <div class=\"row\">\n" +
                     "                            <div class=\"col-md-2\">\n" +
                     "                                <div class=\"form-group center\">\n" +
-                    "                                    <input name=\"keySet\" class=\"form-control\" placeholder=\"key\" value='"+titleCase(mes.en)+"'>\n" +
+                    "                                    <input name=\"keySet\" class=\"form-control\" placeholder=\"key\" value='" + titleCase(mes.en) + "'>\n" +
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-md-2\">\n" +
                     "                                <div class=\"form-group\">\n" +
-                    "                                    <input name=\"chtSet\" class=\"form-control\" value='"+mes.cht+"'>\n" +
+                    "                                    <input name=\"chtSet\" class=\"form-control\" value='" + mes.cht + "'>\n" +
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-md-2\">\n" +
                     "                                <div class=\"form-group\">\n" +
-                    "                                    <input name=\"zhSet\" class=\"form-control\" value='"+mes.zh+"'>\n" +
+                    "                                    <input name=\"zhSet\" class=\"form-control\" value='" + mes.zh + "'>\n" +
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-md-2\">\n" +
                     "                                <div class=\"form-group\">\n" +
-                    "                                    <input name=\"enSet\" class=\"form-control\" value='"+mes.en+"'>\n" +
+                    "                                    <input name=\"enSet\" class=\"form-control\" value='" + mes.en + "'>\n" +
                     "                                </div>\n" +
                     "                            </div>\n" +
                     "                            <div class=\"col-md-2\">\n" +
                     "                            <div class=\"form-group\">\n" +
-                    "                                <input name=\"jpSet\" class=\"form-control\" value='"+mes.jp+"'>\n" +
+                    "                                <input name=\"jpSet\" class=\"form-control\" value='" + mes.jp + "'>\n" +
                     "                            </div>\n" +
                     "                        </div>\n" +
                     "                            <div class=\"col-md-2\">\n" +
@@ -188,7 +190,7 @@
                     "                            </div>\n" +
                     "                        </div>");
             },
-            error : function (err) {
+            error: function (err) {
                 console.log(err);
             }
         })
@@ -217,28 +219,28 @@
     /*添加init*/
     function exportInitICCM() {
         var langDetails = [];
-        $.each($("[name='chtSet']"),function (i) {
+        $.each($("[name='chtSet']"), function (i) {
             var lang = {};
             lang["langId"] = 1;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='chtSet']").eq(i).val();
             langDetails.push(lang);
         })
-        $.each($("[name='zhSet']"),function (i) {
+        $.each($("[name='zhSet']"), function (i) {
             var lang = {};
             lang["langId"] = 2;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='zhSet']").eq(i).val();
             langDetails.push(lang);
         })
-        $.each($("[name='enSet']"),function (i) {
+        $.each($("[name='enSet']"), function (i) {
             var lang = {};
             lang["langId"] = 3;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='enSet']").eq(i).val();
             langDetails.push(lang);
         })
-        $.each($("[name='jpSet']"),function (i) {
+        $.each($("[name='jpSet']"), function (i) {
             var lang = {};
             lang["langId"] = 4;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
@@ -247,7 +249,7 @@
         })
         var sql = "";
         langDetails.forEach(function (langDetail) {
-            sql += "INSERT INTO LANG_DETAIL (LANG_ID, LANG_KEY, LANG_VALUE, UPDATE_BY, UPDATE_ON) VALUES ("+ langDetail.langId +",\'"+ langDetail.langKey +"\',\'"+ langDetail.langDetail +"\',null,null);\r\n";
+            sql += "INSERT INTO LANG_DETAIL (LANG_ID, LANG_KEY, LANG_VALUE, UPDATE_BY, UPDATE_ON) VALUES (" + langDetail.langId + ",\'" + langDetail.langKey + "\',\'" + langDetail.langDetail + "\',null,null);\r\n";
 
         })
 
@@ -257,22 +259,23 @@
         var link = document.createElement("a");
         link.href = uri;
         //对下载的文件命名
-        link.download =  "lang.sql";
+        link.download = "lang.sql";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
+
     function exportInitCGBD() {
         let sql = "";
         $("#valueSet>div").each(function (index, value) {
-            if(index == 0) return;
+            if (index == 0) return;
             else {
                 let key = $(value).find("[name='keySet']").val();
                 let cht = $(value).find("[name='chtSet']").val();
                 let zh = $(value).find("[name='zhSet']").val();
                 let en = $(value).find("[name='enSet']").val();
                 let jp = $(value).find("[name='jpSet']").val();
-                sql += "INSERT INTO lang_detail (lang_key, zh_tw, zh_cn, en, jp) VALUES ('"+ key +"','"+ cht +"','"+ zh +"','"+ en +"','"+ jp +"');\r\n";
+                sql += "INSERT INTO lang_detail (lang_key, zh_tw, zh_cn, en, jp) VALUES ('" + key + "','" + cht + "','" + zh + "','" + en + "','" + jp + "');\r\n";
 
             }
         })
@@ -283,7 +286,7 @@
         let link = document.createElement("a");
         link.href = uri;
         //对下载的文件命名
-        link.download =  "lang.sql";
+        link.download = "lang.sql";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -293,28 +296,28 @@
     function exportSql() {
         var submitJson = {};
         submitJson["langDetails"] = [];
-        $.each($("[name='chtSet']"),function (i) {
+        $.each($("[name='chtSet']"), function (i) {
             var lang = {};
             lang["langId"] = 1;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='chtSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='zhSet']"),function (i) {
+        $.each($("[name='zhSet']"), function (i) {
             var lang = {};
             lang["langId"] = 2;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='zhSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='enSet']"),function (i) {
+        $.each($("[name='enSet']"), function (i) {
             var lang = {};
             lang["langId"] = 3;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='enSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='jpSet']"),function (i) {
+        $.each($("[name='jpSet']"), function (i) {
             var lang = {};
             lang["langId"] = 4;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
@@ -322,19 +325,18 @@
             submitJson.langDetails.push(lang);
         })
         $.ajax({
-            url:  "/sql",
+            url: "/sql",
             type: "post",
             contentType: "application/json;charset=utf-8",
-            data:JSON.stringify(submitJson),
-            success : function (mes) {
-                if(mes){
+            data: JSON.stringify(submitJson),
+            success: function (mes) {
+                if (mes) {
                     alert("sql添加成功");
-                }
-                else{
+                } else {
                     alert("html添加失败");
                 }
             },
-            error : function (err) {
+            error: function (err) {
                 console.log(err);
             }
         })
@@ -345,28 +347,28 @@
         var submitJson = {};
         submitJson["importFile"] = {};
         submitJson["langDetails"] = [];
-        $.each($("[name='chtSet']"),function (i) {
+        $.each($("[name='chtSet']"), function (i) {
             var lang = {};
             lang["langId"] = 1;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='chtSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='zhSet']"),function (i) {
+        $.each($("[name='zhSet']"), function (i) {
             var lang = {};
             lang["langId"] = 2;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='zhSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='enSet']"),function (i) {
+        $.each($("[name='enSet']"), function (i) {
             var lang = {};
             lang["langId"] = 3;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
             lang["langDetail"] = $("[name='enSet']").eq(i).val();
             submitJson.langDetails.push(lang);
         })
-        $.each($("[name='jpSet']"),function (i) {
+        $.each($("[name='jpSet']"), function (i) {
             var lang = {};
             lang["langId"] = 4;
             lang["langKey"] = $("[name='keySet']").eq(i).val();
@@ -382,19 +384,18 @@
         submitJson["importFile"] = formData;
 
         $.ajax({
-            url:  "/html",
+            url: "/html",
             type: "post",
             contentType: "application/json;charset=utf-8",
             data: formData,
-            success : function (mes) {
-                if(mes){
+            success: function (mes) {
+                if (mes) {
                     alert("html添加成功");
-                }
-                else{
+                } else {
                     alert("html添加失败");
                 }
             },
-            error : function (err) {
+            error: function (err) {
                 console.log(err);
             }
         })

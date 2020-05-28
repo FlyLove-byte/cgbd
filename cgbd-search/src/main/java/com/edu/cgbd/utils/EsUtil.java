@@ -67,12 +67,13 @@ public class EsUtil {
                     new HttpHost("192.168.10.140", 9200, "http")//此处写你自己的ip,如果是单机版本,删掉其他两个就好了
                  ));*/
 
-@Qualifier("getRHLClient")
-@Autowired
-private RestHighLevelClient client;
+    @Qualifier("getRHLClient")
+    @Autowired
+    private RestHighLevelClient client;
 
 /*@Autowired
 private MarkdownData markdownData;*/
+
     /**
      * 创建索引
      *
@@ -119,7 +120,7 @@ private MarkdownData markdownData;*/
     public MarkdownData getApi(MarkdownData markdownData) throws IOException {
 
         //GetRequest()方法第一个参数是索引的名字,第二个参数是文档的id
-        GetRequest getRequest = new GetRequest(markdownData.getTag(), markdownData.getTag() +"_"+ markdownData.getPublishTime());
+        GetRequest getRequest = new GetRequest(markdownData.getTag(), markdownData.getTag() + "_" + markdownData.getPublishTime());
 
         //查询特定字段,包含和不包含的字段
         String[] includes = new String[]{"*"};//查询的字段
@@ -135,7 +136,7 @@ private MarkdownData markdownData;*/
         log.info(getResponse.toString());
         /*System.out.println(getResponse);*/
         Map<String, Object> map = getResponse.getSource();
-        MarkdownData re =(MarkdownData) BeanAndMapChange.map2Bean(map,MarkdownData.class);
+        MarkdownData re = (MarkdownData) BeanAndMapChange.map2Bean(map, MarkdownData.class);
 
         if (getResponse.isExists()) {
             return re;
@@ -255,7 +256,7 @@ private MarkdownData markdownData;*/
         //设置一个可选的超时，控制允许搜索花费的时间。
         sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
         SearchRequest searchRequest = new SearchRequest();
-       /* searchRequest.indices("es");*/
+        /* searchRequest.indices("es");*/
         searchRequest.source(sourceBuilder);
         SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
         //getProfileResults
@@ -415,38 +416,36 @@ private MarkdownData markdownData;*/
     }
 
     /**
-     *
      * 具体代码  可参考:https://blog.csdn.net/majun_guang/article/details/81103623
      * 根据多条件组合与查询
-     *
+     * <p>
      * 多条件或查询
      * must 就像sql里的and   相较于sql  select * from accounts.person where title='JAVA开发工程师' and age=30
-     *
-     *
+     * <p>
+     * <p>
      * should 就像sql里的or  SortBuilder 的作用不言而喻就是用来排序
      * 以上代码相较于sql  select * from   accounts.person where user='kimchy14' or  user='kimchy15'   ;
-     *
-     *
+     * <p>
+     * <p>
      * 范围查询rangeQuery.from（30，true）方法是大于30  后面的参数是是否包含 为true的话就是大于等于30 to就相当于小于
      * 如果也有包含参数为true的话就是小于等于  gt 是大于 gte是大于等于   lt是小于 lte是小于等于  第一句的builder就相当于 select * from accounts.person where age >=30 and age<=30; 
-     *
-     *
+     * <p>
+     * <p>
      * 包含查询使用termsQuery 可以传列表 也可以传多个参数 或者数组 setFetchSource有两个参数
      * 第一个参数是包含哪些参数 第二个参数是排除哪些参数   
      * 以上这段代码就相当于sql  select age from accounts.person where user in ('kimchy14','kimchy15','kimchy16');
-     *
-     *
+     * <p>
+     * <p>
      * 通配符查询像我们sql里的like 但是还不一样 like的百分号可以加到前后   
      * elasticsearch技术解析与实战中有一句话 是这么说的 为了避免极端缓慢的通配符查询
      * 通配符索引词不应该以一个通配符开头 通配符查询应该避免以通配符开头 
-     *
-     *
-     常见统计  统计分为指标 和 桶 桶就是我们统计的样本  指标就是我们平时所查的count  sum  与sql不一样的是 我们还可以将统计的样本拿到 就是response.getHits
-
+     * <p>
+     * <p>
+     * 常见统计  统计分为指标 和 桶 桶就是我们统计的样本  指标就是我们平时所查的count  sum  与sql不一样的是 我们还可以将统计的样本拿到 就是response.getHits
      */
 
 
-    public void moretermQuery(){
+    public void moretermQuery() {
 
 //        QueryBuilder qb=QueryBuilders.termQuery("user","kimchy14");
 //        QueryBuilder qb1=QueryBuilders.termQuery("user","kimchy15");

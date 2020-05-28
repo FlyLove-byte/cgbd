@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.edu.cgbd.mapper.ChoiceQuestionOptionMapper">
-  <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.servant.ChoiceQuestionOption">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="choice_question_id" jdbcType="VARCHAR" property="choiceQuestionId" />
-    <result column="title" jdbcType="CHAR" property="title" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.edu.cgbd.domain.servant.ChoiceQuestionOption">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="choice_question_id" jdbcType="VARCHAR" property="choiceQuestionId"/>
+        <result column="title" jdbcType="CHAR" property="title"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+    </resultMap>
 </mapper>

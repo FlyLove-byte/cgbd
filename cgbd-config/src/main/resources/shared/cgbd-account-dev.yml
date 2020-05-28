@@ -38,8 +38,8 @@ spring:
         enabled: true
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
-      #监控登录的一些设置，使用默认就好
-      #stat-view-servlet:
+        #监控登录的一些设置，使用默认就好
+        #stat-view-servlet:
         #enabled: true
         #url-pattern: /druid/*
         #reset-enable: true

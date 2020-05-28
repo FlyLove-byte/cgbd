@@ -5,10 +5,12 @@
             <div>
                 <div id="search-container" class="ajax_search">
                     <form method="get" id="searchform" action="">
-                        <div class="filter_container"><input type="text" value="" autocomplete="off" placeholder="Type then select or enter" name="s" id="search-input" />
+                        <div class="filter_container">
+                            <input type="text" value="" autocomplete="off" placeholder="Type then select or enter"
+                                   name="s" id="search-input"/>
                             <ul id="search_filtered" class="search_filtered"></ul>
                         </div>
-                        <input type="submit" name="submit" id="searchsubmit" class="searchsubmit" value="" />
+                        <input type="submit" name="submit" id="searchsubmit" class="searchsubmit" value=""/>
                     </form>
                 </div>
             </div>
@@ -28,14 +30,19 @@
                             <ul th:each="menuGroup : ${menuGroups}" id="primary-menu" class="menu">
                                 <li th:if="${menuGroup.groupGrade eq 0}"
                                     class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home">
-                                    <a th:href="${menuGroup.groupRoute + menuGroup.groupAction}" th:text="${menuGroup.groupName}">菜单名称</a>
+                                    <a th:href="${menuGroup.groupRoute + menuGroup.groupAction}"
+                                       th:text="${menuGroup.groupName}">菜单名称
+                                    </a>
                                 </li>
                                 <li th:if="${menuGroup.groupGrade eq 1}"
                                     class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children">
                                     <a th:text="${menuGroup.groupName}">菜单名称</a>
                                     <ul th:if="${menuGroup.menus} ne ''" class="sub-menu">
-                                        <li th:each="menu : ${menuGroup.menus}" class="menu-item menu-item-type-taxonomy menu-item-object-category">
-                                            <a th:href="${menu.menuRoute + menu.menuAction}" th:text="${menu.menuName}">theme</a>
+                                        <li th:each="menu : ${menuGroup.menus}"
+                                            class="menu-item menu-item-type-taxonomy menu-item-object-category">
+                                            <a th:href="${menu.menuRoute + menu.menuAction}" th:text="${menu.menuName}">
+                                                theme
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -54,10 +61,12 @@
         <div class="site-branding text-center">
             <a href="">
                 <figure>
-                    <img class="custom-logo avatar" th:src="@{/reception/images/omikron.png}" />
+                    <img class="custom-logo avatar" th:src="@{/reception/images/omikron.png}"/>
                 </figure>
             </a>
-            <h3 class="blog-description"><p>This is beauty</p></h3>
+            <h3 class="blog-description">
+                <p>This is beauty</p>
+            </h3>
         </div>
         <!-- .site-branding -->
         <div class="decor-part">
@@ -65,7 +74,8 @@
         </div>
         <div class="animation-header">
             <div class="decor-wrapper">
-                <svg id="header-decor" class="decor bottom" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <svg id="header-decor" class="decor bottom" xmlns="http://www.w3.org/2000/svg" version="1.1"
+                     viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path class="large left" d="M0 0 L50 50 L0 100" fill="rgba(255,255,255, .1)"></path>
                     <path class="large right" d="M100 0 L50 50 L100 100" fill="rgba(255,255,255, .1)"></path>
                     <path class="medium left" d="M0 100 L50 50 L0 33.3" fill="rgba(255,255,255, .3)"></path>

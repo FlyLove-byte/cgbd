@@ -6,7 +6,7 @@ public class UnicodeUtil {
         StringBuffer unicode = new StringBuffer();
         for (int i = 0; i < string.length(); i++) {
             char c = string.charAt(i);  // 取出每一个字符
-            unicode.append("\\u" +Integer.toHexString(c));// 转换为unicode
+            unicode.append("\\u" + Integer.toHexString(c));// 转换为unicode
         }
         return unicode.toString();
     }
