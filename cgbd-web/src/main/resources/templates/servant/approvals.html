@@ -4,7 +4,7 @@
 <head th:replace="layout/head :: servantHead"></head>
 <body>
 <script>document.body.id = localStorage.getItem('skin') ? localStorage.getItem('skin') : 'skin-blur-violate';</script>
-<div id="app">
+<div id="app" v-cloak>
     <header th:replace="layout/header :: onLoadHeaderServant"></header>
     <div class="clearfix"></div>
 
