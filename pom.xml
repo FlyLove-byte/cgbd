@@ -32,7 +32,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <lombok.version>1.18.8</lombok.version>
         <elasticsearch.version>5.6.9</elasticsearch.version>
-        <fastjson.version>1.2.47</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-lang3.verion>3.7</commons-lang3.verion>
         <oracle.verion>12.1.0.1</oracle.verion>
         <mybatis.version>1.3.2</mybatis.version>
